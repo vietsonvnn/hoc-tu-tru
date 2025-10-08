@@ -98,7 +98,13 @@ export const Home = () => {
         {/* Header với gradient text */}
         <header className="text-center mb-16">
           <div className="inline-block mb-6">
-            <div className="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center shadow-xl">
+            <div
+              onClick={() => {
+                setLesson('bai1');
+                setBai1View('intro');
+              }}
+              className="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center shadow-xl cursor-pointer hover:scale-110 transition-transform duration-300"
+            >
               <span className="text-4xl">☯</span>
             </div>
           </div>
@@ -109,7 +115,7 @@ export const Home = () => {
             }}
             className="text-6xl md:text-7xl font-black mb-4 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent cursor-pointer hover:scale-105 transition-transform duration-300"
           >
-            Học Tứ Trụ
+            Học Tứ Trụ Bát Tự
           </h1>
           <p className="text-gray-700 text-xl font-medium max-w-2xl mx-auto">
             Hệ thống flashcard học Âm Dương, Ngũ Hành, Thiên Can, Địa Chi, Trường Sinh
