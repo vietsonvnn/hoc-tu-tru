@@ -113,7 +113,7 @@ export const Home = () => {
               setLesson('bai1');
               setBai1View('intro');
             }}
-            className="text-6xl md:text-7xl font-black mb-4 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent cursor-pointer hover:scale-105 transition-transform duration-300"
+            className="text-5xl md:text-6xl font-black mb-4 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent cursor-pointer hover:scale-105 transition-transform duration-300"
           >
             Học Tứ Trụ Bát Tự
           </h1>
