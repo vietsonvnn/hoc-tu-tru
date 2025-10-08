@@ -1,4 +1,4 @@
-import { MuaInfo } from '../types';
+import type { MuaInfo } from '../types';
 import { getMuaColor } from '../utils/colors';
 
 interface BonMuaGridProps {

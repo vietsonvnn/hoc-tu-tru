@@ -1,4 +1,4 @@
-import { LearningProgress } from '../types';
+import type { LearningProgress } from '../types';
 
 const STORAGE_KEY = 'hoc-tu-tru-progress';
 

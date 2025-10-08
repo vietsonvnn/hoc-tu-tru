@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { NguHanhData } from '../types';
+import type { NguHanhData } from '../types';
 import { getNguHanhColor } from '../utils/colors';
 
 interface NguHanhCardProps {

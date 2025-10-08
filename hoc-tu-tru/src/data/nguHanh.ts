@@ -1,4 +1,4 @@
-import { NguHanhData } from '../types';
+import type { NguHanhData } from '../types';
 
 export const nguHanhData: NguHanhData[] = [
   {

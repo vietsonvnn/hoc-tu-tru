@@ -1,4 +1,4 @@
-import { NguHanhType } from '../types';
+import type { NguHanhType } from '../types';
 
 export const getNguHanhColor = (loai: NguHanhType) => {
   const colors = {

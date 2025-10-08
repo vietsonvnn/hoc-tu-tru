@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { nguHanhData } from '../data/nguHanh';
 import { NguHanhCard } from '../components/NguHanhCard';
 import { BonMuaGrid } from '../components/BonMuaGrid';
-import { NguHanhData } from '../types';
 
 export const Home = () => {
-  const [selectedCard, setSelectedCard] = useState<NguHanhData | null>(null);
   const [view, setView] = useState<'cards' | 'seasons'>('cards');
 
   return (
@@ -52,7 +50,6 @@ export const Home = () => {
               <NguHanhCard
                 key={index}
                 data={item}
-                onClick={() => setSelectedCard(item)}
               />
             ))}
           </div>
