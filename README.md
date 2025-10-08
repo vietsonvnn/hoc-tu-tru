@@ -1,73 +1,167 @@
-# React + TypeScript + Vite
+# 📚 Học Tứ Trụ - Hệ Thống Flashcard Học Tập
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Hệ thống flashcard tương tác để học Âm Dương, Ngũ Hành, Thiên Can, Địa Chi một cách hiệu quả và dễ nhớ.
 
-Currently, two official plugins are available:
+[![Deploy Status](https://img.shields.io/badge/deploy-Cloudflare%20Pages-orange)](https://tutru.checkvarip.pro)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Tính Năng
 
-## React Compiler
+### ✅ Đã Hoàn Thành
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+#### 🎴 Flashcards Ngũ Hành
+- 5 thẻ flashcard với hiệu ứng flip 3D
+- Icons đại diện cho từng hành (🔱 Kim, 🌳 Mộc, 💧 Thủy, 🔥 Hỏa, ⛰️ Thổ)
+- Thông tin đầy đủ: Tính chất, Hình ảnh, Màu sắc, Phương hướng, Nghề nghiệp, Cơ thể
+- Trạng thái theo mùa (Vượng, Tưởng, Hưu, Tù, Tử)
+- Quan hệ Sinh - Khắc cơ bản
 
-## Expanding the ESLint configuration
+#### 🌸 Tab Theo Mùa
+- Hiển thị đặc điểm của từng hành qua 4 mùa
+- Icons mùa (🌸 Xuân, ☀️ Hạ, 🍂 Thu, ❄️ Đông)
+- Animations mượt mà với Framer Motion
+- Grid layout 2x2 với màu sắc đặc trưng
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+#### ⚡ Tab Quan Hệ Ngũ Hành
+- Bảng tương tác 5x4 (5 hành × 4 loại quan hệ)
+- 4 loại quan hệ quá độ:
+  - 🌊 Sinh quá độ
+  - ⚖️ Tiết quá độ
+  - ⚔️ Khắc quá độ
+  - 💨 Hao quá độ
+- Click vào ô để xem chi tiết "Quá độ" và "Giải cứu"
+- Legend giải thích đầy đủ
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🎨 Giao Diện
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Gradient background với decorative patterns
+- Glass morphism effects
+- Responsive design (Mobile, Tablet, Desktop)
+- Custom scrollbar
+- Smooth animations và transitions
+- Color-coded theo nguyên tắc Ngũ Hành
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Demo
+
+**Live Demo**: [https://tutru.checkvarip.pro](https://tutru.checkvarip.pro)
+
+Alternative URL: [https://hoc-tu-tru.pages.dev](https://hoc-tu-tru.pages.dev)
+
+## 📖 Tài Liệu
+
+Xem file [LY_THUYET_NGU_HANH.md](./LY_THUYET_NGU_HANH.md) để đọc toàn bộ lý thuyết Ngũ Hành.
+
+**Nội dung bao gồm**:
+- 5 Ngũ Hành chi tiết
+- Trạng thái theo mùa (Vượng, Tưởng, Hưu, Tù, Tử)
+- Quan hệ Tương Sinh - Tương Khắc
+- Quan hệ nâng cao (Phản Sinh, Phản Khắc, Tương Thừa)
+- Bảng quan hệ quá độ và giải cứu
+
+## 💻 Tech Stack
+
+- **Framework**: React 18 + TypeScript
+- **Build Tool**: Vite 7
+- **Styling**: Tailwind CSS 3
+- **Animation**: Framer Motion
+- **Deployment**: Cloudflare Pages
+- **Version Control**: Git + GitHub
+
+## 🛠️ Development
+
+### Prerequisites
+
+- Node.js >= 18
+- npm >= 9
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://github.com/vietsonvnn/hoc-tu-tru.git
+cd hoc-tu-tru
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Server sẽ chạy tại: http://localhost:5173
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Build
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
+
+### Deploy
+
+Project tự động deploy lên Cloudflare Pages khi push lên branch `main`.
+
+**Build Settings**:
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Root directory: `/`
+
+## 📂 Cấu Trúc Thư Mục
+
+```
+src/
+├── components/          # React components
+│   ├── NguHanhCard.tsx      # Flashcard component
+│   ├── BonMuaGrid.tsx       # 4 seasons grid
+│   └── QuanHeTable.tsx      # Relationship table
+├── data/               # Data files
+│   ├── nguHanh.ts           # Ngũ Hành data
+│   └── quanHeNguHanh.ts     # Relationships data
+├── pages/              # Page components
+│   └── Home.tsx             # Main page
+├── types/              # TypeScript types
+│   └── index.ts
+├── utils/              # Utility functions
+│   ├── colors.ts            # Color mappings
+│   ├── localStorage.ts      # Progress tracking
+│   └── nguHanhRelations.ts  # Relationship helpers
+├── App.tsx             # App root
+├── main.tsx            # Entry point
+└── index.css           # Global styles
+```
+
+## 🎯 Roadmap
+
+### 🔜 Sắp Tới
+
+- [ ] Thiên Can (10 Can)
+- [ ] Địa Chi (12 Chi)
+- [ ] Quan hệ Can - Chi
+- [ ] Spaced Repetition System
+- [ ] Quiz mode
+- [ ] Export/Import progress
+- [ ] Dark mode
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**Học Tứ Trụ Team**
+
+- Website: [tutru.checkvarip.pro](https://tutru.checkvarip.pro)
+- Repository: [github.com/vietsonvnn/hoc-tu-tru](https://github.com/vietsonvnn/hoc-tu-tru)
+
+---
+
+**⭐ Nếu project hữu ích, hãy cho một star nhé!**
+
+🤖 Built with [Claude Code](https://claude.com/claude-code)
