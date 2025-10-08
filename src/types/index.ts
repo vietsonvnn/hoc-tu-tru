@@ -50,3 +50,75 @@ export interface QuanHeTheoHanh {
   hanh: NguHanhType;
   cacQuanHe: QuanHeNangCao[];
 }
+
+// ============= THIÊN CAN - ĐỊA CHI =============
+
+// 10 Thiên Can
+export type ThienCanType = 'Giap' | 'At' | 'Binh' | 'Dinh' | 'Mau' | 'Ky' | 'Canh' | 'Tan' | 'Nham' | 'Quy';
+
+export type CucTinhType = 'Duong' | 'Am';
+
+export interface ThienCanData {
+  ten: string; // Tên đầy đủ như "Giáp Mộc"
+  can: ThienCanType;
+  nguHanh: NguHanhType;
+  cucTinh: CucTinhType;
+  hinhAnh: string; // Hình ảnh như "Cây đại thụ"
+  tinhCach: string[];
+  phuong: string;
+  coThe: string;
+  mauSac: string;
+  moTa?: string;
+}
+
+// 12 Địa Chi
+export type DiaChiType = 'Ty' | 'Suu' | 'Dan' | 'Mao' | 'Thin' | 'Ti' | 'Ngo' | 'Mui' | 'Than' | 'Dau' | 'Tuat' | 'Hoi';
+
+export interface DiaChiData {
+  ten: string; // Tên như "Tý Thủy"
+  chi: DiaChiType;
+  nguHanh: NguHanhType;
+  cucTinh: CucTinhType;
+  mua: MuaType | 'Dong' | 'Xuan' | 'Ha' | 'Thu';
+  phuong: string;
+  coThe: string;
+  conThu: string;
+  thoiGian: string;
+  thang: string;
+  mauSac: string;
+}
+
+// Quan hệ Thiên Can
+export type ThienCanQuanHeType = 'Sinh' | 'Khac' | 'Xung' | 'Hop';
+
+export interface ThienCanQuanHe {
+  can: ThienCanType;
+  sinh?: string; // Can nào sinh ra
+  beSinh?: string; // Được can nào sinh
+  khac?: string; // Khắc can nào
+  beKhac?: string; // Bị can nào khắc
+  xung?: string; // Xung với can nào
+  hop?: { voi: string; hoa: NguHanhType }; // Hợp với can nào, hóa thành gì
+}
+
+// Quan hệ Địa Chi
+export type DiaChiQuanHeType = 'Sinh' | 'Khac' | 'Xung' | 'Hop' | 'Hinh' | 'Hai' | 'Pha' | 'TamHop' | 'TamHoi';
+
+export interface DiaChiQuanHe {
+  chi: DiaChiType;
+  lucHop?: { voi: DiaChiType; hoa: NguHanhType }; // Lục hợp
+  xung?: DiaChiType; // Lục xung
+  hinh?: DiaChiType[]; // Tương hình
+  hai?: DiaChiType; // Lục hại
+  pha?: DiaChiType; // Lục phá
+  tamHop?: { chi1: DiaChiType; chi2: DiaChiType; hoa: NguHanhType }; // Tam hợp
+  tamHoi?: { chi1: DiaChiType; chi2: DiaChiType; hoa: NguHanhType }; // Tam hội
+}
+
+// Tổ hợp Can Chi cùng trụ
+export interface CanChiToHop {
+  can: ThienCanType;
+  chi: DiaChiType;
+  loai: 'TuongSinh' | 'TuongKhac' | 'SongThe' | 'CheDau' | 'TietCuoc' | 'TuHop';
+  moTa: string;
+}

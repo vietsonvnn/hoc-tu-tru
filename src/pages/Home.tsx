@@ -3,10 +3,17 @@ import { nguHanhData } from '../data/nguHanh';
 import { NguHanhCard } from '../components/NguHanhCard';
 import { BonMuaGrid } from '../components/BonMuaGrid';
 import { QuanHeTable } from '../components/QuanHeTable';
+import { thienCanData } from '../data/thienCan';
+import { diaChiData } from '../data/diaChi';
+import { ThienCanCard } from '../components/ThienCanCard';
+import { DiaChiCard } from '../components/DiaChiCard';
+import { ThienCanQuanHeTable } from '../components/ThienCanQuanHeTable';
+import { DiaChiQuanHeTable } from '../components/DiaChiQuanHeTable';
 
 export const Home = () => {
   const [lesson, setLesson] = useState<'bai1' | 'bai2'>('bai1');
   const [view, setView] = useState<'cards' | 'seasons' | 'relations'>('cards');
+  const [bai2View, setBai2View] = useState<'thiencan' | 'diachi' | 'relations'>('thiencan');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
@@ -69,7 +76,7 @@ export const Home = () => {
           </button>
         </div>
 
-        {/* Sub Navigation - Only show for Bài 1 */}
+        {/* Sub Navigation - Show for both lessons */}
         {lesson === 'bai1' && (
           <div className="flex flex-wrap justify-center gap-3 mb-12">
             <button
@@ -123,6 +130,59 @@ export const Home = () => {
           </div>
         )}
 
+        {lesson === 'bai2' && (
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            <button
+              onClick={() => setBai2View('thiencan')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                bai2View === 'thiencan'
+                  ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-2xl shadow-indigo-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>☯</span>
+                Thiên Can
+              </span>
+              {bai2View === 'thiencan' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-indigo-400 to-indigo-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+            <button
+              onClick={() => setBai2View('diachi')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                bai2View === 'diachi'
+                  ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-2xl shadow-purple-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>🐉</span>
+                Địa Chi
+              </span>
+              {bai2View === 'diachi' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400 to-purple-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+            <button
+              onClick={() => setBai2View('relations')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                bai2View === 'relations'
+                  ? 'bg-gradient-to-r from-pink-600 to-rose-700 text-white shadow-2xl shadow-pink-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>⚡</span>
+                Quan Hệ
+              </span>
+              {bai2View === 'relations' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-400 to-rose-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+          </div>
+        )}
+
         {/* Content */}
         {lesson === 'bai1' && (
           <>
@@ -154,20 +214,36 @@ export const Home = () => {
         )}
 
         {lesson === 'bai2' && (
-          <div className="text-center py-20">
-            <div className="inline-block bg-white/80 backdrop-blur-sm rounded-3xl px-12 py-10 shadow-2xl">
-              <div className="text-6xl mb-6">🎋</div>
-              <h2 className="text-3xl font-black text-gray-800 mb-4">
-                Thiên Can - Địa Chi
-              </h2>
-              <p className="text-gray-600 text-lg mb-6">
-                Nội dung đang được chuẩn bị...
-              </p>
-              <div className="text-sm text-gray-500">
-                Vui lòng upload tài liệu lý thuyết để bắt đầu
+          <>
+            {bai2View === 'thiencan' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {thienCanData.map((item, index) => (
+                  <ThienCanCard
+                    key={index}
+                    data={item}
+                  />
+                ))}
               </div>
-            </div>
-          </div>
+            )}
+
+            {bai2View === 'diachi' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                {diaChiData.map((item, index) => (
+                  <DiaChiCard
+                    key={index}
+                    data={item}
+                  />
+                ))}
+              </div>
+            )}
+
+            {bai2View === 'relations' && (
+              <div className="space-y-16">
+                <ThienCanQuanHeTable />
+                <DiaChiQuanHeTable />
+              </div>
+            )}
+          </>
         )}
 
         {/* Info footer */}
