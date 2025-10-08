@@ -36,12 +36,12 @@ export const ThienCanNamSinhTable = () => {
               return (
                 <div
                   key={soCuoi}
-                  className={`${colors.bg} ${colors.text} border-2 ${colors.border} rounded-2xl p-6 text-center transition-all hover:scale-105 hover:shadow-lg`}
+                  className={`${colors.bg} border-2 ${colors.border} rounded-2xl p-6 text-center transition-all hover:scale-105 hover:shadow-lg`}
                 >
-                  <div className="text-4xl font-black mb-2">{soCuoi}</div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">Số cuối</div>
-                  <div className="text-xl font-bold">{canInfo?.can}</div>
-                  <div className="text-sm mt-1">{canInfo?.nguHanh}</div>
+                  <div className={`text-4xl font-black mb-2 ${colors.text}`}>{soCuoi}</div>
+                  <div className={`text-xs mb-1 ${colors.text} opacity-75`}>Số cuối</div>
+                  <div className={`text-xl font-bold ${colors.text}`}>{canInfo?.can}</div>
+                  <div className={`text-sm mt-1 ${colors.text} opacity-90`}>{canInfo?.nguHanh}</div>
                 </div>
               );
             })}
@@ -129,12 +129,12 @@ export const ThienCanNamSinhTable = () => {
               </h4>
               <div className="space-y-2">
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
-                  <span className="font-bold">Canh Kim</span>
-                  <span className="text-2xl font-black text-gray-600 dark:text-gray-400">0</span>
+                  <span className="font-bold text-gray-900 dark:text-gray-100">Canh Kim</span>
+                  <span className="text-2xl font-black text-gray-700 dark:text-gray-300">0</span>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
-                  <span className="font-bold">Tân Kim</span>
-                  <span className="text-2xl font-black text-gray-600 dark:text-gray-400">1</span>
+                  <span className="font-bold text-gray-900 dark:text-gray-100">Tân Kim</span>
+                  <span className="text-2xl font-black text-gray-700 dark:text-gray-300">1</span>
                 </div>
               </div>
             </div>
@@ -146,12 +146,12 @@ export const ThienCanNamSinhTable = () => {
               </h4>
               <div className="space-y-2">
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
-                  <span className="font-bold">Nhâm Thủy</span>
-                  <span className="text-2xl font-black text-blue-600 dark:text-blue-400">2</span>
+                  <span className="font-bold text-blue-900 dark:text-blue-100">Nhâm Thủy</span>
+                  <span className="text-2xl font-black text-blue-700 dark:text-blue-300">2</span>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
-                  <span className="font-bold">Quý Thủy</span>
-                  <span className="text-2xl font-black text-blue-600 dark:text-blue-400">3</span>
+                  <span className="font-bold text-blue-900 dark:text-blue-100">Quý Thủy</span>
+                  <span className="text-2xl font-black text-blue-700 dark:text-blue-300">3</span>
                 </div>
               </div>
             </div>
@@ -163,12 +163,12 @@ export const ThienCanNamSinhTable = () => {
               </h4>
               <div className="space-y-2">
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
-                  <span className="font-bold">Giáp Mộc</span>
-                  <span className="text-2xl font-black text-green-600 dark:text-green-400">4</span>
+                  <span className="font-bold text-green-900 dark:text-green-100">Giáp Mộc</span>
+                  <span className="text-2xl font-black text-green-700 dark:text-green-300">4</span>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
-                  <span className="font-bold">Ất Mộc</span>
-                  <span className="text-2xl font-black text-green-600 dark:text-green-400">5</span>
+                  <span className="font-bold text-green-900 dark:text-green-100">Ất Mộc</span>
+                  <span className="text-2xl font-black text-green-700 dark:text-green-300">5</span>
                 </div>
               </div>
             </div>
@@ -180,12 +180,12 @@ export const ThienCanNamSinhTable = () => {
               </h4>
               <div className="space-y-2">
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
-                  <span className="font-bold">Bính Hỏa</span>
-                  <span className="text-2xl font-black text-red-600 dark:text-red-400">6</span>
+                  <span className="font-bold text-red-900 dark:text-red-100">Bính Hỏa</span>
+                  <span className="text-2xl font-black text-red-700 dark:text-red-300">6</span>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
-                  <span className="font-bold">Đinh Hỏa</span>
-                  <span className="text-2xl font-black text-red-600 dark:text-red-400">7</span>
+                  <span className="font-bold text-red-900 dark:text-red-100">Đinh Hỏa</span>
+                  <span className="text-2xl font-black text-red-700 dark:text-red-300">7</span>
                 </div>
               </div>
             </div>
@@ -197,12 +197,12 @@ export const ThienCanNamSinhTable = () => {
               </h4>
               <div className="space-y-2">
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
-                  <span className="font-bold">Mậu Thổ</span>
-                  <span className="text-2xl font-black text-yellow-600 dark:text-yellow-400">8</span>
+                  <span className="font-bold text-yellow-900 dark:text-yellow-100">Mậu Thổ</span>
+                  <span className="text-2xl font-black text-yellow-700 dark:text-yellow-300">8</span>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
-                  <span className="font-bold">Kỷ Thổ</span>
-                  <span className="text-2xl font-black text-yellow-600 dark:text-yellow-400">9</span>
+                  <span className="font-bold text-yellow-900 dark:text-yellow-100">Kỷ Thổ</span>
+                  <span className="text-2xl font-black text-yellow-700 dark:text-yellow-300">9</span>
                 </div>
               </div>
             </div>
