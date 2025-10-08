@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { nguHanhData } from '../data/nguHanh';
 import { NguHanhCard } from '../components/NguHanhCard';
 import { BonMuaGrid } from '../components/BonMuaGrid';
+import { QuanHeTable } from '../components/QuanHeTable';
 
 export const Home = () => {
-  const [view, setView] = useState<'cards' | 'seasons'>('cards');
+  const [view, setView] = useState<'cards' | 'seasons' | 'relations'>('cards');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
@@ -32,7 +33,7 @@ export const Home = () => {
         </header>
 
         {/* Navigation với style đẹp hơn */}
-        <div className="flex justify-center gap-3 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
           <button
             onClick={() => setView('cards')}
             className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
@@ -43,7 +44,7 @@ export const Home = () => {
           >
             <span className="relative z-10 flex items-center gap-2">
               <span>🎴</span>
-              Xem Flashcards
+              Flashcards
             </span>
             {view === 'cards' && (
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 to-blue-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
@@ -59,10 +60,26 @@ export const Home = () => {
           >
             <span className="relative z-10 flex items-center gap-2">
               <span>🌸</span>
-              Xem Theo Mùa
+              Theo Mùa
             </span>
             {view === 'seasons' && (
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+            )}
+          </button>
+          <button
+            onClick={() => setView('relations')}
+            className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+              view === 'relations'
+                ? 'bg-gradient-to-r from-purple-600 to-pink-700 text-white shadow-2xl shadow-purple-500/50 scale-105'
+                : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+            }`}
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              <span>⚡</span>
+              Quan Hệ
+            </span>
+            {view === 'relations' && (
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
             )}
           </button>
         </div>
@@ -90,6 +107,8 @@ export const Home = () => {
               ))}
           </div>
         )}
+
+        {view === 'relations' && <QuanHeTable />}
 
         {/* Info footer */}
         <footer className="mt-20 text-center">

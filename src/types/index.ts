@@ -37,3 +37,16 @@ export interface LearningProgress {
   lastReviewed?: Date;
   reviewCount: number;
 }
+
+// Quan hệ nâng cao Ngũ Hành
+export interface QuanHeNangCao {
+  loai: 'Sinh' | 'Tiet' | 'Khac' | 'Hao';
+  tenQuanHe: string;
+  quaDo: string;
+  giaiCuu: string;
+}
+
+export interface QuanHeTheoHanh {
+  hanh: NguHanhType;
+  cacQuanHe: QuanHeNangCao[];
+}
