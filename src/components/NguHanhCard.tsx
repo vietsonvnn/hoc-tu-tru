@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { NguHanhData } from '../types';
 import { getNguHanhColor } from '../utils/colors';
+import { getTrangThaiInfo, getQuanHeSinh, getQuanHeKhac, getMuaName } from '../utils/nguHanhRelations';
 
 interface NguHanhCardProps {
   data: NguHanhData;
@@ -33,7 +34,7 @@ export const NguHanhCard = ({ data, onClick }: NguHanhCardProps) => {
       transition={{ type: 'spring', stiffness: 300 }}
     >
       <motion.div
-        className="relative w-full h-96 preserve-3d"
+        className="relative w-full h-[600px] preserve-3d"
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6, type: 'spring', stiffness: 100 }}
         style={{ transformStyle: 'preserve-3d' }}
@@ -129,6 +130,58 @@ export const NguHanhCard = ({ data, onClick }: NguHanhCardProps) => {
                 <p className="text-xs leading-relaxed opacity-90">{data.moTaChiTiet}</p>
               </div>
             )}
+
+            {/* Trạng thái theo mùa */}
+            {data.trangThai && (
+              <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm">
+                <div className="font-bold mb-3 flex items-center gap-2">
+                  <span>🔄</span> Trạng thái theo mùa
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-xs">
+                  {Object.entries(data.trangThai).map(([mua, trangThai]) => {
+                    const info = getTrangThaiInfo(trangThai);
+                    return (
+                      <div
+                        key={mua}
+                        className={`${info.color} border rounded-lg p-2 text-center`}
+                        title={info.description}
+                      >
+                        <div className="font-semibold mb-1">{getMuaName(mua)}</div>
+                        <div className="flex items-center justify-center gap-1">
+                          <span>{info.icon}</span>
+                          <span className="font-bold">{info.label}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Quan hệ Sinh - Khắc */}
+            <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm">
+              <div className="font-bold mb-3 flex items-center gap-2">
+                <span>⚡</span> Quan hệ Sinh - Khắc
+              </div>
+              <div className="space-y-2 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="opacity-75">Sinh ra:</span>
+                  <span className="font-bold text-green-200">→ {getQuanHeSinh(data.loai).sinh}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="opacity-75">Được sinh:</span>
+                  <span className="font-bold text-blue-200">← {getQuanHeSinh(data.loai).beSinh}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="opacity-75">Khắc:</span>
+                  <span className="font-bold text-red-200">⚔️ {getQuanHeKhac(data.loai).khac}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="opacity-75">Bị khắc:</span>
+                  <span className="font-bold text-orange-200">🛡️ {getQuanHeKhac(data.loai).beKhac}</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="mt-4 text-center text-xs opacity-75 font-medium">

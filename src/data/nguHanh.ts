@@ -10,6 +10,13 @@ export const nguHanhData: NguHanhData[] = [
     phuongHuong: 'Tây, Tây Bắc',
     ngheNghiep: 'Kỹ sư cơ khí, thợ kim hoàn, kinh doanh vàng bạc, nghề tài chính, kinh doanh sắt thép…',
     coThe: 'Phổi, hệ hô hấp, thịt trắng, …',
+    trangThai: {
+      xuan: 'Tu',
+      ha: 'Tu',
+      thu: 'Vuong',
+      dong: 'Huu',
+      tuQuy: 'Tuong',
+    },
     bonMua: [
       {
         mua: 'Xuan',
@@ -39,6 +46,13 @@ export const nguHanhData: NguHanhData[] = [
     ngheNghiep: 'Bác sĩ, nhà văn, nhà giáo, nhà môi trường…',
     coThe: 'Gan, mật',
     moTaChiTiet: 'Mộc là khí ẩm ướt của Dương, giao cảm với khí Âm mà vươn lên, tính nhu, ấm chủ về nhân. Mộc là "cong thẳng", là cong, uốn, vươn thẳng, vươn ra. Do đó Mộc có tính chất uốn mình, vươn lên. Mộc nạp khí của Thuỷ, Thổ có thể sinh trưởng nên Mộc có tính nhu hòa, nhân từ của sự phát triển hướng lên trên',
+    trangThai: {
+      xuan: 'Vuong',
+      ha: 'Huu',
+      thu: 'Tu',
+      dong: 'Tuong',
+      tuQuy: 'Tu',
+    },
     bonMua: [
       {
         mua: 'Xuan',
@@ -68,6 +82,13 @@ export const nguHanhData: NguHanhData[] = [
     ngheNghiep: 'Chính trị gia, nhà ngoại giao, nhà khoa học, thủy thủ…',
     coThe: 'Thận, bàng quang',
     moTaChiTiet: 'Chủ về trí, thông minh, uyển chuyển, lanh lợi. Thuỷ vượng thì cuồn cuộn như sóng lũ, mặt đen. Thuỷ nhược thì gầy gò, khô héo như con sống vào mùa nước cạn, đờ đẫn, chậm chạp.',
+    trangThai: {
+      xuan: 'Huu',
+      ha: 'Tu',
+      thu: 'Tuong',
+      dong: 'Vuong',
+      tuQuy: 'Tu',
+    },
     bonMua: [
       {
         mua: 'Xuan',
@@ -97,6 +118,13 @@ export const nguHanhData: NguHanhData[] = [
     ngheNghiep: 'Doanh nhân, nhà lãnh đạo, nghệ sĩ, đầu bếp…',
     coThe: 'Tim, ruột non',
     moTaChiTiet: 'Chủ về lễ, Hỏa tượng trưng cho sự nóng cháy, bùng nổ, mãnh liệt. Lửa có thể thiêu rụi mọi thứ nhưng cũng mang lại ánh sáng và sự ấm áp. đại diện cho năng lượng, nhiệt huyết, sự đam mê và tinh thần cống hiến. gắn liền với sự hoạt động, năng động, sôi nổi và không ngừng chuyển động.',
+    trangThai: {
+      xuan: 'Tuong',
+      ha: 'Vuong',
+      thu: 'Tu',
+      dong: 'Tu',
+      tuQuy: 'Huu',
+    },
     bonMua: [
       {
         mua: 'Xuan',
@@ -126,6 +154,13 @@ export const nguHanhData: NguHanhData[] = [
     ngheNghiep: 'Nông dân, nhà xây dựng, nhà địa chất, chăn nuôi, sản xuất gốm sứ, kinh doanh bđs, xi măng',
     coThe: 'Tỳ (lá lách), vị (dạ dày)',
     moTaChiTiet: 'Là khí Âm và Dương đều thịnh, giao hòa và chiến đấu với nhau, ngưng tụ mà thành, chủ về tín. Thổ là "giá sắc", giá là gieo trồng, sắc là thu hoạch. Thổ có khả năng chở vật, sinh, hoá, tàng, nạp nên Thổ chở bốn phương, là mẹ của vạn vật, có tính chất cống hiến, dày nặng. Tính chất của thổ là dày, nặng.',
+    trangThai: {
+      xuan: 'Tu',
+      ha: 'Tuong',
+      thu: 'Huu',
+      dong: 'Tu',
+      tuQuy: 'Vuong',
+    },
     bonMua: [
       {
         mua: 'Xuan',
