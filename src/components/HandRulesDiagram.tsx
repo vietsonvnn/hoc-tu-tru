@@ -34,9 +34,9 @@ export const HandRulesDiagram = () => {
 
           {/* Interactive Hand */}
           <div className="relative aspect-[3/4] max-w-md mx-auto">
-            {/* Ngón út (bên trái) - Từ trên xuống dưới: Hợi(10) → Tý(11) → Sửu(12) */}
-            <div className="absolute left-0 top-0 w-1/5 h-4/5 flex flex-col">
-              {[10, 11, 12].map((pos) => {
+            {/* Ngón trỏ (trái nhất) - Từ trên xuống: Tị(4) → Thìn(3) → Mão(2) → Dần(1) */}
+            <div className="absolute left-0 top-0 w-1/5 h-full flex flex-col">
+              {[4, 3, 2, 1].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
                 return (
                   <button
@@ -53,9 +53,9 @@ export const HandRulesDiagram = () => {
               })}
             </div>
 
-            {/* Ngón áp út - Từ dưới lên trên: Thân(7) → Dậu(8) → Tuất(9) */}
-            <div className="absolute left-[22%] top-0 w-1/5 h-full flex flex-col-reverse">
-              {[7, 8, 9].map((pos) => {
+            {/* Ngón giữa - Ngọ(5) trên → Sửu(12) dưới */}
+            <div className="absolute left-[25%] top-0 w-1/5 h-2/4 flex flex-col">
+              {[5, 12].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
                 return (
                   <button
@@ -72,9 +72,9 @@ export const HandRulesDiagram = () => {
               })}
             </div>
 
-            {/* Ngón giữa - Từ trên xuống dưới: Tị(4) → Ngọ(5) → Mùi(6) */}
-            <div className="absolute left-[44%] top-0 w-1/5 h-full flex flex-col">
-              {[4, 5, 6].map((pos) => {
+            {/* Ngón áp út - Mùi(6) trên → Tý(11) dưới */}
+            <div className="absolute left-[50%] top-[25%] w-1/5 h-2/4 flex flex-col">
+              {[6, 11].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
                 return (
                   <button
@@ -91,9 +91,9 @@ export const HandRulesDiagram = () => {
               })}
             </div>
 
-            {/* Ngón trỏ (bên phải) - Từ dưới lên trên: Dần(1) → Mão(2) → Thìn(3) */}
-            <div className="absolute right-[6%] top-0 w-1/5 h-4/5 flex flex-col-reverse">
-              {[1, 2, 3].map((pos) => {
+            {/* Ngón út (phải nhất) - Thân(7) → Dậu(8) → Tuất(9) → Hợi(10) */}
+            <div className="absolute right-0 top-0 w-1/5 h-full flex flex-col">
+              {[7, 8, 9, 10].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
                 return (
                   <button
