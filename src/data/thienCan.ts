@@ -1,4 +1,4 @@
-import type { ThienCanData } from '../types';
+import type { ThienCanData, ThienCanType } from '../types';
 
 export const thienCanData: ThienCanData[] = [
   {
@@ -17,6 +17,7 @@ export const thienCanData: ThienCanData[] = [
     coThe: 'Đầu, mặt',
     mauSac: 'Xanh lục, xanh lá cây',
     moTa: 'Giáp Mộc thuộc dương, giống cây đại thụ trong rừng, tính chất cường tráng',
+    namSinhCuoi: 4,
   },
   {
     ten: 'Ất Mộc',
@@ -33,6 +34,7 @@ export const thienCanData: ThienCanData[] = [
     coThe: 'Gan, gáy',
     mauSac: 'Xanh lục, xanh lá cây',
     moTa: 'Ất Mộc thuộc âm, tính chất mềm mại, bề ngoài khiêm nhường nhưng tham vọng lớn',
+    namSinhCuoi: 5,
   },
   {
     ten: 'Bính Hỏa',
@@ -50,6 +52,7 @@ export const thienCanData: ThienCanData[] = [
     coThe: 'Vai, tiểu tràng (ruột non)',
     mauSac: 'Đỏ, hồng, tím',
     moTa: 'Bính Hỏa thuộc dương, khí lực hừng hực nhiệt tình, rộng rãi, thích hợp các hoạt động xã giao',
+    namSinhCuoi: 6,
   },
   {
     ten: 'Đinh Hỏa',
@@ -67,6 +70,7 @@ export const thienCanData: ThienCanData[] = [
     coThe: 'Tim, máu huyết',
     mauSac: 'Đỏ, hồng, tím',
     moTa: 'Đinh Hỏa thuộc âm, lửa ngọn đèn, ngọn đuốc, không ổn định, ngoài tĩnh trong tiến',
+    namSinhCuoi: 7,
   },
   {
     ten: 'Mậu Thổ',
@@ -83,6 +87,7 @@ export const thienCanData: ThienCanData[] = [
     coThe: 'Dạ dày, sườn',
     mauSac: 'Vàng, da cam, nâu',
     moTa: 'Mậu Thổ thuộc Dương là núi đá, đất đê điều, rộng lớn, phòng tránh nước lũ',
+    namSinhCuoi: 8,
   },
   {
     ten: 'Kỷ Thổ',
@@ -100,6 +105,7 @@ export const thienCanData: ThienCanData[] = [
     coThe: 'Lá lách, bụng',
     mauSac: 'Vàng, da cam, nâu',
     moTa: 'Kỷ Thổ thuộc Âm là đất đồng ruộng dễ dàng canh tác, trồng trọt',
+    namSinhCuoi: 9,
   },
   {
     ten: 'Canh Kim',
@@ -116,6 +122,7 @@ export const thienCanData: ThienCanData[] = [
     coThe: 'Ruột, rốn',
     mauSac: 'Trắng, xám',
     moTa: 'Canh Kim thuộc Dương là đao, kiếm, quặng sắt, tính chất cứng cáp, cương liệt, khô khan',
+    namSinhCuoi: 0,
   },
   {
     ten: 'Tân Kim',
@@ -133,6 +140,7 @@ export const thienCanData: ThienCanData[] = [
     coThe: 'Phổi, bắp đùi',
     mauSac: 'Trắng, xám',
     moTa: 'Tân Kim thuộc âm, như châu, ngọc. Tính khá thâm trầm, ôn hòa thanh tú, trọng tình cảm',
+    namSinhCuoi: 1,
   },
   {
     ten: 'Nhâm Thủy',
@@ -150,6 +158,7 @@ export const thienCanData: ThienCanData[] = [
     coThe: 'Bàng quang, cẳng chân',
     mauSac: 'Đen, xanh nước biển',
     moTa: 'Nhâm Thủy thuộc dương, như nước sông, cuồn cuộn tuôn trào, không gì có thể ngăn cản',
+    namSinhCuoi: 2,
   },
   {
     ten: 'Quý Thủy',
@@ -167,5 +176,20 @@ export const thienCanData: ThienCanData[] = [
     coThe: 'Thận, tinh dịch',
     mauSac: 'Đen, xanh nước biển',
     moTa: 'Quý Thủy thuộc âm, giống như nước mưa, tính ẩn tàng và phát triển ở bên trong',
+    namSinhCuoi: 3,
   },
 ];
+
+// Mapping từ số cuối năm sinh sang Thiên Can
+export const namSinhToThienCan: Record<number, ThienCanType> = {
+  0: 'Canh',
+  1: 'Tân',
+  2: 'Nhâm',
+  3: 'Quý',
+  4: 'Giáp',
+  5: 'Ất',
+  6: 'Bính',
+  7: 'Đinh',
+  8: 'Mậu',
+  9: 'Kỷ',
+};

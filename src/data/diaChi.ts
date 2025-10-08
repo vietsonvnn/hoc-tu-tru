@@ -155,6 +155,6 @@ export const diaChiData: DiaChiData[] = [
     conThu: 'Con heo',
     thoiGian: '21h-23h',
     thang: 'Tháng 10 âm lịch',
-    mauSac: 'Đen, xanh nước biển',
+    mauSac: 'Vàng, nâu',
   },
 ];

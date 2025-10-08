@@ -1,6 +1,7 @@
 import { diaChiQuanHe } from '../data/quanHeCanChi';
 import { diaChiData } from '../data/diaChi';
 import { getNguHanhColor } from '../utils/colors';
+import { useState } from 'react';
 
 const chiIcons: Record<string, string> = {
   Ty: '🐭',
@@ -18,6 +19,11 @@ const chiIcons: Record<string, string> = {
 };
 
 export const DiaChiQuanHeTable = () => {
+  const [expandedChi, setExpandedChi] = useState<string | null>(null);
+
+  const toggleExpand = (chi: string) => {
+    setExpandedChi(expandedChi === chi ? null : chi);
+  };
   return (
     <div className="space-y-8">
       {/* Giới thiệu */}
@@ -53,6 +59,7 @@ export const DiaChiQuanHeTable = () => {
                 const colors = chiInfo ? getNguHanhColor(chiInfo.nguHanh) : { bg: 'bg-gray-100', text: 'text-gray-900', border: 'border-gray-300' };
 
                 return (
+                  <>
                   <tr
                     key={item.chi}
                     className={`border-b-2 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${
@@ -82,15 +89,42 @@ export const DiaChiQuanHeTable = () => {
                     </td>
                     <td className="px-6 py-4">
                       {item.xung ? (
-                        <span className="text-red-700 dark:text-red-400 font-bold flex items-center gap-2">
-                          <span>{chiIcons[item.xung]}</span>
-                          {item.xung}
-                        </span>
+                        <div>
+                          <span className="text-red-700 dark:text-red-400 font-bold flex items-center gap-2">
+                            <span>{chiIcons[item.xung]}</span>
+                            {item.xung}
+                          </span>
+                          {item.xungYNghia && (
+                            <button
+                              onClick={() => toggleExpand(`xung-${item.chi}`)}
+                              className="mt-1 text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                            >
+                              {expandedChi === `xung-${item.chi}` ? '▼ Ẩn ý nghĩa' : '▶ Xem ý nghĩa'}
+                            </button>
+                          )}
+                        </div>
                       ) : (
                         <span className="text-gray-400">—</span>
                       )}
                     </td>
                   </tr>
+                  {expandedChi === `xung-${item.chi}` && item.xungYNghia && (
+                    <tr key={`${item.chi}-xung-detail`}>
+                      <td colSpan={3} className="px-6 py-4 bg-red-50 dark:bg-red-950">
+                        <div className="space-y-2">
+                          <h4 className="font-bold text-red-800 dark:text-red-200 mb-2">
+                            📌 Ý nghĩa Lục Xung {item.chi} - {item.xung}:
+                          </h4>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-red-700 dark:text-red-300">
+                            {item.xungYNghia.map((y, idx) => (
+                              <li key={idx}>{y}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </>
                 );
               })}
             </tbody>
@@ -195,6 +229,7 @@ export const DiaChiQuanHeTable = () => {
                 const colors = chiInfo ? getNguHanhColor(chiInfo.nguHanh) : { bg: 'bg-gray-100', text: 'text-gray-900', border: 'border-gray-300' };
 
                 return (
+                  <>
                   <tr
                     key={item.chi}
                     className={`border-b-2 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${
@@ -209,13 +244,23 @@ export const DiaChiQuanHeTable = () => {
                     </td>
                     <td className="px-6 py-4">
                       {item.hinh && item.hinh.length > 0 ? (
-                        <div className="flex flex-wrap gap-2">
-                          {item.hinh.map((h) => (
-                            <span key={h} className="text-orange-700 dark:text-orange-400 font-bold flex items-center gap-1">
-                              <span>{chiIcons[h]}</span>
-                              {h}
-                            </span>
-                          ))}
+                        <div>
+                          <div className="flex flex-wrap gap-2">
+                            {item.hinh.map((h) => (
+                              <span key={h} className="text-orange-700 dark:text-orange-400 font-bold flex items-center gap-1">
+                                <span>{chiIcons[h]}</span>
+                                {h}
+                              </span>
+                            ))}
+                          </div>
+                          {item.hinhYNghia && (
+                            <button
+                              onClick={() => toggleExpand(`hinh-${item.chi}`)}
+                              className="mt-1 text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                            >
+                              {expandedChi === `hinh-${item.chi}` ? '▼ Ẩn ý nghĩa' : '▶ Xem ý nghĩa'}
+                            </button>
+                          )}
                         </div>
                       ) : (
                         <span className="text-gray-400">—</span>
@@ -223,25 +268,94 @@ export const DiaChiQuanHeTable = () => {
                     </td>
                     <td className="px-6 py-4">
                       {item.hai ? (
-                        <span className="text-red-700 dark:text-red-400 font-bold flex items-center gap-2">
-                          <span>{chiIcons[item.hai]}</span>
-                          {item.hai}
-                        </span>
+                        <div>
+                          <span className="text-red-700 dark:text-red-400 font-bold flex items-center gap-2">
+                            <span>{chiIcons[item.hai]}</span>
+                            {item.hai}
+                          </span>
+                          {item.haiYNghia && (
+                            <button
+                              onClick={() => toggleExpand(`hai-${item.chi}`)}
+                              className="mt-1 text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                            >
+                              {expandedChi === `hai-${item.chi}` ? '▼ Ẩn ý nghĩa' : '▶ Xem ý nghĩa'}
+                            </button>
+                          )}
+                        </div>
                       ) : (
                         <span className="text-gray-400">—</span>
                       )}
                     </td>
                     <td className="px-6 py-4">
                       {item.pha ? (
-                        <span className="text-rose-700 dark:text-rose-400 font-bold flex items-center gap-2">
-                          <span>{chiIcons[item.pha]}</span>
-                          {item.pha}
-                        </span>
+                        <div>
+                          <span className="text-rose-700 dark:text-rose-400 font-bold flex items-center gap-2">
+                            <span>{chiIcons[item.pha]}</span>
+                            {item.pha}
+                          </span>
+                          {item.phaYNghia && (
+                            <button
+                              onClick={() => toggleExpand(`pha-${item.chi}`)}
+                              className="mt-1 text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                            >
+                              {expandedChi === `pha-${item.chi}` ? '▼ Ẩn ý nghĩa' : '▶ Xem ý nghĩa'}
+                            </button>
+                          )}
+                        </div>
                       ) : (
                         <span className="text-gray-400">—</span>
                       )}
                     </td>
                   </tr>
+                  {expandedChi === `hinh-${item.chi}` && item.hinhYNghia && (
+                    <tr key={`${item.chi}-hinh-detail`}>
+                      <td colSpan={4} className="px-6 py-4 bg-orange-50 dark:bg-orange-950">
+                        <div className="space-y-2">
+                          <h4 className="font-bold text-orange-800 dark:text-orange-200 mb-2">
+                            📌 Ý nghĩa Tương Hình {item.chi} - {item.hinh?.join(', ')}:
+                          </h4>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-orange-700 dark:text-orange-300">
+                            {item.hinhYNghia.map((y, idx) => (
+                              <li key={idx}>{y}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                  {expandedChi === `hai-${item.chi}` && item.haiYNghia && (
+                    <tr key={`${item.chi}-hai-detail`}>
+                      <td colSpan={4} className="px-6 py-4 bg-red-50 dark:bg-red-950">
+                        <div className="space-y-2">
+                          <h4 className="font-bold text-red-800 dark:text-red-200 mb-2">
+                            📌 Ý nghĩa Lục Hại {item.chi} - {item.hai}:
+                          </h4>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-red-700 dark:text-red-300">
+                            {item.haiYNghia.map((y, idx) => (
+                              <li key={idx}>{y}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                  {expandedChi === `pha-${item.chi}` && item.phaYNghia && (
+                    <tr key={`${item.chi}-pha-detail`}>
+                      <td colSpan={4} className="px-6 py-4 bg-rose-50 dark:bg-rose-950">
+                        <div className="space-y-2">
+                          <h4 className="font-bold text-rose-800 dark:text-rose-200 mb-2">
+                            📌 Ý nghĩa Lục Phá {item.chi} - {item.pha}:
+                          </h4>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-rose-700 dark:text-rose-300">
+                            {item.phaYNghia.map((y, idx) => (
+                              <li key={idx}>{y}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                  </>
                 );
               })}
             </tbody>

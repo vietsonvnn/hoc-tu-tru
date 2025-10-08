@@ -23,13 +23,14 @@ import { TruongSinhPoem } from '../components/TruongSinhPoem';
 import { HandRulesDiagram } from '../components/HandRulesDiagram';
 import { HandRulesGuide } from '../components/HandRulesGuide';
 import { VideoSection } from '../components/VideoSection';
+import { ThienCanNamSinhTable } from '../components/ThienCanNamSinhTable';
 
 export const Home = () => {
   const [lesson, setLesson] = useState<'bai1' | 'bai2' | 'bai3' | 'phuluc1' | 'phuluc2' | 'phuluc3'>('bai1');
   const [bai1View, setBai1View] = useState<'intro' | 'video' | 'amduong' | 'nguhanh'>('intro');
   const [amDuongSubView, setAmDuongSubView] = useState<'cards' | 'hopxung'>('cards');
   const [nguHanhSubView, setNguHanhSubView] = useState<'cards' | 'seasons' | 'trangthai' | 'relations'>('cards');
-  const [bai2View, setBai2View] = useState<'video' | 'thiencan' | 'diachi' | 'relations'>('video');
+  const [bai2View, setBai2View] = useState<'video' | 'thiencan' | 'diachi' | 'relations' | 'tracuu'>('video');
   const [bai3View, setBai3View] = useState<'video' | 'tangcan' | 'truongsinh' | 'poem'>('video');
   const [phuLuc1View, setPhuLuc1View] = useState<'huong' | 'cothe'>('huong');
   const [phuLuc3View, setPhuLuc3View] = useState<'diagram' | 'guide'>('diagram');
@@ -369,6 +370,22 @@ export const Home = () => {
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-400 to-rose-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
               )}
             </button>
+            <button
+              onClick={() => setBai2View('tracuu')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                bai2View === 'tracuu'
+                  ? 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-2xl shadow-emerald-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>🔍</span>
+                Tra Cứu
+              </span>
+              {bai2View === 'tracuu' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
           </div>
         )}
 
@@ -610,6 +627,8 @@ export const Home = () => {
                 <DiaChiQuanHeTable />
               </div>
             )}
+
+            {bai2View === 'tracuu' && <ThienCanNamSinhTable />}
           </>
         )}
 

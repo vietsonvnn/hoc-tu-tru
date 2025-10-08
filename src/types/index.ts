@@ -69,6 +69,7 @@ export interface ThienCanData {
   coThe: string;
   mauSac: string;
   moTa?: string;
+  namSinhCuoi?: number; // Số cuối của năm sinh (0-9)
 }
 
 // 12 Địa Chi
@@ -108,9 +109,13 @@ export interface DiaChiQuanHe {
   chi: DiaChiType;
   lucHop?: { voi: DiaChiType; hoa: NguHanhType }; // Lục hợp
   xung?: DiaChiType; // Lục xung
+  xungYNghia?: string[]; // Ý nghĩa của Lục Xung
   hinh?: DiaChiType[]; // Tương hình
+  hinhYNghia?: string[]; // Ý nghĩa của Tương Hình
   hai?: DiaChiType; // Lục hại
+  haiYNghia?: string[]; // Ý nghĩa của Lục Hại
   pha?: DiaChiType; // Lục phá
+  phaYNghia?: string[]; // Ý nghĩa của Lục Phá
   tamHop?: { chi1: DiaChiType; chi2: DiaChiType; hoa: NguHanhType }; // Tam hợp
   tamHoi?: { chi1: DiaChiType; chi2: DiaChiType; hoa: NguHanhType }; // Tam hội
 }
