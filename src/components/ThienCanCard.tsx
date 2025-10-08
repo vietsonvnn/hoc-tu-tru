@@ -58,7 +58,7 @@ export const ThienCanCard = ({ data }: ThienCanCardProps) => {
             {/* Cực tính */}
             <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-3 mb-4">
               <p className="text-lg font-bold">
-                {data.cucTinh === 'Duong' ? '☯ Dương' : '☯ Âm'}
+                {data.cucTinh === 'Dương' ? '☯ Dương' : '☯ Âm'}
               </p>
             </div>
 
@@ -90,7 +90,7 @@ export const ThienCanCard = ({ data }: ThienCanCardProps) => {
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm">
                 <div className="font-bold mb-1">☯ Cực tính</div>
-                <p className="opacity-90">{data.cucTinh === 'Duong' ? 'Dương' : 'Âm'}</p>
+                <p className="opacity-90">{data.cucTinh === 'Dương' ? 'Dương' : 'Âm'}</p>
               </div>
 
               <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm">

@@ -6,10 +6,10 @@ import { getNguHanhColor } from '../utils/colors';
 
 const elementIcons: Record<NguHanhType, string> = {
   Kim: '🔱',
-  Moc: '🌳',
-  Thuy: '💧',
-  Hoa: '🔥',
-  Tho: '⛰️',
+  Mộc: '🌳',
+  Thủy: '💧',
+  Hỏa: '🔥',
+  Thổ: '⛰️',
 };
 
 const relationTypes = {
@@ -63,7 +63,7 @@ export const QuanHeTable = () => {
             <thead>
               <tr className="bg-gradient-to-r from-slate-700 to-slate-800 text-white">
                 <th className="px-6 py-4 text-left font-black text-lg">Cát hung</th>
-                {(['Kim', 'Moc', 'Thuy', 'Hoa', 'Tho'] as NguHanhType[]).map((hanh) => (
+                {(['Kim', 'Mộc', 'Thủy', 'Hỏa', 'Thổ'] as NguHanhType[]).map((hanh) => (
                   <th key={hanh} className="px-6 py-4 text-center font-black text-lg">
                     <div className="flex items-center justify-center gap-2">
                       <span className="text-2xl">{elementIcons[hanh]}</span>
@@ -82,7 +82,7 @@ export const QuanHeTable = () => {
                       <span>{label}</span>
                     </div>
                   </td>
-                  {(['Kim', 'Moc', 'Thuy', 'Hoa', 'Tho'] as NguHanhType[]).map((hanh) => {
+                  {(['Kim', 'Mộc', 'Thủy', 'Hỏa', 'Thổ'] as NguHanhType[]).map((hanh) => {
                     const hanhData = quanHeNguHanhData.find((h) => h.hanh === hanh);
                     const relation = hanhData?.cacQuanHe.find((qh) => qh.loai === key);
                     const isSelected = selectedHanh === hanh && selectedRelation === key;

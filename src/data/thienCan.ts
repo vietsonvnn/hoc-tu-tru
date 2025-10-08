@@ -3,9 +3,9 @@ import type { ThienCanData } from '../types';
 export const thienCanData: ThienCanData[] = [
   {
     ten: 'Giáp Mộc',
-    can: 'Giap',
-    nguHanh: 'Moc',
-    cucTinh: 'Duong',
+    can: 'Giáp',
+    nguHanh: 'Mộc',
+    cucTinh: 'Dương',
     hinhAnh: 'Cây đại thụ',
     tinhCach: [
       'Có tấm lòng trắc ẩn, có ý chí tiến thủ',
@@ -20,9 +20,9 @@ export const thienCanData: ThienCanData[] = [
   },
   {
     ten: 'Ất Mộc',
-    can: 'At',
-    nguHanh: 'Moc',
-    cucTinh: 'Am',
+    can: 'Ất',
+    nguHanh: 'Mộc',
+    cucTinh: 'Âm',
     hinhAnh: 'Cây thân leo',
     tinhCach: [
       'Tính chất mềm mại',
@@ -36,9 +36,9 @@ export const thienCanData: ThienCanData[] = [
   },
   {
     ten: 'Bính Hỏa',
-    can: 'Binh',
-    nguHanh: 'Hoa',
-    cucTinh: 'Duong',
+    can: 'Bính',
+    nguHanh: 'Hỏa',
+    cucTinh: 'Dương',
     hinhAnh: 'Mặt trời',
     tinhCach: [
       'Khí lực hừng hực, nhiệt tình, rộng rãi',
@@ -53,9 +53,9 @@ export const thienCanData: ThienCanData[] = [
   },
   {
     ten: 'Đinh Hỏa',
-    can: 'Dinh',
-    nguHanh: 'Hoa',
-    cucTinh: 'Am',
+    can: 'Đinh',
+    nguHanh: 'Hỏa',
+    cucTinh: 'Âm',
     hinhAnh: 'Lửa đuốc mềm mại',
     tinhCach: [
       'Lửa ngọn đèn, ngọn đuốc, không ổn định',
@@ -70,9 +70,9 @@ export const thienCanData: ThienCanData[] = [
   },
   {
     ten: 'Mậu Thổ',
-    can: 'Mau',
-    nguHanh: 'Tho',
-    cucTinh: 'Duong',
+    can: 'Mậu',
+    nguHanh: 'Thổ',
+    cucTinh: 'Dương',
     hinhAnh: 'Đất ở đê, núi đá',
     tinhCach: [
       'Là núi đá, đất đê điều, rộng lớn',
@@ -86,9 +86,9 @@ export const thienCanData: ThienCanData[] = [
   },
   {
     ten: 'Kỷ Thổ',
-    can: 'Ky',
-    nguHanh: 'Tho',
-    cucTinh: 'Am',
+    can: 'Kỷ',
+    nguHanh: 'Thổ',
+    cucTinh: 'Âm',
     hinhAnh: 'Đất đai màu mỡ',
     tinhCach: [
       'Đất đồng ruộng dễ dàng canh tác, trồng trọt',
@@ -105,7 +105,7 @@ export const thienCanData: ThienCanData[] = [
     ten: 'Canh Kim',
     can: 'Canh',
     nguHanh: 'Kim',
-    cucTinh: 'Duong',
+    cucTinh: 'Dương',
     hinhAnh: 'Đao, kiếm, quặng sắt',
     tinhCach: [
       'Tính chất cứng cáp, cương liệt, khô khan',
@@ -119,9 +119,9 @@ export const thienCanData: ThienCanData[] = [
   },
   {
     ten: 'Tân Kim',
-    can: 'Tan',
+    can: 'Tân',
     nguHanh: 'Kim',
-    cucTinh: 'Am',
+    cucTinh: 'Âm',
     hinhAnh: 'Đồ trang sức bằng vàng bạc',
     tinhCach: [
       'Như châu, ngọc',
@@ -136,9 +136,9 @@ export const thienCanData: ThienCanData[] = [
   },
   {
     ten: 'Nhâm Thủy',
-    can: 'Nham',
-    nguHanh: 'Thuy',
-    cucTinh: 'Duong',
+    can: 'Nhâm',
+    nguHanh: 'Thủy',
+    cucTinh: 'Dương',
     hinhAnh: 'Nước sông cuồn cuộn',
     tinhCach: [
       'Như nước sông, cuồn cuộn tuôn trào, không gì có thể ngăn cản',
@@ -153,9 +153,9 @@ export const thienCanData: ThienCanData[] = [
   },
   {
     ten: 'Quý Thủy',
-    can: 'Quy',
-    nguHanh: 'Thuy',
-    cucTinh: 'Am',
+    can: 'Quý',
+    nguHanh: 'Thủy',
+    cucTinh: 'Âm',
     hinhAnh: 'Nước mưa',
     tinhCach: [
       'Giống như nước mưa, tính ẩn tàng và phát triển ở bên trong',

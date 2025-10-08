@@ -11,10 +11,10 @@ interface NguHanhCardProps {
 
 const elementIcons: Record<string, string> = {
   Kim: '🔱',
-  Moc: '🌳',
-  Thuy: '💧',
-  Hoa: '🔥',
-  Tho: '⛰️',
+  Mộc: '🌳',
+  Thủy: '💧',
+  Hỏa: '🔥',
+  Thổ: '⛰️',
 };
 
 export const NguHanhCard = ({ data, onClick }: NguHanhCardProps) => {

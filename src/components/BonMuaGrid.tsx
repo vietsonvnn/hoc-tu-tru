@@ -8,17 +8,17 @@ interface BonMuaGridProps {
 }
 
 const seasonIcons: Record<string, string> = {
-  Xuan: '🌸',
-  Ha: '☀️',
+  Xuân: '🌸',
+  Hạ: '☀️',
   Thu: '🍂',
-  Dong: '❄️',
+  Đông: '❄️',
 };
 
 const seasonNames: Record<string, string> = {
-  Xuan: 'Xuân',
-  Ha: 'Hạ',
+  Xuân: 'Xuân',
+  Hạ: 'Hạ',
   Thu: 'Thu',
-  Dong: 'Đông',
+  Đông: 'Đông',
 };
 
 export const BonMuaGrid = ({ bonMua, tenHanh }: BonMuaGridProps) => {

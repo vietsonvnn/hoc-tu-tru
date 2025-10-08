@@ -31,7 +31,7 @@ export const quanHeNguHanhData: QuanHeTheoHanh[] = [
     ],
   },
   {
-    hanh: 'Moc',
+    hanh: 'Mộc',
     cacQuanHe: [
       {
         loai: 'Sinh',
@@ -60,7 +60,7 @@ export const quanHeNguHanhData: QuanHeTheoHanh[] = [
     ],
   },
   {
-    hanh: 'Thuy',
+    hanh: 'Thủy',
     cacQuanHe: [
       {
         loai: 'Sinh',
@@ -89,7 +89,7 @@ export const quanHeNguHanhData: QuanHeTheoHanh[] = [
     ],
   },
   {
-    hanh: 'Hoa',
+    hanh: 'Hỏa',
     cacQuanHe: [
       {
         loai: 'Sinh',
@@ -118,7 +118,7 @@ export const quanHeNguHanhData: QuanHeTheoHanh[] = [
     ],
   },
   {
-    hanh: 'Tho',
+    hanh: 'Thổ',
     cacQuanHe: [
       {
         loai: 'Sinh',

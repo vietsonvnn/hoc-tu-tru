@@ -1,8 +1,8 @@
-export type NguHanhType = 'Kim' | 'Moc' | 'Thuy' | 'Hoa' | 'Tho';
+export type NguHanhType = 'Kim' | 'Mộc' | 'Thủy' | 'Hỏa' | 'Thổ';
 
-export type MuaType = 'Xuan' | 'Ha' | 'Thu' | 'Dong';
+export type MuaType = 'Xuân' | 'Hạ' | 'Thu' | 'Đông';
 
-export type TrangThaiType = 'Vuong' | 'Tuong' | 'Huu' | 'Tu' | 'Tu';
+export type TrangThaiType = 'Vượng' | 'Tướng' | 'Hưu' | 'Tù' | 'Tử';
 
 export interface MuaInfo {
   mua: MuaType;
@@ -54,9 +54,9 @@ export interface QuanHeTheoHanh {
 // ============= THIÊN CAN - ĐỊA CHI =============
 
 // 10 Thiên Can
-export type ThienCanType = 'Giap' | 'At' | 'Binh' | 'Dinh' | 'Mau' | 'Ky' | 'Canh' | 'Tan' | 'Nham' | 'Quy';
+export type ThienCanType = 'Giáp' | 'Ất' | 'Bính' | 'Đinh' | 'Mậu' | 'Kỷ' | 'Canh' | 'Tân' | 'Nhâm' | 'Quý';
 
-export type CucTinhType = 'Duong' | 'Am';
+export type CucTinhType = 'Dương' | 'Âm';
 
 export interface ThienCanData {
   ten: string; // Tên đầy đủ như "Giáp Mộc"
@@ -72,14 +72,14 @@ export interface ThienCanData {
 }
 
 // 12 Địa Chi
-export type DiaChiType = 'Ty' | 'Suu' | 'Dan' | 'Mao' | 'Thin' | 'Ti' | 'Ngo' | 'Mui' | 'Than' | 'Dau' | 'Tuat' | 'Hoi';
+export type DiaChiType = 'Tý' | 'Sửu' | 'Dần' | 'Mão' | 'Thìn' | 'Tị' | 'Ngọ' | 'Mùi' | 'Thân' | 'Dậu' | 'Tuất' | 'Hợi';
 
 export interface DiaChiData {
   ten: string; // Tên như "Tý Thủy"
   chi: DiaChiType;
   nguHanh: NguHanhType;
   cucTinh: CucTinhType;
-  mua: MuaType | 'Dong' | 'Xuan' | 'Ha' | 'Thu';
+  mua: MuaType | 'Đông' | 'Xuân' | 'Hạ' | 'Thu';
   phuong: string;
   coThe: string;
   conThu: string;

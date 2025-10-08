@@ -61,7 +61,7 @@ export const DiaChiCard = ({ data }: DiaChiCardProps) => {
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-2">
                 <p className="text-sm font-bold">
-                  {data.cucTinh === 'Duong' ? '☯ Dương' : '☯ Âm'}
+                  {data.cucTinh === 'Dương' ? '☯ Dương' : '☯ Âm'}
                 </p>
               </div>
               <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-2">
@@ -102,7 +102,7 @@ export const DiaChiCard = ({ data }: DiaChiCardProps) => {
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm">
                 <div className="font-bold mb-1">☯ Cực tính</div>
-                <p className="opacity-90">{data.cucTinh === 'Duong' ? 'Dương' : 'Âm'}</p>
+                <p className="opacity-90">{data.cucTinh === 'Dương' ? 'Dương' : 'Âm'}</p>
               </div>
 
               <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm">

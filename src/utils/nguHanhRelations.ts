@@ -3,31 +3,31 @@ import type { NguHanhType, TrangThaiType } from '../types';
 // Mô tả trạng thái
 export const getTrangThaiInfo = (trangThai: TrangThaiType) => {
   const info = {
-    Vuong: {
+    Vượng: {
       label: 'Vượng',
       description: 'Phát triển rực rỡ nhất, đỉnh cao sức mạnh',
       color: 'bg-emerald-500/20 border-emerald-500',
       icon: '💪',
     },
-    Tuong: {
-      label: 'Tưởng',
+    Tướng: {
+      label: 'Tướng',
       description: 'Được nuôi dưỡng, chuẩn bị phát triển mạnh',
       color: 'bg-blue-500/20 border-blue-500',
       icon: '🌱',
     },
-    Huu: {
+    Hưu: {
       label: 'Hưu',
       description: 'Yếu dần, nghỉ ngơi, không làm được việc',
       color: 'bg-yellow-500/20 border-yellow-500',
       icon: '😴',
     },
-    Tu: {
+    Tù: {
       label: 'Tù',
       description: 'Bị khống chế, bí bách, không phát triển được',
       color: 'bg-orange-500/20 border-orange-500',
       icon: '🔒',
     },
-    Tu2: {
+    Tử: {
       label: 'Tử',
       description: 'Yếu nhất, như chết đi',
       color: 'bg-red-500/20 border-red-500',
@@ -35,17 +35,16 @@ export const getTrangThaiInfo = (trangThai: TrangThaiType) => {
     },
   };
 
-  // Handle both 'Tu' cases
-  return trangThai === 'Tu' ? info.Tu : info[trangThai as keyof typeof info] || info.Tu;
+  return info[trangThai];
 };
 
 // Quan hệ Tương Sinh
 export const getQuanHeSinh = (loai: NguHanhType) => {
   const relations = {
-    Thuy: { sinh: 'Mộc', beSinh: 'Kim' },
-    Moc: { sinh: 'Hỏa', beSinh: 'Thủy' },
-    Hoa: { sinh: 'Thổ', beSinh: 'Mộc' },
-    Tho: { sinh: 'Kim', beSinh: 'Hỏa' },
+    Thủy: { sinh: 'Mộc', beSinh: 'Kim' },
+    Mộc: { sinh: 'Hỏa', beSinh: 'Thủy' },
+    Hỏa: { sinh: 'Thổ', beSinh: 'Mộc' },
+    Thổ: { sinh: 'Kim', beSinh: 'Hỏa' },
     Kim: { sinh: 'Thủy', beSinh: 'Thổ' },
   };
   return relations[loai];
@@ -54,10 +53,10 @@ export const getQuanHeSinh = (loai: NguHanhType) => {
 // Quan hệ Tương Khắc
 export const getQuanHeKhac = (loai: NguHanhType) => {
   const relations = {
-    Moc: { khac: 'Thổ', beKhac: 'Kim' },
-    Tho: { khac: 'Thủy', beKhac: 'Mộc' },
-    Thuy: { khac: 'Hỏa', beKhac: 'Thổ' },
-    Hoa: { khac: 'Kim', beKhac: 'Thủy' },
+    Mộc: { khac: 'Thổ', beKhac: 'Kim' },
+    Thổ: { khac: 'Thủy', beKhac: 'Mộc' },
+    Thủy: { khac: 'Hỏa', beKhac: 'Thổ' },
+    Hỏa: { khac: 'Kim', beKhac: 'Thủy' },
     Kim: { khac: 'Mộc', beKhac: 'Hỏa' },
   };
   return relations[loai];
