@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { nguHanhData } from '../data/nguHanh';
+import { amDuongData } from '../data/amDuong';
 import { NguHanhCard } from '../components/NguHanhCard';
 import { BonMuaGrid } from '../components/BonMuaGrid';
 import { QuanHeTable } from '../components/QuanHeTable';
+import { AmDuongCard } from '../components/AmDuongCard';
+import { AmDuongHopXungTable } from '../components/AmDuongHopXungTable';
+import { TrangThaiNguHanhTable } from '../components/TrangThaiNguHanhTable';
+import { IntroductionSection } from '../components/IntroductionSection';
 import { thienCanData } from '../data/thienCan';
 import { diaChiData } from '../data/diaChi';
 import { ThienCanCard } from '../components/ThienCanCard';
@@ -20,7 +25,9 @@ import { HandRulesGuide } from '../components/HandRulesGuide';
 
 export const Home = () => {
   const [lesson, setLesson] = useState<'bai1' | 'bai2' | 'bai3' | 'phuluc1' | 'phuluc2' | 'phuluc3'>('bai1');
-  const [view, setView] = useState<'cards' | 'seasons' | 'relations'>('cards');
+  const [bai1View, setBai1View] = useState<'intro' | 'amduong' | 'nguhanh'>('intro');
+  const [amDuongSubView, setAmDuongSubView] = useState<'cards' | 'hopxung'>('cards');
+  const [nguHanhSubView, setNguHanhSubView] = useState<'cards' | 'seasons' | 'trangthai' | 'relations'>('cards');
   const [bai2View, setBai2View] = useState<'thiencan' | 'diachi' | 'relations'>('thiencan');
   const [bai3View, setBai3View] = useState<'tangcan' | 'truongsinh' | 'poem'>('tangcan');
   const [phuLuc1View, setPhuLuc1View] = useState<'huong' | 'cothe'>('huong');
@@ -43,7 +50,7 @@ export const Home = () => {
             Học Tứ Trụ
           </h1>
           <p className="text-gray-700 text-xl font-medium max-w-2xl mx-auto">
-            Hệ thống flashcard học Âm Dương, Ngũ Hành, Thiên Can, Địa Chi
+            Hệ thống flashcard học Âm Dương, Ngũ Hành, Thiên Can, Địa Chi, Trường Sinh
           </p>
           <div className="mt-6 flex items-center justify-center gap-2 text-sm text-gray-600">
             <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
@@ -151,58 +158,132 @@ export const Home = () => {
           </button>
         </div>
 
-        {/* Sub Navigation - Show for both lessons */}
+        {/* Sub Navigation - Bài 1 */}
         {lesson === 'bai1' && (
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            <button
-              onClick={() => setView('cards')}
-              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                view === 'cards'
-                  ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-2xl shadow-blue-500/50 scale-105'
-                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-              }`}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <span>🎴</span>
-                Flashcards
-              </span>
-              {view === 'cards' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 to-blue-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-              )}
-            </button>
-            <button
-              onClick={() => setView('seasons')}
-              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                view === 'seasons'
-                  ? 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-2xl shadow-emerald-500/50 scale-105'
-                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-              }`}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <span>🌸</span>
-                Theo Mùa
-              </span>
-              {view === 'seasons' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-              )}
-            </button>
-            <button
-              onClick={() => setView('relations')}
-              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                view === 'relations'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-700 text-white shadow-2xl shadow-purple-500/50 scale-105'
-                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-              }`}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <span>⚡</span>
-                Quan Hệ
-              </span>
-              {view === 'relations' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-              )}
-            </button>
-          </div>
+          <>
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              <button
+                onClick={() => setBai1View('intro')}
+                className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                  bai1View === 'intro'
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-700 text-white shadow-2xl shadow-blue-500/50 scale-105'
+                    : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+                }`}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <span>📖</span>
+                  Giới Thiệu
+                </span>
+                {bai1View === 'intro' && (
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 to-cyan-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+                )}
+              </button>
+              <button
+                onClick={() => setBai1View('amduong')}
+                className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                  bai1View === 'amduong'
+                    ? 'bg-gradient-to-r from-yellow-600 to-orange-700 text-white shadow-2xl shadow-yellow-500/50 scale-105'
+                    : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+                }`}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <span>☯️</span>
+                  Âm Dương
+                </span>
+                {bai1View === 'amduong' && (
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400 to-orange-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+                )}
+              </button>
+              <button
+                onClick={() => setBai1View('nguhanh')}
+                className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                  bai1View === 'nguhanh'
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-700 text-white shadow-2xl shadow-purple-500/50 scale-105'
+                    : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+                }`}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <span>🌀</span>
+                  Ngũ Hành
+                </span>
+                {bai1View === 'nguhanh' && (
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+                )}
+              </button>
+            </div>
+
+            {/* Sub-sub navigation for Âm Dương */}
+            {bai1View === 'amduong' && (
+              <div className="flex flex-wrap justify-center gap-3 mb-12">
+                <button
+                  onClick={() => setAmDuongSubView('cards')}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                    amDuongSubView === 'cards'
+                      ? 'bg-yellow-600 text-white shadow-lg'
+                      : 'bg-white/60 text-gray-700 hover:bg-white'
+                  }`}
+                >
+                  🎴 Flashcards
+                </button>
+                <button
+                  onClick={() => setAmDuongSubView('hopxung')}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                    amDuongSubView === 'hopxung'
+                      ? 'bg-yellow-600 text-white shadow-lg'
+                      : 'bg-white/60 text-gray-700 hover:bg-white'
+                  }`}
+                >
+                  ⚖️ Hợp - Xung
+                </button>
+              </div>
+            )}
+
+            {/* Sub-sub navigation for Ngũ Hành */}
+            {bai1View === 'nguhanh' && (
+              <div className="flex flex-wrap justify-center gap-3 mb-12">
+                <button
+                  onClick={() => setNguHanhSubView('cards')}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                    nguHanhSubView === 'cards'
+                      ? 'bg-purple-600 text-white shadow-lg'
+                      : 'bg-white/60 text-gray-700 hover:bg-white'
+                  }`}
+                >
+                  🎴 Flashcards
+                </button>
+                <button
+                  onClick={() => setNguHanhSubView('seasons')}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                    nguHanhSubView === 'seasons'
+                      ? 'bg-purple-600 text-white shadow-lg'
+                      : 'bg-white/60 text-gray-700 hover:bg-white'
+                  }`}
+                >
+                  🌸 Theo Mùa
+                </button>
+                <button
+                  onClick={() => setNguHanhSubView('trangthai')}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                    nguHanhSubView === 'trangthai'
+                      ? 'bg-purple-600 text-white shadow-lg'
+                      : 'bg-white/60 text-gray-700 hover:bg-white'
+                  }`}
+                >
+                  🔄 Trạng Thái
+                </button>
+                <button
+                  onClick={() => setNguHanhSubView('relations')}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                    nguHanhSubView === 'relations'
+                      ? 'bg-purple-600 text-white shadow-lg'
+                      : 'bg-white/60 text-gray-700 hover:bg-white'
+                  }`}
+                >
+                  ⚡ Quan Hệ
+                </button>
+              </div>
+            )}
+          </>
         )}
 
         {lesson === 'bai2' && (
@@ -388,30 +469,49 @@ export const Home = () => {
         {/* Content */}
         {lesson === 'bai1' && (
           <>
-            {view === 'cards' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {nguHanhData.map((item, index) => (
-                  <NguHanhCard
-                    key={index}
-                    data={item}
-                  />
-                ))}
-              </div>
+            {bai1View === 'intro' && <IntroductionSection />}
+
+            {bai1View === 'amduong' && (
+              <>
+                {amDuongSubView === 'cards' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    {amDuongData.map((item, index) => (
+                      <AmDuongCard key={index} data={item} />
+                    ))}
+                  </div>
+                )}
+
+                {amDuongSubView === 'hopxung' && <AmDuongHopXungTable />}
+              </>
             )}
 
-            {view === 'seasons' && (
-              <div className="space-y-16">
-                {nguHanhData
-                  .filter((item) => item.bonMua && item.bonMua.length > 0)
-                  .map((item, index) => (
-                    <div key={index}>
-                      <BonMuaGrid bonMua={item.bonMua!} tenHanh={item.ten} />
-                    </div>
-                  ))}
-              </div>
-            )}
+            {bai1View === 'nguhanh' && (
+              <>
+                {nguHanhSubView === 'cards' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {nguHanhData.map((item, index) => (
+                      <NguHanhCard key={index} data={item} />
+                    ))}
+                  </div>
+                )}
 
-            {view === 'relations' && <QuanHeTable />}
+                {nguHanhSubView === 'seasons' && (
+                  <div className="space-y-16">
+                    {nguHanhData
+                      .filter((item) => item.bonMua && item.bonMua.length > 0)
+                      .map((item, index) => (
+                        <div key={index}>
+                          <BonMuaGrid bonMua={item.bonMua!} tenHanh={item.ten} />
+                        </div>
+                      ))}
+                  </div>
+                )}
+
+                {nguHanhSubView === 'trangthai' && <TrangThaiNguHanhTable />}
+
+                {nguHanhSubView === 'relations' && <QuanHeTable />}
+              </>
+            )}
           </>
         )}
 

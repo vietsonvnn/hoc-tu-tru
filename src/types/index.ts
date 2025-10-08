@@ -40,7 +40,7 @@ export interface LearningProgress {
 
 // Quan hệ nâng cao Ngũ Hành
 export interface QuanHeNangCao {
-  loai: 'Sinh' | 'Tiet' | 'Khac' | 'Hao';
+  loai: 'Sinh' | 'Tiet' | 'Khac' | 'Hao' | 'PhanSinh' | 'PhanKhac' | 'TuongThua' | 'TuongVu';
   tenQuanHe: string;
   quaDo: string;
   giaiCuu: string;
@@ -121,4 +121,27 @@ export interface CanChiToHop {
   chi: DiaChiType;
   loai: 'TuongSinh' | 'TuongKhac' | 'SongThe' | 'CheDau' | 'TietCuoc' | 'TuHop';
   moTa: string;
+}
+
+// ============= ÂM DƯƠNG =============
+
+export type AmDuongType = 'Âm' | 'Dương';
+
+export interface AmDuongData {
+  loai: AmDuongType;
+  dacDiem: string[];
+  moTa: string;
+}
+
+export interface HopXungQuanHe {
+  loai: 'Hợp' | 'Xung';
+  cat: string[];
+  hung: string[];
+}
+
+// ============= GIỚI THIỆU =============
+
+export interface GioiThieuSection {
+  title: string;
+  content: string[];
 }

@@ -20,7 +20,7 @@ export const nguHanhData: NguHanhData[] = [
     bonMua: [
       {
         mua: 'Xuân',
-        moTa: 'Kim trong mùa xuân lúc hơi lạnh chưa dứt, rất quý nếu được Hỏa sưởi ấm, Kim mùa xuân mang tính chất như nhuộc, phải cần Thổ bồ trợ.',
+        moTa: 'Kim trong mùa xuân lúc hơi lạnh chưa dứt, rất quý nếu được Hỏa sưởi ấm, Kim mùa xuân mang tính chất nhu nhược, phải cần Thổ bổ trợ.',
       },
       {
         mua: 'Hạ',
@@ -28,7 +28,7 @@ export const nguHanhData: NguHanhData[] = [
       },
       {
         mua: 'Thu',
-        moTa: 'Kim trong mùa thu là lúc dương quyền đắc lệnh. Thổ không nên quá nhiều. Thích Thủy hao tiết, Mộc điều khắc để phát huy công năng.',
+        moTa: 'Kim trong mùa thu là lúc đương quyền đắc lệnh. Thổ không nên quá nhiều. Thích Thủy hao tiết, Mộc điêu khắc để phát huy công năng.',
       },
       {
         mua: 'Đông',

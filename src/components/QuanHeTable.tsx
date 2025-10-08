@@ -17,6 +17,10 @@ const relationTypes = {
   Tiet: { label: 'Tiết quá độ', icon: '⚖️', color: 'from-purple-500 to-pink-500' },
   Khac: { label: 'Khắc quá độ', icon: '⚔️', color: 'from-red-500 to-orange-500' },
   Hao: { label: 'Hao quá độ', icon: '💨', color: 'from-yellow-500 to-amber-500' },
+  PhanSinh: { label: 'Phản sinh', icon: '🔄', color: 'from-indigo-500 to-blue-500' },
+  PhanKhac: { label: 'Phản khắc', icon: '↩️', color: 'from-rose-500 to-pink-500' },
+  TuongThua: { label: 'Tương thừa', icon: '➕', color: 'from-orange-500 to-red-500' },
+  TuongVu: { label: 'Tương vũ', icon: '⚡', color: 'from-violet-500 to-purple-500' },
 };
 
 export const QuanHeTable = () => {
@@ -185,6 +189,10 @@ export const QuanHeTable = () => {
                   {key === 'Tiet' && 'Tiết khí quá mức làm yếu'}
                   {key === 'Khac' && 'Khắc chế quá mạnh gây suy'}
                   {key === 'Hao' && 'Hao tổn quá độ mất cân bằng'}
+                  {key === 'PhanSinh' && 'Con mạnh quá hại mẹ'}
+                  {key === 'PhanKhac' && 'Kẻ bị khắc mạnh hơn kẻ khắc'}
+                  {key === 'TuongThua' && 'Khắc theo chiều thuận quá mức'}
+                  {key === 'TuongVu' && 'Yếu gặp mạnh bị lăng vũ'}
                 </div>
               </div>
             </div>
