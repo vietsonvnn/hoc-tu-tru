@@ -12,15 +12,11 @@ import { DiaChiQuanHeTable } from '../components/DiaChiQuanHeTable';
 import { BatQuaiCompass } from '../components/BatQuaiCompass';
 import { BodyMap } from '../components/BodyMap';
 import { FlashCardComparison } from '../components/FlashCardComparison';
-import { DiaChiTangCanTable } from '../components/DiaChiTangCanTable';
-import { TruongSinhWheel } from '../components/TruongSinhWheel';
-import { TruongSinhPoem } from '../components/TruongSinhPoem';
 
 export const Home = () => {
-  const [lesson, setLesson] = useState<'bai1' | 'bai2' | 'bai3' | 'phuluc1' | 'phuluc2'>('bai1');
+  const [lesson, setLesson] = useState<'bai1' | 'bai2' | 'phuluc1' | 'phuluc2'>('bai1');
   const [view, setView] = useState<'cards' | 'seasons' | 'relations'>('cards');
   const [bai2View, setBai2View] = useState<'thiencan' | 'diachi' | 'relations'>('thiencan');
-  const [bai3View, setBai3View] = useState<'tangcan' | 'truongsinh' | 'poem'>('tangcan');
   const [phuLuc1View, setPhuLuc1View] = useState<'huong' | 'cothe'>('huong');
 
   return (
@@ -80,22 +76,6 @@ export const Home = () => {
             </span>
             {lesson === 'bai2' && (
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-400 to-purple-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-            )}
-          </button>
-          <button
-            onClick={() => setLesson('bai3')}
-            className={`group relative px-10 py-5 rounded-3xl font-black text-xl transition-all duration-300 ${
-              lesson === 'bai3'
-                ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-2xl shadow-violet-500/50 scale-105'
-                : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-            }`}
-          >
-            <span className="relative z-10 flex items-center gap-3">
-              <span>🔮</span>
-              Bài 3: Trường Sinh - Tàng Can
-            </span>
-            {lesson === 'bai3' && (
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-violet-400 to-fuchsia-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
             )}
           </button>
           <button
@@ -234,59 +214,6 @@ export const Home = () => {
               </span>
               {bai2View === 'relations' && (
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-400 to-rose-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-              )}
-            </button>
-          </div>
-        )}
-
-        {lesson === 'bai3' && (
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            <button
-              onClick={() => setBai3View('tangcan')}
-              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                bai3View === 'tangcan'
-                  ? 'bg-gradient-to-r from-violet-600 to-violet-700 text-white shadow-2xl shadow-violet-500/50 scale-105'
-                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-              }`}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <span>🔐</span>
-                Địa Chi Tàng Can
-              </span>
-              {bai3View === 'tangcan' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-violet-400 to-violet-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-              )}
-            </button>
-            <button
-              onClick={() => setBai3View('truongsinh')}
-              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                bai3View === 'truongsinh'
-                  ? 'bg-gradient-to-r from-fuchsia-600 to-fuchsia-700 text-white shadow-2xl shadow-fuchsia-500/50 scale-105'
-                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-              }`}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <span>🔄</span>
-                Vòng Trường Sinh
-              </span>
-              {bai3View === 'truongsinh' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-fuchsia-400 to-fuchsia-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-              )}
-            </button>
-            <button
-              onClick={() => setBai3View('poem')}
-              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                bai3View === 'poem'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-700 text-white shadow-2xl shadow-purple-500/50 scale-105'
-                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-              }`}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <span>📜</span>
-                Ca Quyết
-              </span>
-              {bai3View === 'poem' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
               )}
             </button>
           </div>
