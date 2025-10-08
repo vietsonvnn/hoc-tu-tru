@@ -58,11 +58,11 @@ export const ThienCanNamSinhTable = () => {
           <table className="w-full">
             <thead>
               <tr className="bg-purple-100 dark:bg-purple-950">
-                <th className="px-6 py-4 text-left font-black text-lg">Thiên Can</th>
-                <th className="px-6 py-4 text-left font-black text-lg">Ngũ Hành</th>
-                <th className="px-6 py-4 text-center font-black text-lg">Số cuối năm sinh</th>
-                <th className="px-6 py-4 text-left font-black text-lg">Hình ảnh</th>
-                <th className="px-6 py-4 text-left font-black text-lg">Cục tính</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-purple-900 dark:text-purple-100">Thiên Can</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-purple-900 dark:text-purple-100">Ngũ Hành</th>
+                <th className="px-6 py-4 text-center font-black text-lg text-purple-900 dark:text-purple-100">Số cuối năm sinh</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-purple-900 dark:text-purple-100">Hình ảnh</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-purple-900 dark:text-purple-100">Cục tính</th>
               </tr>
             </thead>
             <tbody>
@@ -94,7 +94,7 @@ export const ThienCanNamSinhTable = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-gray-700 dark:text-gray-300">
+                      <span className="text-gray-900 dark:text-gray-100 font-medium">
                         {can.hinhAnh}
                       </span>
                     </td>
