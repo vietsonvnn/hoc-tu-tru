@@ -22,10 +22,11 @@ import { TruongSinhWheel } from '../components/TruongSinhWheel';
 import { TruongSinhPoem } from '../components/TruongSinhPoem';
 import { HandRulesDiagram } from '../components/HandRulesDiagram';
 import { HandRulesGuide } from '../components/HandRulesGuide';
+import { VideoSection } from '../components/VideoSection';
 
 export const Home = () => {
   const [lesson, setLesson] = useState<'bai1' | 'bai2' | 'bai3' | 'phuluc1' | 'phuluc2' | 'phuluc3'>('bai1');
-  const [bai1View, setBai1View] = useState<'intro' | 'amduong' | 'nguhanh'>('intro');
+  const [bai1View, setBai1View] = useState<'intro' | 'video' | 'amduong' | 'nguhanh'>('intro');
   const [amDuongSubView, setAmDuongSubView] = useState<'cards' | 'hopxung'>('cards');
   const [nguHanhSubView, setNguHanhSubView] = useState<'cards' | 'seasons' | 'trangthai' | 'relations'>('cards');
   const [bai2View, setBai2View] = useState<'thiencan' | 'diachi' | 'relations'>('thiencan');
@@ -176,6 +177,22 @@ export const Home = () => {
                 </span>
                 {bai1View === 'intro' && (
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 to-cyan-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+                )}
+              </button>
+              <button
+                onClick={() => setBai1View('video')}
+                className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                  bai1View === 'video'
+                    ? 'bg-gradient-to-r from-red-600 to-pink-700 text-white shadow-2xl shadow-red-500/50 scale-105'
+                    : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+                }`}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <span>📺</span>
+                  Video
+                </span>
+                {bai1View === 'video' && (
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
                 )}
               </button>
               <button
@@ -470,6 +487,14 @@ export const Home = () => {
         {lesson === 'bai1' && (
           <>
             {bai1View === 'intro' && <IntroductionSection />}
+
+            {bai1View === 'video' && (
+              <VideoSection
+                videoId="TfWTqCEPOjk"
+                title="Video Bài Học - Âm Dương & Ngũ Hành"
+                description="Xem video để hiểu rõ hơn về Âm Dương và Ngũ Hành"
+              />
+            )}
 
             {bai1View === 'amduong' && (
               <>
