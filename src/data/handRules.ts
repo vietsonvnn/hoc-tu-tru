@@ -143,9 +143,9 @@ export const handRules: HandRule[] = [
     steps: [
       'Duỗi bàn tay trái, lòng bàn tay hướng về phía mình',
       'Bắt đầu từ đốt dưới ngón trỏ = Dần (tháng 1)',
-      'Đi theo chiều kim đồng hồ: Trỏ lên → Giữa xuống → Áp út xuống → Út lên',
+      'Đi theo chiều kim đồng hồ: Trỏ lên → Giữa xuống → Áp út lên → Út xuống',
       'Kết thúc ở đốt dưới ngón út = Sửu (tháng 12)',
-      'Ngón cái dùng để chỉ/đếm các vị trí'
+      'Ngón cái (tay phải) dùng để chỉ/đếm các vị trí'
     ],
     applications: [
       'Xác định Địa Chi của tháng sinh',

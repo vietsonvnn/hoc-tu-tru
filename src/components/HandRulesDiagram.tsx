@@ -21,7 +21,7 @@ export const HandRulesDiagram = () => {
           Sơ Đồ Bàn Tay
         </h2>
         <p className="text-gray-700 text-lg">
-          12 Địa Chi - 12 Tháng - 4 Mùa trên Bàn Tay Phải
+          12 Địa Chi - 12 Tháng - 4 Mùa trên Bàn Tay Trái
         </p>
       </div>
 
@@ -29,7 +29,7 @@ export const HandRulesDiagram = () => {
         {/* Hand Diagram */}
         <div className="bg-white rounded-3xl p-8 shadow-2xl">
           <h3 className="text-2xl font-bold text-center mb-6 text-gray-800">
-            🖐 Bàn Tay Phải (Lòng bàn tay hướng vào mình)
+            🖐 Bàn Tay Trái (Lòng bàn tay hướng vào mình)
           </h3>
 
           {/* Interactive Hand */}
