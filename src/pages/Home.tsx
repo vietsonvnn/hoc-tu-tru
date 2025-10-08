@@ -29,8 +29,8 @@ export const Home = () => {
   const [bai1View, setBai1View] = useState<'intro' | 'video' | 'amduong' | 'nguhanh'>('intro');
   const [amDuongSubView, setAmDuongSubView] = useState<'cards' | 'hopxung'>('cards');
   const [nguHanhSubView, setNguHanhSubView] = useState<'cards' | 'seasons' | 'trangthai' | 'relations'>('cards');
-  const [bai2View, setBai2View] = useState<'thiencan' | 'diachi' | 'relations'>('thiencan');
-  const [bai3View, setBai3View] = useState<'tangcan' | 'truongsinh' | 'poem'>('tangcan');
+  const [bai2View, setBai2View] = useState<'video' | 'thiencan' | 'diachi' | 'relations'>('video');
+  const [bai3View, setBai3View] = useState<'video' | 'tangcan' | 'truongsinh' | 'poem'>('video');
   const [phuLuc1View, setPhuLuc1View] = useState<'huong' | 'cothe'>('huong');
   const [phuLuc3View, setPhuLuc3View] = useState<'diagram' | 'guide'>('diagram');
 
@@ -306,6 +306,22 @@ export const Home = () => {
         {lesson === 'bai2' && (
           <div className="flex flex-wrap justify-center gap-3 mb-12">
             <button
+              onClick={() => setBai2View('video')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                bai2View === 'video'
+                  ? 'bg-gradient-to-r from-red-600 to-pink-700 text-white shadow-2xl shadow-red-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>📺</span>
+                Video
+              </span>
+              {bai2View === 'video' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+            <button
               onClick={() => setBai2View('thiencan')}
               className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
                 bai2View === 'thiencan'
@@ -358,6 +374,22 @@ export const Home = () => {
 
         {lesson === 'bai3' && (
           <div className="flex flex-wrap justify-center gap-3 mb-12">
+            <button
+              onClick={() => setBai3View('video')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                bai3View === 'video'
+                  ? 'bg-gradient-to-r from-red-600 to-pink-700 text-white shadow-2xl shadow-red-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>📺</span>
+                Video
+              </span>
+              {bai3View === 'video' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
             <button
               onClick={() => setBai3View('tangcan')}
               className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
@@ -542,6 +574,14 @@ export const Home = () => {
 
         {lesson === 'bai2' && (
           <>
+            {bai2View === 'video' && (
+              <VideoSection
+                videoId="6ivOtxRAonk"
+                title="Video Bài Học - Thiên Can & Địa Chi"
+                description="Xem video để hiểu rõ hơn về Thiên Can và Địa Chi"
+              />
+            )}
+
             {bai2View === 'thiencan' && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {thienCanData.map((item, index) => (
@@ -575,6 +615,14 @@ export const Home = () => {
 
         {lesson === 'bai3' && (
           <>
+            {bai3View === 'video' && (
+              <VideoSection
+                videoId="OVjG1YZfrjg"
+                title="Video Bài Học - Địa Chi Tàng Can & Trường Sinh"
+                description="Xem video để hiểu rõ hơn về Địa Chi Tàng Can và Vòng Trường Sinh"
+              />
+            )}
+
             {bai3View === 'tangcan' && <DiaChiTangCanTable />}
             {bai3View === 'truongsinh' && <TruongSinhWheel />}
             {bai3View === 'poem' && <TruongSinhPoem />}
