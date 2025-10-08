@@ -124,17 +124,17 @@ export const ThienCanNamSinhTable = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Kim */}
             <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 border-2 border-gray-300 dark:border-gray-700">
-              <h4 className="font-black text-xl text-gray-700 dark:text-gray-300 mb-4 flex items-center gap-2">
+              <h4 className="font-black text-xl text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
                 ⚪ Kim (x2)
               </h4>
               <div className="space-y-2">
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
                   <span className="font-bold text-gray-900 dark:text-gray-100">Canh Kim</span>
-                  <span className="text-2xl font-black text-gray-700 dark:text-gray-300">0</span>
+                  <span className="text-2xl font-black text-gray-900 dark:text-gray-100">0</span>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-900 rounded-xl">
                   <span className="font-bold text-gray-900 dark:text-gray-100">Tân Kim</span>
-                  <span className="text-2xl font-black text-gray-700 dark:text-gray-300">1</span>
+                  <span className="text-2xl font-black text-gray-900 dark:text-gray-100">1</span>
                 </div>
               </div>
             </div>
@@ -215,7 +215,7 @@ export const ThienCanNamSinhTable = () => {
         <h3 className="font-black text-xl text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           💡 Lưu ý
         </h3>
-        <ul className="list-disc list-inside space-y-2 text-slate-700 dark:text-slate-300">
+        <ul className="list-disc list-inside space-y-2 text-slate-900 dark:text-slate-100">
           <li>Mỗi <strong>Ngũ Hành</strong> có 2 Thiên Can: 1 Dương và 1 Âm</li>
           <li><strong>Dương Can</strong>: Canh (0), Nhâm (2), Giáp (4), Bính (6), Mậu (8)</li>
           <li><strong>Âm Can</strong>: Tân (1), Quý (3), Ất (5), Đinh (7), Kỷ (9)</li>
