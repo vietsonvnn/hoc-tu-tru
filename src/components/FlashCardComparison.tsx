@@ -112,72 +112,164 @@ const analyzeThienCanRelation = (can1: string, can2: string) => {
 
 // Hàm phân tích quan hệ Địa Chi
 const analyzeDiaChiRelation = (chi1: string, chi2: string) => {
-  // Hợp
-  const hops = [
-    ['Tý', 'Sửu'],
-    ['Dần', 'Hợi'],
-    ['Mão', 'Tuất'],
-    ['Thìn', 'Dậu'],
-    ['Tị', 'Thân'],
-    ['Ngọ', 'Mùi']
+  const allResults = [];
+
+  // Lục Hợp (Hợp 2 chi)
+  const lucHops = [
+    { chi: ['Tý', 'Sửu'], hoa: 'Thổ', nghia: 'Tý Sửu hợp Thổ - Ổn định, vững chắc' },
+    { chi: ['Dần', 'Hợi'], hoa: 'Mộc', nghia: 'Dần Hợi hợp Mộc - Phát triển, sinh trưởng' },
+    { chi: ['Mão', 'Tuất'], hoa: 'Hỏa', nghia: 'Mão Tuất hợp Hỏa - Nhiệt huyết, sáng tạo' },
+    { chi: ['Thìn', 'Dậu'], hoa: 'Kim', nghia: 'Thìn Dậu hợp Kim - Quyết đoán, sắc bén' },
+    { chi: ['Tị', 'Thân'], hoa: 'Thủy', nghia: 'Tị Thân hợp Thủy - Thông minh, linh hoạt' },
+    { chi: ['Ngọ', 'Mùi'], hoa: 'Thủy/Hỏa', nghia: 'Ngọ Mùi hợp - Âm dương hòa hợp' }
   ];
 
-  for (const hop of hops) {
-    if ((hop[0] === chi1 && hop[1] === chi2) || (hop[0] === chi2 && hop[1] === chi1)) {
-      return { type: 'hợp', label: 'Địa Chi Hợp', icon: '🤝', color: 'text-green-600', desc: `${chi1} hợp ${chi2}`, detail: 'Hòa hợp, hỗ trợ, tốt đẹp' };
+  for (const hop of lucHops) {
+    if ((hop.chi[0] === chi1 && hop.chi[1] === chi2) || (hop.chi[0] === chi2 && hop.chi[1] === chi1)) {
+      allResults.push({
+        type: 'lục hợp',
+        label: 'Lục Hợp (Địa Chi Hợp)',
+        icon: '🤝',
+        color: 'text-green-600',
+        desc: `${chi1} hợp ${chi2} hóa ${hop.hoa}`,
+        detail: hop.nghia
+      });
     }
   }
 
-  // Xung
-  const xungs = [
-    ['Tý', 'Ngọ'],
-    ['Sửu', 'Mùi'],
-    ['Dần', 'Thân'],
-    ['Mão', 'Dậu'],
-    ['Thìn', 'Tuất'],
-    ['Tị', 'Hợi']
+  // Lục Xung
+  const lucXungs = [
+    { chi: ['Tý', 'Ngọ'], nghia: 'Bắc - Nam xung, Thủy - Hỏa đối lập' },
+    { chi: ['Sửu', 'Mùi'], nghia: 'Đông Bắc - Tây Nam xung, Thổ - Thổ va chạm' },
+    { chi: ['Dần', 'Thân'], nghia: 'Đông Bắc - Tây Nam xung, Mộc - Kim khắc' },
+    { chi: ['Mão', 'Dậu'], nghia: 'Đông - Tây xung, Mộc - Kim đối đầu' },
+    { chi: ['Thìn', 'Tuất'], nghia: 'Đông Nam - Tây Bắc xung, Thổ - Thổ va chạm' },
+    { chi: ['Tị', 'Hợi'], nghia: 'Nam - Bắc xung, Hỏa - Thủy đối nghịch' }
   ];
 
-  for (const xung of xungs) {
-    if ((xung[0] === chi1 && xung[1] === chi2) || (xung[0] === chi2 && xung[1] === chi1)) {
-      return { type: 'xung', label: 'Địa Chi Xung', icon: '⚔️', color: 'text-red-600', desc: `${chi1} xung ${chi2}`, detail: 'Xung đột mạnh, đối lập trực diện' };
+  for (const xung of lucXungs) {
+    if ((xung.chi[0] === chi1 && xung.chi[1] === chi2) || (xung.chi[0] === chi2 && xung.chi[1] === chi1)) {
+      allResults.push({
+        type: 'lục xung',
+        label: 'Lục Xung (Địa Chi Xung)',
+        icon: '⚔️',
+        color: 'text-red-600',
+        desc: `${chi1} xung ${chi2}`,
+        detail: `Xung đột mạnh - ${xung.nghia}`
+      });
     }
   }
 
-  // Hình
-  const hinhs = [
-    ['Tý', 'Mão'],
-    ['Dần', 'Tị', 'Thân'],
-    ['Sửu', 'Tuất', 'Mùi'],
-    ['Thìn', 'Thìn'],
-    ['Ngọ', 'Ngọ'],
-    ['Dậu', 'Dậu'],
-    ['Hợi', 'Hợi']
+  // Tam Hợp (cần 3 chi, ở đây chỉ note 2 chi có khả năng hợp)
+  const tamHops = [
+    { chi: ['Thân', 'Tý', 'Thìn'], hoa: 'Thủy', note: 'Thân Tý Thìn tam hợp Thủy cục' },
+    { chi: ['Hợi', 'Mão', 'Mùi'], hoa: 'Mộc', note: 'Hợi Mão Mùi tam hợp Mộc cục' },
+    { chi: ['Dần', 'Ngọ', 'Tuất'], hoa: 'Hỏa', note: 'Dần Ngọ Tuất tam hợp Hỏa cục' },
+    { chi: ['Tị', 'Dậu', 'Sửu'], hoa: 'Kim', note: 'Tị Dậu Sửu tam hợp Kim cục' }
   ];
 
-  for (const hinh of hinhs) {
-    if (hinh.includes(chi1) && hinh.includes(chi2) && chi1 !== chi2) {
-      return { type: 'hình', label: 'Địa Chi Hình', icon: '⚡', color: 'text-orange-600', desc: `${chi1} hình ${chi2}`, detail: 'Hình phạt, căng thẳng, bất lợi' };
+  for (const tamHop of tamHops) {
+    if (tamHop.chi.includes(chi1) && tamHop.chi.includes(chi2)) {
+      const missing = tamHop.chi.find(c => c !== chi1 && c !== chi2);
+      allResults.push({
+        type: 'bán hợp',
+        label: `Bán Hợp (Thiếu ${missing})`,
+        icon: '🔗',
+        color: 'text-blue-600',
+        desc: `${chi1} và ${chi2} có thể tam hợp ${tamHop.hoa} cục`,
+        detail: `${tamHop.note}. Cần thêm ${missing} để hoàn thiện tam hợp.`
+      });
     }
   }
 
-  // Hại
-  const hais = [
-    ['Tý', 'Mùi'],
-    ['Sửu', 'Ngọ'],
-    ['Dần', 'Tị'],
-    ['Mão', 'Thìn'],
-    ['Thân', 'Hợi'],
-    ['Dậu', 'Tuất']
+  // Lục Hại
+  const lucHais = [
+    { chi: ['Tý', 'Mùi'], nghia: 'Tý Mùi hại - Ngăn cản phát triển' },
+    { chi: ['Sửu', 'Ngọ'], nghia: 'Sửu Ngọ hại - Cản trở tiến bộ' },
+    { chi: ['Dần', 'Tị'], nghia: 'Dần Tị hại - Phá hoại hòa hợp' },
+    { chi: ['Mão', 'Thìn'], nghia: 'Mão Thìn hại - Tổn hại âm thầm' },
+    { chi: ['Thân', 'Hợi'], nghia: 'Thân Hợi hại - Phá hủy quan hệ' },
+    { chi: ['Dậu', 'Tuất'], nghia: 'Dậu Tuất hại - Làm tổn thương' }
   ];
 
-  for (const hai of hais) {
-    if ((hai[0] === chi1 && hai[1] === chi2) || (hai[0] === chi2 && hai[1] === chi1)) {
-      return { type: 'hại', label: 'Địa Chi Hại', icon: '💢', color: 'text-red-500', desc: `${chi1} hại ${chi2}`, detail: 'Hại, phá hoại âm thầm' };
+  for (const hai of lucHais) {
+    if ((hai.chi[0] === chi1 && hai.chi[1] === chi2) || (hai.chi[0] === chi2 && hai.chi[1] === chi1)) {
+      allResults.push({
+        type: 'lục hại',
+        label: 'Lục Hại (Địa Chi Hại)',
+        icon: '💢',
+        color: 'text-red-500',
+        desc: `${chi1} hại ${chi2}`,
+        detail: hai.nghia
+      });
     }
   }
 
-  return { type: 'bình thường', label: 'Bình thường', icon: '↔', color: 'text-gray-600', desc: 'Không có quan hệ đặc biệt', detail: '' };
+  // Tự Hình (tự hình phạt)
+  const tuHinhs = [
+    { chi: ['Thìn', 'Thìn'], nghia: 'Thìn tự hình - Tự làm khó mình' },
+    { chi: ['Ngọ', 'Ngọ'], nghia: 'Ngọ tự hình - Tự phá hoại' },
+    { chi: ['Dậu', 'Dậu'], nghia: 'Dậu tự hình - Tự gây rắc rối' },
+    { chi: ['Hợi', 'Hợi'], nghia: 'Hợi tự hình - Tự hại bản thân' }
+  ];
+
+  for (const tuHinh of tuHinhs) {
+    if (chi1 === chi2 && tuHinh.chi[0] === chi1) {
+      allResults.push({
+        type: 'tự hình',
+        label: 'Tự Hình',
+        icon: '🔄',
+        color: 'text-orange-600',
+        desc: `${chi1} gặp ${chi2} (tự hình)`,
+        detail: tuHinh.nghia
+      });
+    }
+  }
+
+  // Tương Hình (hình phạt)
+  const tuongHinhs = [
+    { chi: ['Tý', 'Mão'], nghia: 'Tý Mão hình - Vô lễ, mất kính trọng' },
+    { chi: ['Dần', 'Tị', 'Thân'], nghia: 'Dần Tị Thân tam hình - Hình phạt tam hợp, cực kỳ hung' },
+    { chi: ['Sửu', 'Tuất', 'Mùi'], nghia: 'Sửu Tuất Mùi tam hình - Hình phạt thế lực' }
+  ];
+
+  for (const hinh of tuongHinhs) {
+    if (hinh.chi.includes(chi1) && hinh.chi.includes(chi2) && chi1 !== chi2) {
+      allResults.push({
+        type: 'hình',
+        label: 'Tương Hình (Hình Phạt)',
+        icon: '⚡',
+        color: 'text-orange-600',
+        desc: `${chi1} hình ${chi2}`,
+        detail: hinh.nghia
+      });
+    }
+  }
+
+  // Phá (Tương Phá)
+  const tuongPhas = [
+    { chi: ['Tý', 'Dậu'], nghia: 'Tý Dậu phá - Phá hoại quan hệ' },
+    { chi: ['Sửu', 'Thìn'], nghia: 'Sửu Thìn phá - Phá vỡ cục diện' },
+    { chi: ['Dần', 'Hợi'], nghia: 'Dần Hợi phá - Phá tan kế hoạch' },
+    { chi: ['Mão', 'Ngọ'], nghia: 'Mão Ngọ phá - Phá hủy tình cảm' },
+    { chi: ['Tị', 'Thân'], nghia: 'Tị Thân phá - Phá bỏ thỏa thuận' },
+    { chi: ['Mùi', 'Tuất'], nghia: 'Mùi Tuất phá - Phá vỡ đồng minh' }
+  ];
+
+  for (const pha of tuongPhas) {
+    if ((pha.chi[0] === chi1 && pha.chi[1] === chi2) || (pha.chi[0] === chi2 && pha.chi[1] === chi1)) {
+      allResults.push({
+        type: 'phá',
+        label: 'Tương Phá (Địa Chi Phá)',
+        icon: '💥',
+        color: 'text-red-400',
+        desc: `${chi1} phá ${chi2}`,
+        detail: pha.nghia
+      });
+    }
+  }
+
+  return allResults.length > 0 ? allResults : [{ type: 'bình thường', label: 'Bình thường', icon: '↔', color: 'text-gray-600', desc: 'Không có quan hệ đặc biệt', detail: 'Hai chi này không có quan hệ đặc biệt nào đáng chú ý' }];
 };
 
 export const FlashCardComparison = () => {
@@ -226,14 +318,19 @@ export const FlashCardComparison = () => {
       });
     }
 
-    // Nếu cả 2 đều là Địa Chi
+    // Nếu cả 2 đều là Địa Chi - có thể có nhiều quan hệ
     if (c1.type === 'diachi' && c2.type === 'diachi') {
-      const chiRelation = analyzeDiaChiRelation(c1.name, c2.name);
-      results.push({
-        category: 'Quan Hệ Địa Chi',
-        pair: `${c1.name} ↔ ${c2.name}`,
-        ...chiRelation
-      });
+      const chiRelations = analyzeDiaChiRelation(c1.name, c2.name);
+      // Địa Chi có thể có nhiều quan hệ cùng lúc
+      if (Array.isArray(chiRelations)) {
+        chiRelations.forEach(rel => {
+          results.push({
+            category: 'Quan Hệ Địa Chi',
+            pair: `${c1.name} ↔ ${c2.name}`,
+            ...rel
+          });
+        });
+      }
     }
 
     return results;
@@ -261,6 +358,63 @@ export const FlashCardComparison = () => {
         title: 'Thẻ 2 ↔ Thẻ 3',
         relations: analyzeRelation(card2, card3)
       });
+    }
+
+    // Kiểm tra Tam Hợp hoàn chỉnh khi có đủ 3 Địa Chi
+    if (card1 && card2 && card3 &&
+        card1.type === 'diachi' && card2.type === 'diachi' && card3.type === 'diachi') {
+      const tamHops = [
+        { chi: ['Thân', 'Tý', 'Thìn'], hoa: 'Thủy', nghia: 'Thân Tý Thìn tam hợp Thủy cục - Thông minh, linh hoạt, khôn khéo' },
+        { chi: ['Hợi', 'Mão', 'Mùi'], hoa: 'Mộc', nghia: 'Hợi Mão Mùi tam hợp Mộc cục - Nhân từ, phát triển, sáng tạo' },
+        { chi: ['Dần', 'Ngọ', 'Tuất'], hoa: 'Hỏa', nghia: 'Dần Ngọ Tuất tam hợp Hỏa cục - Nhiệt huyết, quyền lực, hành động' },
+        { chi: ['Tị', 'Dậu', 'Sửu'], hoa: 'Kim', nghia: 'Tị Dậu Sửu tam hợp Kim cục - Quyết đoán, cứng rắn, nghĩa khí' }
+      ];
+
+      const threeChis = [card1.name, card2.name, card3.name].sort();
+
+      for (const tamHop of tamHops) {
+        const sortedTamHop = [...tamHop.chi].sort();
+        if (JSON.stringify(threeChis) === JSON.stringify(sortedTamHop)) {
+          allRelations.push({
+            title: '🎯 Tam Hợp Hoàn Chỉnh (3 Thẻ)',
+            relations: [{
+              category: 'Tam Hợp Địa Chi',
+              pair: `${card1.name} - ${card2.name} - ${card3.name}`,
+              type: 'tam hợp',
+              label: `Tam Hợp ${tamHop.hoa} Cục`,
+              icon: '✨',
+              color: 'text-purple-600',
+              desc: `${tamHop.chi.join(' - ')} hợp hóa ${tamHop.hoa}`,
+              detail: `${tamHop.nghia}. Đây là cục hợp mạnh nhất, ba chi cùng hướng về một mục tiêu.`
+            }]
+          });
+        }
+      }
+
+      // Kiểm tra Tam Hình
+      const tamHinhs = [
+        { chi: ['Dần', 'Tị', 'Thân'], nghia: 'Dần Tị Thân tam hình - Hình phạt cực hung, nhiều tai họa' },
+        { chi: ['Sửu', 'Tuất', 'Mùi'], nghia: 'Sửu Tuất Mùi tam hình - Hình phạt thế lực, quyền lực đấu đá' }
+      ];
+
+      for (const tamHinh of tamHinhs) {
+        const sortedTamHinh = [...tamHinh.chi].sort();
+        if (JSON.stringify(threeChis) === JSON.stringify(sortedTamHinh)) {
+          allRelations.push({
+            title: '⚠️ Tam Hình Hoàn Chỉnh (3 Thẻ)',
+            relations: [{
+              category: 'Tam Hình Địa Chi',
+              pair: `${card1.name} - ${card2.name} - ${card3.name}`,
+              type: 'tam hình',
+              label: 'Tam Hình (Cực Hung)',
+              icon: '⛔',
+              color: 'text-red-700',
+              desc: `${tamHinh.chi.join(' - ')} tam hình`,
+              detail: tamHinh.nghia
+            }]
+          });
+        }
+      }
     }
 
     return allRelations.length > 0 ? allRelations : null;
@@ -576,13 +730,25 @@ export const FlashCardComparison = () => {
           <p><span className="font-bold">• Bước 3:</span> (Tùy chọn) Click vào ô "Chọn Thẻ 3" để so sánh thêm thẻ thứ ba</p>
           <p><span className="font-bold">• Hoán đổi:</span> Click nút "Hoán Đổi" để đổi vị trí Thẻ 1 và Thẻ 2</p>
           <p><span className="font-bold">• Kết quả:</span> Xem phân tích quan hệ giữa tất cả các cặp thẻ (1↔2, 1↔3, 2↔3)</p>
-          <p className="mt-4 font-bold">Các loại quan hệ:</p>
-          <p><span className="font-bold text-green-600">• Tương Sinh:</span> Hỗ trợ, nuôi dưỡng lẫn nhau</p>
-          <p><span className="font-bold text-red-600">• Tương Khắc:</span> Kiểm soát, chế ngự</p>
-          <p><span className="font-bold text-green-600">• Hợp:</span> Hòa hợp, hỗ trợ tốt</p>
-          <p><span className="font-bold text-red-600">• Xung:</span> Xung đột, đối lập</p>
-          <p><span className="font-bold text-orange-600">• Hình:</span> Hình phạt, căng thẳng</p>
-          <p><span className="font-bold text-red-500">• Hại:</span> Phá hoại âm thầm</p>
+          <p className="mt-4 font-bold text-blue-700">Quan hệ Ngũ Hành:</p>
+          <p><span className="font-bold text-green-600">• Tương Sinh →:</span> Hỗ trợ, nuôi dưỡng lẫn nhau</p>
+          <p><span className="font-bold text-red-600">• Tương Khắc ⚔:</span> Kiểm soát, chế ngự</p>
+
+          <p className="mt-4 font-bold text-indigo-700">Quan hệ Thiên Can:</p>
+          <p><span className="font-bold text-green-600">• Hợp 🤝:</span> Giáp-Kỷ, Ất-Canh, Bính-Tân, Đinh-Nhâm, Mậu-Quý</p>
+          <p><span className="font-bold text-red-600">• Xung ⚔️:</span> Xung đột, đối lập</p>
+
+          <p className="mt-4 font-bold text-purple-700">Quan hệ Địa Chi (phức tạp hơn):</p>
+          <p><span className="font-bold text-green-600">• Lục Hợp 🤝:</span> 6 cặp hợp 2 chi (Tý-Sửu, Dần-Hợi...)</p>
+          <p><span className="font-bold text-purple-600">• Tam Hợp ✨:</span> 3 chi hợp cục (Thân-Tý-Thìn, Hợi-Mão-Mùi...)</p>
+          <p><span className="font-bold text-blue-600">• Bán Hợp 🔗:</span> 2 chi có thể tam hợp (thiếu 1 chi)</p>
+          <p><span className="font-bold text-red-600">• Lục Xung ⚔️:</span> 6 cặp xung đối lập (Tý-Ngọ, Mão-Dậu...)</p>
+          <p><span className="font-bold text-orange-600">• Tương Hình ⚡:</span> Hình phạt (Tý-Mão, Dần-Tị-Thân...)</p>
+          <p><span className="font-bold text-red-500">• Lục Hại 💢:</span> 6 cặp hại âm thầm (Tý-Mùi, Sửu-Ngọ...)</p>
+          <p><span className="font-bold text-red-400">• Tương Phá 💥:</span> Phá hoại quan hệ (Tý-Dậu, Mão-Ngọ...)</p>
+          <p><span className="font-bold text-orange-600">• Tự Hình 🔄:</span> Thìn-Thìn, Ngọ-Ngọ, Dậu-Dậu, Hợi-Hợi</p>
+
+          <p className="mt-4 text-xs italic text-gray-600">💡 Lưu ý: Địa Chi có thể có NHIỀU quan hệ cùng lúc (VD: Tị-Thân vừa Lục Hợp, vừa Tương Phá)</p>
         </div>
       </div>
     </div>
