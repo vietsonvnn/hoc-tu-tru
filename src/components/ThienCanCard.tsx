@@ -67,6 +67,16 @@ export const ThienCanCard = ({ data }: ThienCanCardProps) => {
               {data.hinhAnh}
             </p>
 
+            {/* Số đuôi năm sinh */}
+            {data.namSinhCuoi !== undefined && (
+              <div className="mt-6 bg-white/30 backdrop-blur-sm rounded-2xl px-8 py-4">
+                <p className="text-sm font-bold opacity-75 mb-1">Năm sinh cuối</p>
+                <p className="text-5xl font-black">
+                  {data.namSinhCuoi}
+                </p>
+              </div>
+            )}
+
             <div className="mt-6 text-sm opacity-75 font-medium">
               👆 Click để xem chi tiết
             </div>
@@ -111,6 +121,15 @@ export const ThienCanCard = ({ data }: ThienCanCardProps) => {
                 </div>
                 <p className="opacity-90">{data.mauSac}</p>
               </div>
+
+              {data.namSinhCuoi !== undefined && (
+                <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm col-span-2">
+                  <div className="font-bold mb-1 flex items-center gap-1">
+                    <span>🔢</span> Năm sinh cuối
+                  </div>
+                  <p className="opacity-90 text-2xl font-black">{data.namSinhCuoi}</p>
+                </div>
+              )}
             </div>
 
             {/* Hình ảnh */}
