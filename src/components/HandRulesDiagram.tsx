@@ -34,9 +34,9 @@ export const HandRulesDiagram = () => {
 
           {/* Interactive Hand */}
           <div className="relative aspect-[3/4] max-w-md mx-auto">
-            {/* Ngón út */}
-            <div className="absolute right-0 top-0 w-1/5 h-4/5 flex flex-col">
-              {[10, 11, 12].map((pos) => {
+            {/* Ngón trỏ (bên trái) - Từ dưới lên trên: Dần(1) → Mão(2) → Thìn(3) */}
+            <div className="absolute left-[6%] top-0 w-1/5 h-4/5 flex flex-col-reverse">
+              {[1, 2, 3].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
                 return (
                   <button
@@ -47,32 +47,13 @@ export const HandRulesDiagram = () => {
                     } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg`}
                   >
                     <div className="text-xs">{info?.diaChi}</div>
-                    <div className="text-[10px]">{info?.thang}</div>
+                    <div className="text-[10px]">T{info?.thang}</div>
                   </button>
                 );
               })}
             </div>
 
-            {/* Ngón áp út */}
-            <div className="absolute right-[22%] top-0 w-1/5 h-full flex flex-col">
-              {[9, 8, 7].map((pos) => {
-                const info = handPositions.find(p => p.position === pos);
-                return (
-                  <button
-                    key={pos}
-                    onClick={() => setSelectedPos(pos)}
-                    className={`flex-1 m-1 rounded-xl font-bold text-white transition-all hover:scale-105 ${
-                      selectedPos === pos ? 'ring-4 ring-purple-600 scale-110' : ''
-                    } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg`}
-                  >
-                    <div className="text-xs">{info?.diaChi}</div>
-                    <div className="text-[10px]">{info?.thang}</div>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Ngón giữa */}
+            {/* Ngón giữa - Từ trên xuống dưới: Tị(4) → Ngọ(5) → Mùi(6) */}
             <div className="absolute left-[28%] top-0 w-1/5 h-full flex flex-col">
               {[4, 5, 6].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
@@ -85,15 +66,15 @@ export const HandRulesDiagram = () => {
                     } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg`}
                   >
                     <div className="text-xs">{info?.diaChi}</div>
-                    <div className="text-[10px]">{info?.thang}</div>
+                    <div className="text-[10px]">T{info?.thang}</div>
                   </button>
                 );
               })}
             </div>
 
-            {/* Ngón trỏ */}
-            <div className="absolute left-[6%] top-0 w-1/5 h-4/5 flex flex-col">
-              {[1, 2, 3].map((pos) => {
+            {/* Ngón áp út - Từ dưới lên trên: Thân(7) → Dậu(8) → Tuất(9) */}
+            <div className="absolute right-[22%] top-0 w-1/5 h-full flex flex-col-reverse">
+              {[7, 8, 9].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
                 return (
                   <button
@@ -104,7 +85,26 @@ export const HandRulesDiagram = () => {
                     } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg`}
                   >
                     <div className="text-xs">{info?.diaChi}</div>
-                    <div className="text-[10px]">{info?.thang}</div>
+                    <div className="text-[10px]">T{info?.thang}</div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Ngón út (bên phải) - Từ trên xuống dưới: Hợi(10) → Tý(11) → Sửu(12) */}
+            <div className="absolute right-0 top-0 w-1/5 h-4/5 flex flex-col">
+              {[10, 11, 12].map((pos) => {
+                const info = handPositions.find(p => p.position === pos);
+                return (
+                  <button
+                    key={pos}
+                    onClick={() => setSelectedPos(pos)}
+                    className={`flex-1 m-1 rounded-xl font-bold text-white transition-all hover:scale-105 ${
+                      selectedPos === pos ? 'ring-4 ring-purple-600 scale-110' : ''
+                    } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg`}
+                  >
+                    <div className="text-xs">{info?.diaChi}</div>
+                    <div className="text-[10px]">T{info?.thang}</div>
                   </button>
                 );
               })}
