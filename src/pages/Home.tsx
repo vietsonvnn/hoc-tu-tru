@@ -30,8 +30,8 @@ export const Home = () => {
   const [bai1View, setBai1View] = useState<'intro' | 'video' | 'amduong' | 'nguhanh'>('intro');
   const [amDuongSubView, setAmDuongSubView] = useState<'cards' | 'hopxung'>('cards');
   const [nguHanhSubView, setNguHanhSubView] = useState<'cards' | 'seasons' | 'trangthai' | 'relations'>('cards');
-  const [bai2View, setBai2View] = useState<'video' | 'thiencan' | 'diachi' | 'relations' | 'tracuu'>('video');
-  const [bai3View, setBai3View] = useState<'video' | 'tangcan' | 'truongsinh' | 'poem'>('video');
+  const [bai2View, setBai2View] = useState<'video' | 'thiencan' | 'diachi' | 'relations' | 'tracuu'>('thiencan');
+  const [bai3View, setBai3View] = useState<'video' | 'tangcan' | 'truongsinh' | 'poem'>('tangcan');
   const [phuLuc1View, setPhuLuc1View] = useState<'huong' | 'cothe'>('huong');
   const [phuLuc3View, setPhuLuc3View] = useState<'diagram' | 'guide'>('diagram');
 
