@@ -1,0 +1,28 @@
+export type NguHanhType = 'Kim' | 'Moc' | 'Thuy' | 'Hoa' | 'Tho';
+
+export type MuaType = 'Xuan' | 'Ha' | 'Thu' | 'Dong';
+
+export interface MuaInfo {
+  mua: MuaType;
+  moTa: string;
+}
+
+export interface NguHanhData {
+  ten: string;
+  loai: NguHanhType;
+  tinhChat: string;
+  hinhAnh: string;
+  mauSac: string;
+  phuongHuong: string;
+  ngheNghiep: string;
+  coThe: string;
+  moTaChiTiet?: string;
+  bonMua?: MuaInfo[];
+}
+
+export interface LearningProgress {
+  cardId: string;
+  isLearned: boolean;
+  lastReviewed?: Date;
+  reviewCount: number;
+}
