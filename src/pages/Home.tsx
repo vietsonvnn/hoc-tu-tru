@@ -11,9 +11,10 @@ import { ThienCanQuanHeTable } from '../components/ThienCanQuanHeTable';
 import { DiaChiQuanHeTable } from '../components/DiaChiQuanHeTable';
 import { BatQuaiCompass } from '../components/BatQuaiCompass';
 import { BodyMap } from '../components/BodyMap';
+import { FlashCardComparison } from '../components/FlashCardComparison';
 
 export const Home = () => {
-  const [lesson, setLesson] = useState<'bai1' | 'bai2' | 'phuluc1'>('bai1');
+  const [lesson, setLesson] = useState<'bai1' | 'bai2' | 'phuluc1' | 'phuluc2'>('bai1');
   const [view, setView] = useState<'cards' | 'seasons' | 'relations'>('cards');
   const [bai2View, setBai2View] = useState<'thiencan' | 'diachi' | 'relations'>('thiencan');
   const [phuLuc1View, setPhuLuc1View] = useState<'huong' | 'cothe'>('huong');
@@ -91,6 +92,22 @@ export const Home = () => {
             </span>
             {lesson === 'phuluc1' && (
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-emerald-400 to-teal-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+            )}
+          </button>
+          <button
+            onClick={() => setLesson('phuluc2')}
+            className={`group relative px-10 py-5 rounded-3xl font-black text-xl transition-all duration-300 ${
+              lesson === 'phuluc2'
+                ? 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-2xl shadow-pink-500/50 scale-105'
+                : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+            }`}
+          >
+            <span className="relative z-10 flex items-center gap-3">
+              <span>🔄</span>
+              Phụ Lục 2: So Sánh Quan Hệ
+            </span>
+            {lesson === 'phuluc2' && (
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-pink-400 to-rose-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
             )}
           </button>
         </div>
@@ -308,6 +325,8 @@ export const Home = () => {
             {phuLuc1View === 'cothe' && <BodyMap />}
           </>
         )}
+
+        {lesson === 'phuluc2' && <FlashCardComparison />}
 
         {/* Info footer */}
         <footer className="mt-20 text-center">
