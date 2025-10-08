@@ -15,13 +15,16 @@ import { FlashCardComparison } from '../components/FlashCardComparison';
 import { DiaChiTangCanTable } from '../components/DiaChiTangCanTable';
 import { TruongSinhWheel } from '../components/TruongSinhWheel';
 import { TruongSinhPoem } from '../components/TruongSinhPoem';
+import { HandRulesDiagram } from '../components/HandRulesDiagram';
+import { HandRulesGuide } from '../components/HandRulesGuide';
 
 export const Home = () => {
-  const [lesson, setLesson] = useState<'bai1' | 'bai2' | 'bai3' | 'phuluc1' | 'phuluc2'>('bai1');
+  const [lesson, setLesson] = useState<'bai1' | 'bai2' | 'bai3' | 'phuluc1' | 'phuluc2' | 'phuluc3'>('bai1');
   const [view, setView] = useState<'cards' | 'seasons' | 'relations'>('cards');
   const [bai2View, setBai2View] = useState<'thiencan' | 'diachi' | 'relations'>('thiencan');
   const [bai3View, setBai3View] = useState<'tangcan' | 'truongsinh' | 'poem'>('tangcan');
   const [phuLuc1View, setPhuLuc1View] = useState<'huong' | 'cothe'>('huong');
+  const [phuLuc3View, setPhuLuc3View] = useState<'diagram' | 'guide'>('diagram');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
@@ -128,6 +131,22 @@ export const Home = () => {
             </span>
             {lesson === 'phuluc2' && (
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-pink-400 to-rose-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+            )}
+          </button>
+          <button
+            onClick={() => setLesson('phuluc3')}
+            className={`group relative px-10 py-5 rounded-3xl font-black text-xl transition-all duration-300 ${
+              lesson === 'phuluc3'
+                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-2xl shadow-cyan-500/50 scale-105'
+                : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+            }`}
+          >
+            <span className="relative z-10 flex items-center gap-3">
+              <span>👋</span>
+              Phụ Lục 3: Quy Tắc Bàn Tay
+            </span>
+            {lesson === 'phuluc3' && (
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-400 to-blue-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
             )}
           </button>
         </div>
@@ -329,6 +348,43 @@ export const Home = () => {
           </div>
         )}
 
+        {lesson === 'phuluc3' && (
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            <button
+              onClick={() => setPhuLuc3View('diagram')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                phuLuc3View === 'diagram'
+                  ? 'bg-gradient-to-r from-cyan-600 to-cyan-700 text-white shadow-2xl shadow-cyan-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>👋</span>
+                Sơ Đồ Bàn Tay
+              </span>
+              {phuLuc3View === 'diagram' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400 to-cyan-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+            <button
+              onClick={() => setPhuLuc3View('guide')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                phuLuc3View === 'guide'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-2xl shadow-blue-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>📚</span>
+                Hướng Dẫn Chi Tiết
+              </span>
+              {phuLuc3View === 'guide' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 to-blue-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+          </div>
+        )}
+
         {/* Content */}
         {lesson === 'bai1' && (
           <>
@@ -408,6 +464,13 @@ export const Home = () => {
         )}
 
         {lesson === 'phuluc2' && <FlashCardComparison />}
+
+        {lesson === 'phuluc3' && (
+          <>
+            {phuLuc3View === 'diagram' && <HandRulesDiagram />}
+            {phuLuc3View === 'guide' && <HandRulesGuide />}
+          </>
+        )}
 
         {/* Info footer */}
         <footer className="mt-20 text-center">
