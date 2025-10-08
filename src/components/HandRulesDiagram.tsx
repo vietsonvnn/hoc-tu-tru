@@ -34,8 +34,8 @@ export const HandRulesDiagram = () => {
 
           {/* Interactive Hand */}
           <div className="relative aspect-[3/4] max-w-md mx-auto">
-            {/* Ngón trỏ (trái nhất) - Từ trên xuống: Tị(4) → Thìn(3) → Mão(2) → Dần(1) */}
-            <div className="absolute left-0 top-0 w-1/5 h-full flex flex-col">
+            {/* Ngón trỏ (trái nhất) - 4 đốt: Tị(4) → Thìn(3) → Mão(2) → Dần(1) */}
+            <div className="absolute left-0 top-0 w-1/5 h-4/5 flex flex-col">
               {[4, 3, 2, 1].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
                 return (
@@ -53,15 +53,15 @@ export const HandRulesDiagram = () => {
               })}
             </div>
 
-            {/* Ngón giữa - Ngọ(5) trên → Sửu(12) dưới */}
-            <div className="absolute left-[25%] top-0 w-1/5 h-2/4 flex flex-col">
+            {/* Ngón giữa - 2 đốt (trên & dưới), để trống 2 đốt giữa */}
+            <div className="absolute left-[25%] top-0 w-1/5 h-4/5 flex flex-col justify-between">
               {[5, 12].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
                 return (
                   <button
                     key={pos}
                     onClick={() => setSelectedPos(pos)}
-                    className={`flex-1 m-1 rounded-xl font-bold text-white transition-all hover:scale-105 ${
+                    className={`h-[23%] m-1 rounded-xl font-bold text-white transition-all hover:scale-105 ${
                       selectedPos === pos ? 'ring-4 ring-purple-600 scale-110' : ''
                     } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg`}
                   >
@@ -72,15 +72,15 @@ export const HandRulesDiagram = () => {
               })}
             </div>
 
-            {/* Ngón áp út - Mùi(6) trên → Tý(11) dưới */}
-            <div className="absolute left-[50%] top-[25%] w-1/5 h-2/4 flex flex-col">
+            {/* Ngón áp út - 2 đốt (trên & dưới), để trống 2 đốt giữa */}
+            <div className="absolute left-[50%] top-0 w-1/5 h-4/5 flex flex-col justify-between">
               {[6, 11].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
                 return (
                   <button
                     key={pos}
                     onClick={() => setSelectedPos(pos)}
-                    className={`flex-1 m-1 rounded-xl font-bold text-white transition-all hover:scale-105 ${
+                    className={`h-[23%] m-1 rounded-xl font-bold text-white transition-all hover:scale-105 ${
                       selectedPos === pos ? 'ring-4 ring-purple-600 scale-110' : ''
                     } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg`}
                   >
@@ -91,8 +91,8 @@ export const HandRulesDiagram = () => {
               })}
             </div>
 
-            {/* Ngón út (phải nhất) - Thân(7) → Dậu(8) → Tuất(9) → Hợi(10) */}
-            <div className="absolute right-0 top-0 w-1/5 h-full flex flex-col">
+            {/* Ngón út (phải nhất) - 4 đốt: Thân(7) → Dậu(8) → Tuất(9) → Hợi(10) */}
+            <div className="absolute right-0 top-0 w-1/5 h-4/5 flex flex-col">
               {[7, 8, 9, 10].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
                 return (
