@@ -48,16 +48,18 @@ export const Home = () => {
               <span className="text-4xl">☯</span>
             </div>
           </div>
-          <h1 className="text-6xl md:text-7xl font-black mb-4 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
+          <h1
+            onClick={() => {
+              setLesson('bai1');
+              setBai1View('intro');
+            }}
+            className="text-6xl md:text-7xl font-black mb-4 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent cursor-pointer hover:scale-105 transition-transform duration-300"
+          >
             Học Tứ Trụ
           </h1>
           <p className="text-gray-700 text-xl font-medium max-w-2xl mx-auto">
             Hệ thống flashcard học Âm Dương, Ngũ Hành, Thiên Can, Địa Chi, Trường Sinh
           </p>
-          <div className="mt-6 flex items-center justify-center gap-2 text-sm text-gray-600">
-            <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            <span>{nguHanhData.length} thẻ học | Tương tác để ghi nhớ</span>
-          </div>
         </header>
 
         {/* Main Lesson Navigation */}

@@ -432,7 +432,7 @@ export const FlashCardComparison = () => {
         <h2 className="text-5xl font-black mb-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
           So Sánh Quan Hệ Flashcard
         </h2>
-        <p className="text-gray-600 text-lg">
+        <p className="text-gray-900 dark:text-gray-100 text-lg">
           Chọn 2-3 thẻ bất kỳ để xem mối quan hệ giữa chúng
         </p>
       </motion.div>
@@ -488,7 +488,7 @@ export const FlashCardComparison = () => {
             >
               <div className="text-center">
                 <div className="text-6xl mb-2">+</div>
-                <div className="font-bold text-gray-600">Chọn Thẻ 1</div>
+                <div className="font-bold text-gray-900 dark:text-gray-100">Chọn Thẻ 1</div>
               </div>
             </button>
           )}
@@ -526,7 +526,7 @@ export const FlashCardComparison = () => {
             >
               <div className="text-center">
                 <div className="text-6xl mb-2">+</div>
-                <div className="font-bold text-gray-600">Chọn Thẻ 2</div>
+                <div className="font-bold text-gray-900 dark:text-gray-100">Chọn Thẻ 2</div>
               </div>
             </button>
           )}
@@ -565,7 +565,7 @@ export const FlashCardComparison = () => {
             >
               <div className="text-center">
                 <div className="text-6xl mb-2">+</div>
-                <div className="font-bold text-gray-600">Chọn Thẻ 3</div>
+                <div className="font-bold text-gray-900 dark:text-gray-100">Chọn Thẻ 3</div>
               </div>
             </button>
           )}
@@ -595,8 +595,8 @@ export const FlashCardComparison = () => {
                       <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
                         <div className="flex items-center justify-between mb-4">
                           <div>
-                            <h4 className="text-xl font-black text-gray-800">{rel.category}</h4>
-                            <div className="text-sm text-gray-600 font-semibold mt-1">{rel.pair}</div>
+                            <h4 className="text-xl font-black text-gray-900 dark:text-gray-100">{rel.category}</h4>
+                            <div className="text-sm text-gray-900 dark:text-gray-100 font-semibold mt-1">{rel.pair}</div>
                           </div>
                           <span className={`text-4xl ${rel.color}`}>{rel.icon}</span>
                         </div>
@@ -606,9 +606,9 @@ export const FlashCardComparison = () => {
                               {rel.label}
                             </span>
                           </div>
-                          <div className="text-gray-700 font-semibold">{rel.desc}</div>
+                          <div className="text-gray-900 dark:text-gray-100 font-semibold">{rel.desc}</div>
                           {rel.detail && (
-                            <div className="text-sm text-gray-600 italic bg-gray-50 p-3 rounded-lg">
+                            <div className="text-sm text-gray-900 dark:text-gray-100 italic bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
                               💡 {rel.detail}
                             </div>
                           )}
@@ -721,10 +721,10 @@ export const FlashCardComparison = () => {
 
       {/* Chú thích */}
       <div className="mt-8 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border-2 border-indigo-200">
-        <h4 className="font-black text-lg mb-4 text-gray-800 flex items-center gap-2">
+        <h4 className="font-black text-lg mb-4 text-gray-900 dark:text-gray-100 flex items-center gap-2">
           <span>💡</span> Hướng dẫn sử dụng:
         </h4>
-        <div className="space-y-2 text-sm text-gray-700">
+        <div className="space-y-2 text-sm text-gray-900 dark:text-gray-100">
           <p><span className="font-bold">• Bước 1:</span> Click vào ô "Chọn Thẻ 1" và chọn một thẻ bất kỳ (Ngũ Hành, Thiên Can, hoặc Địa Chi)</p>
           <p><span className="font-bold">• Bước 2:</span> Click vào ô "Chọn Thẻ 2" và chọn thẻ thứ hai</p>
           <p><span className="font-bold">• Bước 3:</span> (Tùy chọn) Click vào ô "Chọn Thẻ 3" để so sánh thêm thẻ thứ ba</p>
@@ -748,7 +748,7 @@ export const FlashCardComparison = () => {
           <p><span className="font-bold text-red-400">• Tương Phá 💥:</span> Phá hoại quan hệ (Tý-Dậu, Mão-Ngọ...)</p>
           <p><span className="font-bold text-orange-600">• Tự Hình 🔄:</span> Thìn-Thìn, Ngọ-Ngọ, Dậu-Dậu, Hợi-Hợi</p>
 
-          <p className="mt-4 text-xs italic text-gray-600">💡 Lưu ý: Địa Chi có thể có NHIỀU quan hệ cùng lúc (VD: Tị-Thân vừa Lục Hợp, vừa Tương Phá)</p>
+          <p className="mt-4 text-xs italic text-gray-900 dark:text-gray-100">💡 Lưu ý: Địa Chi có thể có NHIỀU quan hệ cùng lúc (VD: Tị-Thân vừa Lục Hợp, vừa Tương Phá)</p>
         </div>
       </div>
     </div>
