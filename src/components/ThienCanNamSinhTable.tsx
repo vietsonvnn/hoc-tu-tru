@@ -82,9 +82,9 @@ export const ThienCanNamSinhTable = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`${colors.text} font-bold text-lg drop-shadow-sm`}>
+                      <div className={`inline-flex items-center ${colors.bg} ${colors.text} px-3 py-1 rounded-lg font-bold text-base border ${colors.border}`}>
                         {can.nguHanh}
-                      </span>
+                      </div>
                     </td>
                     <td className="px-6 py-4 text-center">
                       <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900 border-2 border-indigo-300 dark:border-indigo-700">
