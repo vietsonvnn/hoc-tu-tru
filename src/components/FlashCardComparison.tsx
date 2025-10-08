@@ -183,7 +183,8 @@ const analyzeDiaChiRelation = (chi1: string, chi2: string) => {
 export const FlashCardComparison = () => {
   const [card1, setCard1] = useState<Card | null>(null);
   const [card2, setCard2] = useState<Card | null>(null);
-  const [selectingCard, setSelectingCard] = useState<1 | 2 | null>(null);
+  const [card3, setCard3] = useState<Card | null>(null);
+  const [selectingCard, setSelectingCard] = useState<1 | 2 | 3 | null>(null);
 
   const handleCardSelect = (card: Card) => {
     if (selectingCard === 1) {
@@ -192,35 +193,45 @@ export const FlashCardComparison = () => {
     } else if (selectingCard === 2) {
       setCard2(card);
       setSelectingCard(null);
+    } else if (selectingCard === 3) {
+      setCard3(card);
+      setSelectingCard(null);
     }
   };
 
-  const analyzeRelation = () => {
-    if (!card1 || !card2) return null;
+  const handleSwap = () => {
+    const temp = card1;
+    setCard1(card2);
+    setCard2(temp);
+  };
 
+  const analyzeRelation = (c1: Card, c2: Card) => {
     const results = [];
 
     // Quan hệ Ngũ Hành
-    const nguHanhRelation = analyzeNguHanhRelation(card1.nguHanh, card2.nguHanh);
+    const nguHanhRelation = analyzeNguHanhRelation(c1.nguHanh, c2.nguHanh);
     results.push({
       category: 'Quan Hệ Ngũ Hành',
+      pair: `${c1.name} ↔ ${c2.name}`,
       ...nguHanhRelation
     });
 
     // Nếu cả 2 đều là Thiên Can
-    if (card1.type === 'thiencan' && card2.type === 'thiencan') {
-      const canRelation = analyzeThienCanRelation(card1.name, card2.name);
+    if (c1.type === 'thiencan' && c2.type === 'thiencan') {
+      const canRelation = analyzeThienCanRelation(c1.name, c2.name);
       results.push({
         category: 'Quan Hệ Thiên Can',
+        pair: `${c1.name} ↔ ${c2.name}`,
         ...canRelation
       });
     }
 
     // Nếu cả 2 đều là Địa Chi
-    if (card1.type === 'diachi' && card2.type === 'diachi') {
-      const chiRelation = analyzeDiaChiRelation(card1.name, card2.name);
+    if (c1.type === 'diachi' && c2.type === 'diachi') {
+      const chiRelation = analyzeDiaChiRelation(c1.name, c2.name);
       results.push({
         category: 'Quan Hệ Địa Chi',
+        pair: `${c1.name} ↔ ${c2.name}`,
         ...chiRelation
       });
     }
@@ -228,7 +239,34 @@ export const FlashCardComparison = () => {
     return results;
   };
 
-  const relation = analyzeRelation();
+  const getAllRelations = () => {
+    const allRelations = [];
+
+    if (card1 && card2) {
+      allRelations.push({
+        title: 'Thẻ 1 ↔ Thẻ 2',
+        relations: analyzeRelation(card1, card2)
+      });
+    }
+
+    if (card1 && card3) {
+      allRelations.push({
+        title: 'Thẻ 1 ↔ Thẻ 3',
+        relations: analyzeRelation(card1, card3)
+      });
+    }
+
+    if (card2 && card3) {
+      allRelations.push({
+        title: 'Thẻ 2 ↔ Thẻ 3',
+        relations: analyzeRelation(card2, card3)
+      });
+    }
+
+    return allRelations.length > 0 ? allRelations : null;
+  };
+
+  const allRelations = getAllRelations();
 
   return (
     <div className="w-full max-w-7xl mx-auto">
@@ -241,12 +279,29 @@ export const FlashCardComparison = () => {
           So Sánh Quan Hệ Flashcard
         </h2>
         <p className="text-gray-600 text-lg">
-          Chọn 2 thẻ bất kỳ để xem mối quan hệ giữa chúng
+          Chọn 2-3 thẻ bất kỳ để xem mối quan hệ giữa chúng
         </p>
       </motion.div>
 
-      {/* Khu vực chọn 2 thẻ */}
-      <div className="grid md:grid-cols-2 gap-8 mb-12">
+      {/* Khu vực chọn 3 thẻ */}
+      <div className="grid md:grid-cols-3 gap-6 mb-8">
+        {/* Nút hoán đổi giữa thẻ 1 và 2 */}
+        {card1 && card2 && (
+          <div className="md:col-span-3 flex justify-center -mb-4 relative z-10">
+            <motion.button
+              onClick={handleSwap}
+              whileHover={{ scale: 1.1, rotate: 180 }}
+              whileTap={{ scale: 0.9 }}
+              className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+            >
+              <span className="text-xl">⇄</span>
+              Hoán Đổi Thẻ 1 ↔ 2
+            </motion.button>
+          </div>
+        )}
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-6 mb-12">
         {/* Thẻ 1 */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -322,47 +377,93 @@ export const FlashCardComparison = () => {
             </button>
           )}
         </motion.div>
+
+        {/* Thẻ 3 (Optional) */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl"
+        >
+          <h3 className="text-2xl font-black mb-4 text-center text-pink-600">Thẻ 3 (Tùy chọn)</h3>
+          {card3 ? (
+            <div className={`${getNguHanhColor(card3.nguHanh).bg} rounded-2xl p-6 border-4 ${getNguHanhColor(card3.nguHanh).border}`}>
+              <div className="text-center">
+                <div className="text-4xl font-black mb-2">{card3.name}</div>
+                <div className="text-sm font-semibold opacity-80">
+                  {card3.type === 'nguhanh' && 'Ngũ Hành'}
+                  {card3.type === 'thiencan' && 'Thiên Can'}
+                  {card3.type === 'diachi' && 'Địa Chi'}
+                </div>
+                <div className="text-sm font-bold mt-1">({card3.nguHanh})</div>
+              </div>
+              <button
+                onClick={() => setCard3(null)}
+                className="mt-4 w-full bg-white/30 hover:bg-white/50 py-2 rounded-lg font-bold transition-all"
+              >
+                Xóa
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setSelectingCard(3)}
+              className="w-full h-48 border-4 border-dashed border-gray-300 rounded-2xl hover:border-pink-400 hover:bg-pink-50/50 transition-all duration-300 flex items-center justify-center"
+            >
+              <div className="text-center">
+                <div className="text-6xl mb-2">+</div>
+                <div className="font-bold text-gray-600">Chọn Thẻ 3</div>
+              </div>
+            </button>
+          )}
+        </motion.div>
       </div>
 
       {/* Hiển thị kết quả phân tích */}
       <AnimatePresence>
-        {relation && (
+        {allRelations && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className="mb-12"
           >
-            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-8 shadow-2xl border-2 border-indigo-200">
-              <h3 className="text-3xl font-black mb-6 text-center text-indigo-800 flex items-center justify-center gap-3">
-                <span>⚡</span>
-                Kết Quả Phân Tích Quan Hệ
-                <span>⚡</span>
-              </h3>
+            <div className="space-y-8">
+              {allRelations.map((relationGroup, groupIndex) => (
+                <div key={groupIndex} className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-8 shadow-2xl border-2 border-indigo-200">
+                  <h3 className="text-3xl font-black mb-6 text-center text-indigo-800 flex items-center justify-center gap-3">
+                    <span>⚡</span>
+                    {relationGroup.title}
+                    <span>⚡</span>
+                  </h3>
 
-              <div className="space-y-6">
-                {relation.map((rel, index) => (
-                  <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-xl font-black text-gray-800">{rel.category}</h4>
-                      <span className={`text-4xl ${rel.color}`}>{rel.icon}</span>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-3">
-                        <span className={`px-4 py-2 rounded-xl font-black text-lg ${rel.color} bg-white shadow-md`}>
-                          {rel.label}
-                        </span>
-                      </div>
-                      <div className="text-gray-700 font-semibold">{rel.desc}</div>
-                      {rel.detail && (
-                        <div className="text-sm text-gray-600 italic bg-gray-50 p-3 rounded-lg">
-                          💡 {rel.detail}
+                  <div className="space-y-6">
+                    {relationGroup.relations.map((rel: any, index: number) => (
+                      <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
+                        <div className="flex items-center justify-between mb-4">
+                          <div>
+                            <h4 className="text-xl font-black text-gray-800">{rel.category}</h4>
+                            <div className="text-sm text-gray-600 font-semibold mt-1">{rel.pair}</div>
+                          </div>
+                          <span className={`text-4xl ${rel.color}`}>{rel.icon}</span>
                         </div>
-                      )}
-                    </div>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-3">
+                            <span className={`px-4 py-2 rounded-xl font-black text-lg ${rel.color} bg-white shadow-md`}>
+                              {rel.label}
+                            </span>
+                          </div>
+                          <div className="text-gray-700 font-semibold">{rel.desc}</div>
+                          {rel.detail && (
+                            <div className="text-sm text-gray-600 italic bg-gray-50 p-3 rounded-lg">
+                              💡 {rel.detail}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </motion.div>
         )}
@@ -472,7 +573,9 @@ export const FlashCardComparison = () => {
         <div className="space-y-2 text-sm text-gray-700">
           <p><span className="font-bold">• Bước 1:</span> Click vào ô "Chọn Thẻ 1" và chọn một thẻ bất kỳ (Ngũ Hành, Thiên Can, hoặc Địa Chi)</p>
           <p><span className="font-bold">• Bước 2:</span> Click vào ô "Chọn Thẻ 2" và chọn thẻ thứ hai</p>
-          <p><span className="font-bold">• Bước 3:</span> Xem kết quả phân tích quan hệ giữa 2 thẻ</p>
+          <p><span className="font-bold">• Bước 3:</span> (Tùy chọn) Click vào ô "Chọn Thẻ 3" để so sánh thêm thẻ thứ ba</p>
+          <p><span className="font-bold">• Hoán đổi:</span> Click nút "Hoán Đổi" để đổi vị trí Thẻ 1 và Thẻ 2</p>
+          <p><span className="font-bold">• Kết quả:</span> Xem phân tích quan hệ giữa tất cả các cặp thẻ (1↔2, 1↔3, 2↔3)</p>
           <p className="mt-4 font-bold">Các loại quan hệ:</p>
           <p><span className="font-bold text-green-600">• Tương Sinh:</span> Hỗ trợ, nuôi dưỡng lẫn nhau</p>
           <p><span className="font-bold text-red-600">• Tương Khắc:</span> Kiểm soát, chế ngự</p>
