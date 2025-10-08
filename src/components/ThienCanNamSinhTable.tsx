@@ -77,12 +77,12 @@ export const ThienCanNamSinhTable = () => {
                     }`}
                   >
                     <td className="px-6 py-4">
-                      <div className={`inline-flex items-center gap-2 ${colors.bg} ${colors.text} px-4 py-2 rounded-xl font-bold border-2 ${colors.border}`}>
-                        {can.ten}
+                      <div className={`inline-flex items-center gap-2 ${colors.bg} px-4 py-2 rounded-xl font-bold border-2 ${colors.border}`}>
+                        <span className={`${colors.text} drop-shadow-sm`}>{can.ten}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`${colors.text} font-bold`}>
+                      <span className={`${colors.text} font-bold text-lg drop-shadow-sm`}>
                         {can.nguHanh}
                       </span>
                     </td>
@@ -217,8 +217,8 @@ export const ThienCanNamSinhTable = () => {
         </h3>
         <ul className="list-disc list-inside space-y-2 text-slate-700 dark:text-slate-300">
           <li>Mỗi <strong>Ngũ Hành</strong> có 2 Thiên Can: 1 Dương và 1 Âm</li>
-          <li><strong>Dương Can</strong>: Giáp, Bính, Mậu, Canh, Nhâm (số chẵn: 0, 2, 4, 6, 8)</li>
-          <li><strong>Âm Can</strong>: Ất, Đinh, Kỷ, Tân, Quý (số lẻ: 1, 3, 5, 7, 9)</li>
+          <li><strong>Dương Can</strong>: Canh (0), Nhâm (2), Giáp (4), Bính (6), Mậu (8)</li>
+          <li><strong>Âm Can</strong>: Tân (1), Quý (3), Ất (5), Đinh (7), Kỷ (9)</li>
           <li>Cứ 10 năm lại lặp lại 1 chu kỳ Thiên Can</li>
         </ul>
       </div>

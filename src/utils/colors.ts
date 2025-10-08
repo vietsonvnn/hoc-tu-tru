@@ -4,8 +4,8 @@ export const getNguHanhColor = (loai: NguHanhType) => {
   const colors = {
     Kim: {
       bg: 'bg-gradient-to-br from-gray-100 to-gray-200',
-      text: 'text-gray-800',
-      border: 'border-gray-300',
+      text: 'text-gray-900',
+      border: 'border-gray-400',
       hover: 'hover:shadow-gray-300',
     },
     Mộc: {
