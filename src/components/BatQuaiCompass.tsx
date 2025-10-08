@@ -140,38 +140,67 @@ export const BatQuaiCompass = () => {
         </p>
       </motion.div>
 
-      <div className="relative w-full aspect-square max-w-3xl mx-auto mb-8">
-        {/* Vòng tròn ngoài */}
-        <div className="absolute inset-0 rounded-full border-8 border-gray-300 bg-gradient-to-br from-gray-50 to-gray-100 shadow-2xl"></div>
+      <div className="relative w-full aspect-square max-w-4xl mx-auto mb-8">
+        {/* Vòng tròn ngoài - gradient đẹp hơn */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 shadow-2xl">
+          <div className="absolute inset-2 rounded-full bg-gradient-to-br from-amber-50 via-white to-blue-50"></div>
+        </div>
 
-        {/* Các đường chia hướng */}
+        {/* Vòng tròn giữa - tạo độ sâu */}
+        <div className="absolute inset-[15%] rounded-full bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 shadow-inner"></div>
+
+        {/* Các đường chia hướng - đẹp hơn với gradient */}
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#e0e7ff', stopOpacity: 0.8 }} />
+              <stop offset="50%" style={{ stopColor: '#c7d2fe', stopOpacity: 0.6 }} />
+              <stop offset="100%" style={{ stopColor: '#e0e7ff', stopOpacity: 0.8 }} />
+            </linearGradient>
+            <radialGradient id="centerGradient">
+              <stop offset="0%" style={{ stopColor: '#fef3c7', stopOpacity: 0.3 }} />
+              <stop offset="100%" style={{ stopColor: '#fef3c7', stopOpacity: 0 }} />
+            </radialGradient>
+          </defs>
+
+          {/* Vòng tròn trung tâm sáng */}
+          <circle cx="50" cy="50" r="12" fill="url(#centerGradient)" />
+
           {/* Đường thẳng đứng */}
-          <line x1="50" y1="10" x2="50" y2="90" stroke="#cbd5e1" strokeWidth="0.5" />
+          <line x1="50" y1="8" x2="50" y2="92" stroke="url(#lineGradient)" strokeWidth="1" opacity="0.6" />
           {/* Đường ngang */}
-          <line x1="10" y1="50" x2="90" y2="50" stroke="#cbd5e1" strokeWidth="0.5" />
+          <line x1="8" y1="50" x2="92" y2="50" stroke="url(#lineGradient)" strokeWidth="1" opacity="0.6" />
           {/* Đường chéo 1 */}
-          <line x1="20" y1="20" x2="80" y2="80" stroke="#cbd5e1" strokeWidth="0.5" />
+          <line x1="16" y1="16" x2="84" y2="84" stroke="url(#lineGradient)" strokeWidth="0.8" opacity="0.5" />
           {/* Đường chéo 2 */}
-          <line x1="80" y1="20" x2="20" y2="80" stroke="#cbd5e1" strokeWidth="0.5" />
+          <line x1="84" y1="16" x2="16" y2="84" stroke="url(#lineGradient)" strokeWidth="0.8" opacity="0.5" />
+
+          {/* Vòng tròn trang trí */}
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#e0e7ff" strokeWidth="0.5" opacity="0.3" />
+          <circle cx="50" cy="50" r="30" fill="none" stroke="#c7d2fe" strokeWidth="0.5" opacity="0.3" />
+
+          {/* Chỉ dẫn hướng chính (N, S, E, W) */}
+          <text x="50" y="6" textAnchor="middle" className="fill-red-600 text-[4px] font-black">N</text>
+          <text x="50" y="96" textAnchor="middle" className="fill-gray-600 text-[4px] font-black">S</text>
+          <text x="95" y="52" textAnchor="middle" className="fill-gray-600 text-[4px] font-black">E</text>
+          <text x="5" y="52" textAnchor="middle" className="fill-gray-600 text-[4px] font-black">W</text>
         </svg>
 
         {/* Trung Cung */}
         <motion.div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20"
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.1, rotate: 180 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => handleDirectionClick(centerInfo)}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
         >
           <div
             className={`${getNguHanhColor(centerInfo.nguHanh).bg} ${
-              selectedDirection?.huong === centerInfo.huong ? 'ring-4 ring-yellow-500' : ''
-            } w-24 h-24 rounded-full flex items-center justify-center shadow-xl border-4 border-white`}
+              selectedDirection?.huong === centerInfo.huong ? 'ring-4 ring-yellow-400 shadow-2xl shadow-yellow-400/50' : 'shadow-xl'
+            } w-28 h-28 rounded-full flex flex-col items-center justify-center border-4 border-white backdrop-blur-sm transition-all duration-300`}
           >
-            <div className="text-center">
-              <div className="text-2xl font-black text-white">☯</div>
-              <div className="text-xs font-bold text-white mt-1">Trung</div>
-            </div>
+            <div className="text-4xl mb-1">☯</div>
+            <div className="text-xs font-black text-gray-800">Trung Cung</div>
           </div>
         </motion.div>
 
@@ -188,23 +217,33 @@ export const BatQuaiCompass = () => {
                 ...direction.position,
                 transform: `translate(-50%, -50%)`,
               }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.15 }}
+              initial={{ opacity: 0, scale: 0, rotate: -180 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{
+                delay: index * 0.08,
+                type: "spring",
+                stiffness: 200,
+                damping: 15
+              }}
+              whileHover={{
+                scale: 1.2,
+                rotate: [0, -10, 10, 0],
+                transition: { duration: 0.3 }
+              }}
               whileTap={{ scale: 0.9 }}
               onClick={() => handleDirectionClick(direction)}
             >
               <div
-                className={`${colors.bg} ${isSelected ? 'ring-4 ring-white' : ''}
-                  w-24 h-24 rounded-full flex flex-col items-center justify-center shadow-lg
-                  border-4 ${colors.border} transition-all duration-300`}
+                className={`${colors.bg} ${isSelected ? 'ring-4 ring-white shadow-2xl shadow-white/50 scale-110' : 'shadow-xl'}
+                  w-28 h-28 rounded-full flex flex-col items-center justify-center
+                  border-4 ${colors.border} transition-all duration-300 backdrop-blur-sm
+                  hover:border-white`}
               >
-                <div className="text-3xl mb-1">{direction.kyHieu}</div>
-                <div className={`text-xs font-black ${colors.text}`}>
+                <div className="text-4xl mb-0.5 drop-shadow-lg">{direction.kyHieu}</div>
+                <div className={`text-[10px] font-black ${colors.text} leading-tight`}>
                   {direction.huong}
                 </div>
-                <div className={`text-xs font-bold ${colors.text} opacity-80`}>
+                <div className={`text-[9px] font-bold ${colors.text} opacity-90 leading-tight`}>
                   {direction.que}
                 </div>
               </div>
