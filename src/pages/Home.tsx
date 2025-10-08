@@ -41,6 +41,63 @@ export const Home = () => {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmN2JiNGYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE4YzAtOS45NCAxNi05Ljk0IDE2IDBzLTE2IDkuOTQtMTYgMHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30"></div>
 
       <div className="relative max-w-7xl mx-auto py-12 px-4">
+        {/* Phụ Lục Navigation - đặt lên trên cùng */}
+        <div className="mb-8">
+          <h2 className="text-xl font-black text-center mb-4 text-gray-800 dark:text-gray-100">
+            📖 Phụ Lục Tham Khảo
+          </h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            <button
+              onClick={() => setLesson('phuluc1')}
+              className={`group relative px-6 py-3 rounded-2xl font-bold text-base transition-all duration-300 ${
+                lesson === 'phuluc1'
+                  ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-xl shadow-emerald-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-lg hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>📖</span>
+                Bát Quái & Cơ Thể
+              </span>
+              {lesson === 'phuluc1' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+            <button
+              onClick={() => setLesson('phuluc2')}
+              className={`group relative px-6 py-3 rounded-2xl font-bold text-base transition-all duration-300 ${
+                lesson === 'phuluc2'
+                  ? 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-xl shadow-pink-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-lg hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>🔄</span>
+                So Sánh Quan Hệ
+              </span>
+              {lesson === 'phuluc2' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-400 to-rose-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+            <button
+              onClick={() => setLesson('phuluc3')}
+              className={`group relative px-6 py-3 rounded-2xl font-bold text-base transition-all duration-300 ${
+                lesson === 'phuluc3'
+                  ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-xl shadow-cyan-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-lg hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>👋</span>
+                Quy Tắc Bàn Tay
+              </span>
+              {lesson === 'phuluc3' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+          </div>
+        </div>
+
         {/* Header với gradient text */}
         <header className="text-center mb-16">
           <div className="inline-block mb-6">
@@ -64,9 +121,6 @@ export const Home = () => {
 
         {/* Main Lesson Navigation */}
         <div className="mb-12">
-          <h2 className="text-2xl font-black text-center mb-6 text-gray-800 dark:text-gray-100">
-            📚 Bài Học Chính
-          </h2>
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <button
               onClick={() => setLesson('bai1')}
@@ -114,60 +168,6 @@ export const Home = () => {
               </span>
               {lesson === 'bai3' && (
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-violet-400 to-fuchsia-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-              )}
-            </button>
-          </div>
-
-          <h2 className="text-2xl font-black text-center mb-6 text-gray-800 dark:text-gray-100">
-            📖 Phụ Lục Tham Khảo
-          </h2>
-          <div className="flex flex-wrap justify-center gap-4">
-            <button
-              onClick={() => setLesson('phuluc1')}
-              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                lesson === 'phuluc1'
-                  ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-2xl shadow-emerald-500/50 scale-105'
-                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-              }`}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <span>📖</span>
-                Bát Quái & Cơ Thể
-              </span>
-              {lesson === 'phuluc1' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-              )}
-            </button>
-            <button
-              onClick={() => setLesson('phuluc2')}
-              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                lesson === 'phuluc2'
-                  ? 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-2xl shadow-pink-500/50 scale-105'
-                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-              }`}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <span>🔄</span>
-                So Sánh Quan Hệ
-              </span>
-              {lesson === 'phuluc2' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-400 to-rose-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-              )}
-            </button>
-            <button
-              onClick={() => setLesson('phuluc3')}
-              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                lesson === 'phuluc3'
-                  ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-2xl shadow-cyan-500/50 scale-105'
-                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-              }`}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <span>👋</span>
-                Quy Tắc Bàn Tay
-              </span>
-              {lesson === 'phuluc3' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
               )}
             </button>
           </div>
