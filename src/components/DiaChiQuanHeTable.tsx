@@ -48,9 +48,9 @@ export const DiaChiQuanHeTable = () => {
           <table className="w-full">
             <thead>
               <tr className="bg-blue-100 dark:bg-blue-950">
-                <th className="px-6 py-4 text-left font-black text-lg">Địa Chi</th>
-                <th className="px-6 py-4 text-left font-black text-lg">💫 Lục Hợp</th>
-                <th className="px-6 py-4 text-left font-black text-lg">⚡ Lục Xung</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-gray-900 dark:text-gray-100">Địa Chi</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-gray-900 dark:text-gray-100">💫 Lục Hợp</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-gray-900 dark:text-gray-100">⚡ Lục Xung</th>
               </tr>
             </thead>
             <tbody>
@@ -141,9 +141,9 @@ export const DiaChiQuanHeTable = () => {
           <table className="w-full">
             <thead>
               <tr className="bg-purple-100 dark:bg-purple-950">
-                <th className="px-6 py-4 text-left font-black text-lg">Địa Chi</th>
-                <th className="px-6 py-4 text-left font-black text-lg">🔮 Tam Hợp</th>
-                <th className="px-6 py-4 text-left font-black text-lg">🌸 Tam Hội</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-gray-900 dark:text-gray-100">Địa Chi</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-gray-900 dark:text-gray-100">🔮 Tam Hợp</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-gray-900 dark:text-gray-100">🌸 Tam Hội</th>
               </tr>
             </thead>
             <tbody>
@@ -217,10 +217,10 @@ export const DiaChiQuanHeTable = () => {
           <table className="w-full">
             <thead>
               <tr className="bg-orange-100 dark:bg-orange-950">
-                <th className="px-6 py-4 text-left font-black text-lg">Địa Chi</th>
-                <th className="px-6 py-4 text-left font-black text-lg">⚔ Tương Hình</th>
-                <th className="px-6 py-4 text-left font-black text-lg">💔 Lục Hại</th>
-                <th className="px-6 py-4 text-left font-black text-lg">💥 Lục Phá</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-gray-900 dark:text-gray-100">Địa Chi</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-gray-900 dark:text-gray-100">⚔ Tương Hình</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-gray-900 dark:text-gray-100">💔 Lục Hại</th>
+                <th className="px-6 py-4 text-left font-black text-lg text-gray-900 dark:text-gray-100">💥 Lục Phá</th>
               </tr>
             </thead>
             <tbody>
