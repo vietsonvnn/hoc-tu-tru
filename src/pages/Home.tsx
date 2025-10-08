@@ -183,22 +183,6 @@ export const Home = () => {
                 )}
               </button>
               <button
-                onClick={() => setBai1View('video')}
-                className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                  bai1View === 'video'
-                    ? 'bg-gradient-to-r from-red-600 to-pink-700 text-white shadow-2xl shadow-red-500/50 scale-105'
-                    : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-                }`}
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  <span>📺</span>
-                  Video
-                </span>
-                {bai1View === 'video' && (
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-                )}
-              </button>
-              <button
                 onClick={() => setBai1View('amduong')}
                 className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
                   bai1View === 'amduong'
@@ -228,6 +212,22 @@ export const Home = () => {
                 </span>
                 {bai1View === 'nguhanh' && (
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+                )}
+              </button>
+              <button
+                onClick={() => setBai1View('video')}
+                className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                  bai1View === 'video'
+                    ? 'bg-gradient-to-r from-red-600 to-pink-700 text-white shadow-2xl shadow-red-500/50 scale-105'
+                    : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+                }`}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <span>📺</span>
+                  Video
+                </span>
+                {bai1View === 'video' && (
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
                 )}
               </button>
             </div>
@@ -309,22 +309,6 @@ export const Home = () => {
         {lesson === 'bai2' && (
           <div className="flex flex-wrap justify-center gap-3 mb-12">
             <button
-              onClick={() => setBai2View('video')}
-              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                bai2View === 'video'
-                  ? 'bg-gradient-to-r from-red-600 to-pink-700 text-white shadow-2xl shadow-red-500/50 scale-105'
-                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
-              }`}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <span>📺</span>
-                Video
-              </span>
-              {bai2View === 'video' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-              )}
-            </button>
-            <button
               onClick={() => setBai2View('thiencan')}
               className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
                 bai2View === 'thiencan'
@@ -388,15 +372,10 @@ export const Home = () => {
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
               )}
             </button>
-          </div>
-        )}
-
-        {lesson === 'bai3' && (
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
             <button
-              onClick={() => setBai3View('video')}
+              onClick={() => setBai2View('video')}
               className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                bai3View === 'video'
+                bai2View === 'video'
                   ? 'bg-gradient-to-r from-red-600 to-pink-700 text-white shadow-2xl shadow-red-500/50 scale-105'
                   : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
               }`}
@@ -405,10 +384,15 @@ export const Home = () => {
                 <span>📺</span>
                 Video
               </span>
-              {bai3View === 'video' && (
+              {bai2View === 'video' && (
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
               )}
             </button>
+          </div>
+        )}
+
+        {lesson === 'bai3' && (
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
             <button
               onClick={() => setBai3View('tangcan')}
               className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
@@ -455,6 +439,22 @@ export const Home = () => {
               </span>
               {bai3View === 'poem' && (
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+            <button
+              onClick={() => setBai3View('video')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                bai3View === 'video'
+                  ? 'bg-gradient-to-r from-red-600 to-pink-700 text-white shadow-2xl shadow-red-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>📺</span>
+                Video
+              </span>
+              {bai3View === 'video' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
               )}
             </button>
           </div>
