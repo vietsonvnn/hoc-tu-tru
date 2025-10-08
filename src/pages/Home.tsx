@@ -13,10 +13,10 @@ import { BatQuaiCompass } from '../components/BatQuaiCompass';
 import { BodyMap } from '../components/BodyMap';
 
 export const Home = () => {
-  const [lesson, setLesson] = useState<'bai1' | 'bai2' | 'bai3'>('bai1');
+  const [lesson, setLesson] = useState<'bai1' | 'bai2' | 'phuluc1'>('bai1');
   const [view, setView] = useState<'cards' | 'seasons' | 'relations'>('cards');
   const [bai2View, setBai2View] = useState<'thiencan' | 'diachi' | 'relations'>('thiencan');
-  const [bai3View, setBai3View] = useState<'huong' | 'cothe'>('huong');
+  const [phuLuc1View, setPhuLuc1View] = useState<'huong' | 'cothe'>('huong');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
@@ -78,19 +78,19 @@ export const Home = () => {
             )}
           </button>
           <button
-            onClick={() => setLesson('bai3')}
+            onClick={() => setLesson('phuluc1')}
             className={`group relative px-10 py-5 rounded-3xl font-black text-xl transition-all duration-300 ${
-              lesson === 'bai3'
-                ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white shadow-2xl shadow-green-500/50 scale-105'
+              lesson === 'phuluc1'
+                ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-2xl shadow-emerald-500/50 scale-105'
                 : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
             }`}
           >
             <span className="relative z-10 flex items-center gap-3">
-              <span>🧭</span>
-              Bài 3: Ứng Dụng
+              <span>📖</span>
+              Phụ Lục 1: Bát Quái & Cơ Thể
             </span>
-            {lesson === 'bai3' && (
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-green-400 to-teal-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+            {lesson === 'phuluc1' && (
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-emerald-400 to-teal-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
             )}
           </button>
         </div>
@@ -202,13 +202,13 @@ export const Home = () => {
           </div>
         )}
 
-        {lesson === 'bai3' && (
+        {lesson === 'phuluc1' && (
           <div className="flex flex-wrap justify-center gap-3 mb-12">
             <button
-              onClick={() => setBai3View('huong')}
+              onClick={() => setPhuLuc1View('huong')}
               className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                bai3View === 'huong'
-                  ? 'bg-gradient-to-r from-green-600 to-teal-700 text-white shadow-2xl shadow-green-500/50 scale-105'
+                phuLuc1View === 'huong'
+                  ? 'bg-gradient-to-r from-purple-600 to-indigo-700 text-white shadow-2xl shadow-purple-500/50 scale-105'
                   : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
               }`}
             >
@@ -216,15 +216,15 @@ export const Home = () => {
                 <span>🧭</span>
                 Bát Quái - Hướng
               </span>
-              {bai3View === 'huong' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-400 to-teal-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              {phuLuc1View === 'huong' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400 to-indigo-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
               )}
             </button>
             <button
-              onClick={() => setBai3View('cothe')}
+              onClick={() => setPhuLuc1View('cothe')}
               className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
-                bai3View === 'cothe'
-                  ? 'bg-gradient-to-r from-cyan-600 to-blue-700 text-white shadow-2xl shadow-cyan-500/50 scale-105'
+                phuLuc1View === 'cothe'
+                  ? 'bg-gradient-to-r from-rose-600 to-pink-700 text-white shadow-2xl shadow-rose-500/50 scale-105'
                   : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
               }`}
             >
@@ -232,8 +232,8 @@ export const Home = () => {
                 <span>🫀</span>
                 Cơ Thể Người
               </span>
-              {bai3View === 'cothe' && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              {phuLuc1View === 'cothe' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-rose-400 to-pink-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
               )}
             </button>
           </div>
@@ -302,10 +302,10 @@ export const Home = () => {
           </>
         )}
 
-        {lesson === 'bai3' && (
+        {lesson === 'phuluc1' && (
           <>
-            {bai3View === 'huong' && <BatQuaiCompass />}
-            {bai3View === 'cothe' && <BodyMap />}
+            {phuLuc1View === 'huong' && <BatQuaiCompass />}
+            {phuLuc1View === 'cothe' && <BodyMap />}
           </>
         )}
 
