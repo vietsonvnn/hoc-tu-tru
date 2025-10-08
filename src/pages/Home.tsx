@@ -43,9 +43,6 @@ export const Home = () => {
       <div className="relative max-w-7xl mx-auto py-12 px-4">
         {/* Phụ Lục Navigation - đặt lên trên cùng */}
         <div className="mb-8">
-          <h2 className="text-xl font-black text-center mb-4 text-gray-800 dark:text-gray-100">
-            📖 Phụ Lục Tham Khảo
-          </h2>
           <div className="flex flex-wrap justify-center gap-3">
             <button
               onClick={() => setLesson('phuluc1')}
