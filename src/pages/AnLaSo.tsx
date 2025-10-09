@@ -2,7 +2,6 @@ import { useState } from 'react';
 import BaziForm, { type BaziFormData } from '../components/BaziForm';
 import BaziChart from '../components/BaziChart';
 import { calculateBazi, type BaziChart as BaziChartType } from '../utils/baziCalculator';
-import { getLunarMonth } from '../utils/lunarCalendar';
 import { getSaoThan } from '../data/saoThan';
 
 export default function AnLaSo() {
@@ -11,11 +10,8 @@ export default function AnLaSo() {
   const [gender, setGender] = useState<'Nam' | 'Nữ'>('Nam');
 
   const handleFormSubmit = (data: BaziFormData) => {
-    // Calculate lunar month (simplified)
-    const lunarMonth = getLunarMonth(data.year, data.month, data.day);
-
-    // Calculate Bazi chart
-    const chart = calculateBazi(data.year, data.month, data.day, data.hour, lunarMonth);
+    // Calculate Bazi chart (no longer needs lunar month - calculated internally)
+    const chart = calculateBazi(data.year, data.month, data.day, data.hour);
 
     // Calculate stars
     const calculatedStars = getSaoThan(

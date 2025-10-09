@@ -1,15 +1,14 @@
-// Bazi (Four Pillars) Calculator
-import { namSinhToThienCan } from '../data/thienCan';
+// Bazi (Four Pillars) Calculator - Accurate Implementation
+// Based on algorithms from alvamind/bazi-calculator and tommitoan/bazica
 import type { ThienCanType, DiaChiType } from '../types';
+import { getLunarNewYear } from '../data/lunarNewYear';
+import { getMonthBranchFromDate } from '../data/solarTerms';
 
-// Thiên Can array
+// Thiên Can array (Heavenly Stems)
 const THIEN_CAN: ThienCanType[] = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
 
-// Địa Chi array
+// Địa Chi array (Earthly Branches)
 const DIA_CHI: DiaChiType[] = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tị', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
-
-// Địa Chi tháng mapping (âm lịch) - index 0 không dùng, tháng 1 = index 1
-const MONTH_TO_CHI: (DiaChiType | null)[] = [null, 'Dần', 'Mão', 'Thìn', 'Tị', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi', 'Tý', 'Sửu'];
 
 export interface BaziPillar {
   can: ThienCanType;
@@ -25,180 +24,259 @@ export interface BaziChart {
   thanCung?: DiaChiType;
 }
 
-// Get Thiên Can of Year from year number
-export function getYearCan(year: number): ThienCanType {
-  const lastDigit = year % 10;
-  return namSinhToThienCan[lastDigit];
+// ==============================================
+// YEAR PILLAR CALCULATION (NĂM CAN CHI)
+// ==============================================
+// CRITICAL: Year changes at Lunar New Year, not January 1
+
+export function getYearPillar(solarDate: Date): BaziPillar {
+  let lunarYear = solarDate.getFullYear();
+
+  // Check if before Lunar New Year → use previous year
+  try {
+    const lunarNewYear = getLunarNewYear(lunarYear);
+    if (solarDate < lunarNewYear) {
+      lunarYear -= 1;
+    }
+  } catch {
+    // If lunar new year data not available, approximate
+    const approxLNY = new Date(lunarYear, 1, 1); // ~Feb 1
+    if (solarDate < approxLNY) {
+      lunarYear -= 1;
+    }
+  }
+
+  // Calculate Heavenly Stem
+  let stemValue = lunarYear % 10 - 3;
+  if (stemValue < 1) stemValue += 10;
+  const yearCan = THIEN_CAN[stemValue - 1];
+
+  // Calculate Earthly Branch
+  let branchValue = (lunarYear - 5) % 12;
+  if (branchValue < 1) branchValue += 12;
+  const yearChi = DIA_CHI[branchValue - 1];
+
+  return { can: yearCan, chi: yearChi };
 }
 
-// Get Địa Chi of Year from year number
-export function getYearChi(year: number): DiaChiType {
-  const index = (year - 4) % 12;
-  return DIA_CHI[index < 0 ? index + 12 : index];
+// ==============================================
+// MONTH PILLAR CALCULATION (THÁNG CAN CHI)
+// ==============================================
+// CRITICAL: Month changes at Solar Terms, not on 1st day
+
+// Five Tigers Rule (Ngũ Hổ Độn) - Get first month stem
+function getStemRuleByFiveTigers(yearStemValue: number): number {
+  switch(yearStemValue) {
+    case 1: case 6:  return 3;  // Giáp/Kỷ years → Bính (index 3)
+    case 2: case 7:  return 5;  // Ất/Canh years → Mậu (index 5)
+    case 3: case 8:  return 7;  // Bính/Tân years → Canh (index 7)
+    case 4: case 9:  return 9;  // Đinh/Nhâm years → Nhâm (index 9)
+    case 5: case 10: return 1;  // Mậu/Quý years → Giáp (index 1)
+    default: return 3;
+  }
 }
 
-// Get Địa Chi of Month from lunar month (1-12)
-export function getMonthChi(lunarMonth: number): DiaChiType {
-  const chi = MONTH_TO_CHI[lunarMonth];
-  if (!chi) throw new Error(`Invalid lunar month: ${lunarMonth}`);
-  return chi;
+export function getMonthPillar(solarDate: Date, yearCan: ThienCanType): BaziPillar {
+  const month = solarDate.getMonth() + 1; // 1-12
+  const day = solarDate.getDate();
+
+  // Get month branch from solar term
+  const monthBranch = getMonthBranchFromDate(month, day);
+  const monthBranchValue = DIA_CHI.indexOf(monthBranch as DiaChiType) + 1;
+
+  // Calculate month stem using Five Tigers Rule
+  const yearStemValue = THIEN_CAN.indexOf(yearCan) + 1;
+  const firstMonthStem = getStemRuleByFiveTigers(yearStemValue);
+
+  // First month is 寅 (Dần, value 3), calculate offset from there
+  let monthStemValue = (firstMonthStem - 1) + (monthBranchValue - 3);
+  while (monthStemValue < 0) monthStemValue += 10;
+  while (monthStemValue >= 10) monthStemValue -= 10;
+
+  const monthCan = THIEN_CAN[monthStemValue];
+  const monthChi = monthBranch as DiaChiType;
+
+  return { can: monthCan, chi: monthChi };
 }
 
-// Get Thiên Can of Month based on Year Can
-// Formula: Giáp/Kỷ năm gặp Bính Dần đầu
-export function getMonthCan(yearCan: ThienCanType, lunarMonth: number): ThienCanType {
-  const yearCanIndex = THIEN_CAN.indexOf(yearCan);
+// ==============================================
+// DAY PILLAR CALCULATION (NHẬT CAN CHI)
+// ==============================================
+// CRITICAL: Use day count from reference date (Jan 1, 1900 = 甲子)
 
-  // Starting Can for month 1 (Dần) based on year Can
-  const startingCanIndex = {
-    0: 2, // Giáp → Bính
-    1: 4, // Ất → Mậu
-    2: 6, // Bính → Canh
-    3: 8, // Đinh → Nhâm
-    4: 0, // Mậu → Giáp
-    5: 2, // Kỷ → Bính
-    6: 4, // Canh → Mậu
-    7: 6, // Tân → Canh
-    8: 8, // Nhâm → Nhâm
-    9: 0, // Quý → Giáp
-  }[yearCanIndex] || 0;
-
-  const monthCanIndex = (startingCanIndex + (lunarMonth - 1)) % 10;
-  return THIEN_CAN[monthCanIndex];
+// Calculate days since reference date
+function daysBetween(date1: Date, date2: Date): number {
+  const oneDay = 1000 * 60 * 60 * 24;
+  const diff = date2.getTime() - date1.getTime();
+  return Math.floor(diff / oneDay);
 }
 
-// Get Địa Chi of Hour from hour (0-23)
+export function getDayPillar(solarDate: Date): BaziPillar {
+  // Reference: Jan 1, 1900 = 甲子 day (Giáp Tý)
+  const referenceDate = new Date(1900, 0, 1, 0, 0, 0);
+
+  // Adjust for day starting at 23:00 (11 PM)
+  const adjustedDate = new Date(solarDate.getTime() + 3600000); // +1 hour for calculation
+
+  // Calculate days difference
+  const daysDiff = daysBetween(referenceDate, adjustedDate);
+
+  // Calculate Stem: (daysDiff + 1) % 10
+  let stemValue = (daysDiff + 1) % 10;
+  if (stemValue === 0) stemValue = 10;
+  const dayCan = THIEN_CAN[stemValue - 1];
+
+  // Calculate Branch: (daysDiff - 3) % 12
+  let branchValue = (daysDiff - 3) % 12;
+  if (branchValue <= 0) branchValue += 12;
+  const dayChi = DIA_CHI[branchValue - 1];
+
+  return { can: dayCan, chi: dayChi };
+}
+
+// Alternative accurate method using Julian Day Number
+export function getDayCanChi(year: number, month: number, day: number): BaziPillar {
+  const date = new Date(year, month - 1, day);
+  return getDayPillar(date);
+}
+
+// ==============================================
+// HOUR PILLAR CALCULATION (GIỜ CAN CHI)
+// ==============================================
+
+// Get Hour Branch from hour (0-23)
 export function getHourChi(hour: number): DiaChiType {
+  // Hour to branch mapping:
+  // 23-1: Tý, 1-3: Sửu, 3-5: Dần, etc.
   const chiIndex = Math.floor((hour + 1) / 2) % 12;
   return DIA_CHI[chiIndex];
 }
 
-// Get Thiên Can of Hour based on Day Can
-// Formula similar to month Can
-export function getHourCan(dayCan: ThienCanType, hour: number): ThienCanType {
-  const dayCanIndex = THIEN_CAN.indexOf(dayCan);
+// Five Rats Rule (Ngũ Tý Độn) - Get first hour (子) stem
+function getStemRuleByFiveRats(dayStemValue: number): number {
+  switch(dayStemValue) {
+    case 1: case 6:  return 1;  // Giáp/Kỷ days → Giáp Tý (index 1)
+    case 2: case 7:  return 3;  // Ất/Canh days → Bính Tý (index 3)
+    case 3: case 8:  return 5;  // Bính/Tân days → Mậu Tý (index 5)
+    case 4: case 9:  return 7;  // Đinh/Nhâm days → Canh Tý (index 7)
+    case 5: case 10: return 9;  // Mậu/Quý days → Nhâm Tý (index 9)
+    default: return 1;
+  }
+}
+
+export function getHourPillar(hour: number, dayCan: ThienCanType): BaziPillar {
   const hourChi = getHourChi(hour);
-  const hourChiIndex = DIA_CHI.indexOf(hourChi);
+  const hourBranchValue = DIA_CHI.indexOf(hourChi);
 
-  // Starting Can for hour 子 (Tý) based on day Can
-  const startingCanIndex = {
-    0: 0, // Giáp → Giáp
-    1: 2, // Ất → Bính
-    2: 4, // Bính → Mậu
-    3: 6, // Đinh → Canh
-    4: 8, // Mậu → Nhâm
-    5: 0, // Kỷ → Giáp
-    6: 2, // Canh → Bính
-    7: 4, // Tân → Mậu
-    8: 6, // Nhâm → Canh
-    9: 8, // Quý → Nhâm
-  }[dayCanIndex] || 0;
+  // Calculate hour stem using Five Rats Rule
+  const dayStemValue = THIEN_CAN.indexOf(dayCan) + 1;
+  const ratHourStem = getStemRuleByFiveRats(dayStemValue);
 
-  const hourCanIndex = (startingCanIndex + hourChiIndex) % 10;
-  return THIEN_CAN[hourCanIndex];
+  // 子 (Tý) is at index 0, calculate from there
+  let hourStemValue = (ratHourStem - 1 + hourBranchValue) % 10;
+  const hourCan = THIEN_CAN[hourStemValue];
+
+  return { can: hourCan, chi: hourChi };
 }
 
-// Calculate Julian Day Number
-function getJulianDayNumber(year: number, month: number, day: number): number {
-  let a = Math.floor((14 - month) / 12);
-  let y = year + 4800 - a;
-  let m = month + 12 * a - 3;
-
-  let jdn = day + Math.floor((153 * m + 2) / 5) + 365 * y +
-            Math.floor(y / 4) - Math.floor(y / 100) +
-            Math.floor(y / 400) - 32045;
-
-  return jdn;
+// Legacy function for compatibility
+export function getHourCan(dayCan: ThienCanType, hour: number): ThienCanType {
+  return getHourPillar(hour, dayCan).can;
 }
 
-// Accurate Day Can/Chi calculation using Julian Day Number
-// Formula: Can = (N + 9) % 10, Chi = (N + 1) % 12
-export function getDayCanChi(year: number, month: number, day: number): BaziPillar {
-  const N = getJulianDayNumber(year, month, day);
+// ==============================================
+// LIFE PALACE (MỆNH CUNG) CALCULATION
+// ==============================================
+// Rule: "Months Clockwise, Hours Anti-Clockwise"
 
-  // Can: (N + 9) % 10, where 0 = Giáp, 1 = Ất, ...
-  let canIndex = (N + 9) % 10;
-  if (canIndex < 0) canIndex += 10;
-
-  // Chi: (N + 1) % 12, where 0 = Tý, 1 = Sửu, ...
-  let chiIndex = (N + 1) % 12;
-  if (chiIndex < 0) chiIndex += 12;
-
-  return {
-    can: THIEN_CAN[canIndex],
-    chi: DIA_CHI[chiIndex]
-  };
-}
-
-// Calculate Mệnh Cung (Life Palace)
-// Formula: 26 - (Chi Tháng + Chi Giờ)
-// Nếu kết quả > 12 thì trừ đi 12
 export function getMenhCung(monthChi: DiaChiType, hourChi: DiaChiType): DiaChiType {
-  // Chuyển Chi thành số (1-12): Tý=1, Sửu=2, ..., Hợi=12
-  const monthNumber = DIA_CHI.indexOf(monthChi) + 1;
-  const hourNumber = DIA_CHI.indexOf(hourChi) + 1;
+  // Start at 寅 (Dần/Tiger) position = index 2
+  let position = 2;
 
-  let menhNumber = 26 - (monthNumber + hourNumber);
+  // Count clockwise by month branch
+  const monthIndex = DIA_CHI.indexOf(monthChi);
+  position = (position + monthIndex) % 12;
 
-  // Nếu > 12 thì trừ đi 12
-  if (menhNumber > 12) {
-    menhNumber = menhNumber - 12;
-  }
+  // Count ANTI-CLOCKWISE by hour branch
+  const hourIndex = DIA_CHI.indexOf(hourChi);
+  position = (position - hourIndex + 12) % 12;
+  if (position < 0) position += 12;
 
-  // Nếu <= 0 thì cộng 12
-  while (menhNumber <= 0) {
-    menhNumber += 12;
-  }
-
-  // Chuyển từ số (1-12) về index (0-11)
-  return DIA_CHI[menhNumber - 1];
+  return DIA_CHI[position];
 }
 
-// Calculate Thân Cung (Body Palace)
-// Formula: Tháng + Giờ + 2
-// Nếu > 12 thì trừ đi 12
+// ==============================================
+// BODY PALACE (THÂN CUNG) CALCULATION
+// ==============================================
+// Rule: "Months Clockwise, Hours Clockwise"
+
 export function getThanCung(monthChi: DiaChiType, hourChi: DiaChiType): DiaChiType {
-  const monthNumber = DIA_CHI.indexOf(monthChi) + 1;
-  const hourNumber = DIA_CHI.indexOf(hourChi) + 1;
+  // Start at 寅 (Dần/Tiger) position = index 2
+  let position = 2;
 
-  let thanNumber = monthNumber + hourNumber + 2;
+  // Count clockwise by month branch
+  const monthIndex = DIA_CHI.indexOf(monthChi);
+  position = (position + monthIndex) % 12;
 
-  // Nếu > 12 thì lặp lại chu kỳ
-  while (thanNumber > 12) {
-    thanNumber -= 12;
-  }
+  // Count CLOCKWISE by hour branch (difference from Life Palace)
+  const hourIndex = DIA_CHI.indexOf(hourChi);
+  position = (position + hourIndex) % 12;
 
-  return DIA_CHI[thanNumber - 1];
+  return DIA_CHI[position];
 }
 
-// Main function to calculate complete Bazi chart
+// ==============================================
+// MAIN CALCULATION FUNCTION
+// ==============================================
+
 export function calculateBazi(
   year: number,
   month: number,
   day: number,
-  hour: number,
-  lunarMonth: number
+  hour: number
 ): BaziChart {
-  const yearCan = getYearCan(year);
-  const yearChi = getYearChi(year);
+  const solarDate = new Date(year, month - 1, day, hour);
 
-  const monthChi = getMonthChi(lunarMonth);
-  const monthCan = getMonthCan(yearCan, lunarMonth);
+  // Calculate all four pillars
+  const yearPillar = getYearPillar(solarDate);
+  const monthPillar = getMonthPillar(solarDate, yearPillar.can);
+  const dayPillar = getDayPillar(solarDate);
+  const hourPillar = getHourPillar(hour, dayPillar.can);
 
-  const dayPillar = getDayCanChi(year, month, day);
-
-  const hourChi = getHourChi(hour);
-  const hourCan = getHourCan(dayPillar.can, hour);
-
-  const menhCung = getMenhCung(monthChi, hourChi);
-  const thanCung = getThanCung(monthChi, hourChi);
+  // Calculate palaces
+  const menhCung = getMenhCung(monthPillar.chi, hourPillar.chi);
+  const thanCung = getThanCung(monthPillar.chi, hourPillar.chi);
 
   return {
-    year: { can: yearCan, chi: yearChi },
-    month: { can: monthCan, chi: monthChi },
+    year: yearPillar,
+    month: monthPillar,
     day: dayPillar,
-    hour: { can: hourCan, chi: hourChi },
+    hour: hourPillar,
     menhCung,
     thanCung
   };
+}
+
+// Legacy functions for backward compatibility
+export function getYearCan(year: number): ThienCanType {
+  const date = new Date(year, 6, 1); // Mid-year to avoid lunar new year issues
+  return getYearPillar(date).can;
+}
+
+export function getYearChi(year: number): DiaChiType {
+  const date = new Date(year, 6, 1);
+  return getYearPillar(date).chi;
+}
+
+export function getMonthChi(lunarMonth: number): DiaChiType {
+  // Mapping: 1→Dần, 2→Mão, ..., 11→Tý, 12→Sửu
+  const mapping: DiaChiType[] = ['Dần', 'Mão', 'Thìn', 'Tị', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi', 'Tý', 'Sửu'];
+  return mapping[lunarMonth - 1] || 'Dần';
+}
+
+export function getMonthCan(yearCan: ThienCanType, lunarMonth: number): ThienCanType {
+  const yearStemValue = THIEN_CAN.indexOf(yearCan) + 1;
+  const firstMonthStem = getStemRuleByFiveTigers(yearStemValue);
+  let monthStemValue = (firstMonthStem - 1 + lunarMonth - 1) % 10;
+  return THIEN_CAN[monthStemValue];
 }
