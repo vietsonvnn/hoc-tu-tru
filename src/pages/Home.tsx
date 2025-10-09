@@ -20,6 +20,8 @@ import { FlashCardComparison } from '../components/FlashCardComparison';
 import { DiaChiTangCanTable } from '../components/DiaChiTangCanTable';
 import { TruongSinhWheel } from '../components/TruongSinhWheel';
 import { TruongSinhPoem } from '../components/TruongSinhPoem';
+import { TruongSinhPhanLoai } from '../components/TruongSinhPhanLoai';
+import { LuanDoanTheoTru } from '../components/LuanDoanTheoTru';
 import { HandRulesDiagram } from '../components/HandRulesDiagram';
 import { HandRulesGuide } from '../components/HandRulesGuide';
 import { VideoSection } from '../components/VideoSection';
@@ -31,7 +33,7 @@ export const Home = () => {
   const [amDuongSubView, setAmDuongSubView] = useState<'cards' | 'hopxung'>('cards');
   const [nguHanhSubView, setNguHanhSubView] = useState<'cards' | 'seasons' | 'trangthai' | 'relations'>('cards');
   const [bai2View, setBai2View] = useState<'video' | 'thiencan' | 'diachi' | 'relations' | 'tracuu'>('thiencan');
-  const [bai3View, setBai3View] = useState<'video' | 'tangcan' | 'truongsinh' | 'poem'>('tangcan');
+  const [bai3View, setBai3View] = useState<'video' | 'tangcan' | 'truongsinh' | 'poem' | 'phanloai' | 'luandoan'>('tangcan');
   const [phuLuc1View, setPhuLuc1View] = useState<'huong' | 'cothe'>('huong');
   const [phuLuc3View, setPhuLuc3View] = useState<'diagram' | 'guide'>('diagram');
 
@@ -456,6 +458,38 @@ export const Home = () => {
               )}
             </button>
             <button
+              onClick={() => setBai3View('phanloai')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                bai3View === 'phanloai'
+                  ? 'bg-gradient-to-r from-amber-600 to-yellow-700 text-white shadow-2xl shadow-amber-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>⚖️</span>
+                Phân Loại
+              </span>
+              {bai3View === 'phanloai' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-400 to-yellow-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+            <button
+              onClick={() => setBai3View('luandoan')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                bai3View === 'luandoan'
+                  ? 'bg-gradient-to-r from-cyan-600 to-sky-700 text-white shadow-2xl shadow-cyan-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>📊</span>
+                Luận Đoán
+              </span>
+              {bai3View === 'luandoan' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400 to-sky-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+            <button
               onClick={() => setBai3View('video')}
               className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
                 bai3View === 'video'
@@ -661,6 +695,8 @@ export const Home = () => {
             {bai3View === 'tangcan' && <DiaChiTangCanTable />}
             {bai3View === 'truongsinh' && <TruongSinhWheel />}
             {bai3View === 'poem' && <TruongSinhPoem />}
+            {bai3View === 'phanloai' && <TruongSinhPhanLoai />}
+            {bai3View === 'luandoan' && <LuanDoanTheoTru />}
           </>
         )}
 

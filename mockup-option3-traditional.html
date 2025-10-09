@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 3: Traditional Modern - Bát Quái</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f1e8;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #fffef9 0%, #f9f6ed 100%);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow:
+                0 0 0 1px rgba(139, 69, 19, 0.1),
+                0 10px 30px rgba(139, 69, 19, 0.15);
+            border: 3px double #d4af37;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 2rem;
+            position: relative;
+        }
+
+        header::before,
+        header::after {
+            content: '☯';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #d4af37;
+            opacity: 0.3;
+        }
+
+        header::before { left: 1rem; }
+        header::after { right: 1rem; }
+
+        h1 {
+            font-family: 'Noto Serif', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #8b4513;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0 rgba(212, 175, 55, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #a0826d;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            padding: 1.5rem;
+            background: linear-gradient(180deg, #fff9e6 0%, #fef6e4 100%);
+            border-radius: 4px;
+            border: 1px solid #d4af37;
+            box-shadow: inset 0 1px 3px rgba(212, 175, 55, 0.3);
+        }
+
+        .filter-btn {
+            padding: 0.625rem 1.5rem;
+            border-radius: 4px;
+            border: 2px solid #8b4513;
+            background: linear-gradient(180deg, #fffef9 0%, #f5f1e8 100%);
+            color: #8b4513;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            font-family: 'Noto Serif', serif;
+        }
+
+        .filter-btn:hover {
+            background: linear-gradient(180deg, #fff9e6 0%, #fef6e4 100%);
+            border-color: #d4af37;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(139, 69, 19, 0.2);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(180deg, #d4af37 0%, #b8941f 100%);
+            color: #fff;
+            border-color: #8b4513;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(180deg, #fffef9 0%, #fef8f0 100%);
+            border-radius: 8px;
+            padding: 1.75rem;
+            box-shadow:
+                0 2px 8px rgba(139, 69, 19, 0.15),
+                inset 0 0 0 1px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid #d4af37;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #d4af37, #8b4513, #d4af37);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card::after {
+            content: '✦';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            color: #d4af37;
+            font-size: 1rem;
+            opacity: 0.2;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 8px 20px rgba(139, 69, 19, 0.25),
+                inset 0 0 0 2px rgba(212, 175, 55, 0.5);
+        }
+
+        .card:hover::before {
+            opacity: 0.15;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37 0%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(2px 2px 0 rgba(139, 69, 19, 0.1));
+        }
+
+        .card-title {
+            font-family: 'Noto Serif', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #8b4513;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: #a0826d;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 3px;
+            font-weight: 700;
+            border: 1px solid;
+        }
+
+        .tag-thuy {
+            background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #1e3a8a;
+            border-color: #3b82f6;
+        }
+        .tag-moc {
+            background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%);
+            color: #14532d;
+            border-color: #22c55e;
+        }
+        .tag-hoa {
+            background: linear-gradient(180deg, #fee2e2 0%, #fecaca 100%);
+            color: #7f1d1d;
+            border-color: #ef4444;
+        }
+        .tag-tho {
+            background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%);
+            color: #78350f;
+            border-color: #f59e0b;
+        }
+        .tag-kim {
+            background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+            color: #1e293b;
+            border-color: #64748b;
+        }
+
+        .card-info {
+            font-size: 0.875rem;
+            color: #6b5d52;
+            line-height: 1.6;
+            padding: 0.75rem;
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 3px solid #d4af37;
+            font-style: italic;
+        }
+
+        .center-card {
+            grid-column: 2;
+            grid-row: 2;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: white;
+            border-color: #d4af37;
+            box-shadow:
+                0 4px 12px rgba(139, 69, 19, 0.4),
+                0 0 0 3px #d4af37,
+                0 0 0 6px #8b4513;
+        }
+
+        .center-card .card-title,
+        .center-card .card-subtitle {
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .center-card .card-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: #ffd700;
+            color: #fff9e6;
+        }
+
+        .center-card::after {
+            color: #ffd700;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .center-card {
+                grid-column: 1;
+                grid-row: auto;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+        }
+
+        .demo-badge {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: #ffd700;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 8px rgba(139, 69, 19, 0.3);
+            border: 2px solid #d4af37;
+            font-family: 'Noto Serif', serif;
+        }
+
+        /* Traditional cloud pattern */
+        .cloud-pattern {
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background-image: repeating-linear-gradient(90deg, #d4af37 0px, #d4af37 10px, transparent 10px, transparent 20px);
+            opacity: 0.1;
+        }
+
+        .cloud-pattern-top { top: 0; }
+        .cloud-pattern-bottom { bottom: 0; }
+    </style>
+</head>
+<body>
+    <div class="demo-badge">OPTION 3: TRADITIONAL</div>
+
+    <div class="container">
+        <div class="cloud-pattern cloud-pattern-top"></div>
+
+        <header>
+            <h1>八卦 Bát Quái</h1>
+            <p class="subtitle">Huyền Thiên Bát Quái - Tám Hướng Năng Lượng Vũ Trụ</p>
+        </header>
+
+        <div class="filter-bar">
+            <button class="filter-btn active">Toàn Bộ</button>
+            <button class="filter-btn">Thủy</button>
+            <button class="filter-btn">Mộc</button>
+            <button class="filter-btn">Hỏa</button>
+            <button class="filter-btn">Thổ</button>
+            <button class="filter-btn">Kim</button>
+        </div>
+
+        <div class="grid">
+            <!-- Tây Bắc -->
+            <div class="card" data-hanh="Kim">
+                <div class="card-icon">☰</div>
+                <div class="card-title">Tây Bắc</div>
+                <div class="card-subtitle">乾 Càn Quẻ</div>
+                <div class="card-tags">
+                    <span class="tag tag-kim">Kim</span>
+                </div>
+                <div class="card-info">
+                    Trời, sáng tạo, cứng cỏi, quyền uy<br>
+                    <small>地支: Tuất, Hợi</small>
+                </div>
+            </div>
+
+            <!-- Bắc -->
+            <div class="card" data-hanh="Thủy">
+                <div class="card-icon">☵</div>
+                <div class="card-title">Bắc</div>
+                <div class="card-subtitle">坎 Khảm Quẻ</div>
+                <div class="card-tags">
+                    <span class="tag tag-thuy">Thủy</span>
+                </div>
+                <div class="card-info">
+                    Thủy, hiểm nạn, trí tuệ, linh hoạt<br>
+                    <small>天干: Nhâm, Quý • 地支: Tý</small>
+                </div>
+            </div>
+
+            <!-- Đông Bắc -->
+            <div class="card" data-hanh="Thổ">
+                <div class="card-icon">☶</div>
+                <div class="card-title">Đông Bắc</div>
+                <div class="card-subtitle">艮 Cấn Quẻ</div>
+                <div class="card-tags">
+                    <span class="tag tag-tho">Thổ</span>
+                </div>
+                <div class="card-info">
+                    Núi, dừng lại, ổn định, chắc chắn<br>
+                    <small>地支: Sửu, Dần</small>
+                </div>
+            </div>
+
+            <!-- Tây -->
+            <div class="card" data-hanh="Kim">
+                <div class="card-icon">☱</div>
+                <div class="card-title">Tây</div>
+                <div class="card-subtitle">兌 Đoài Quẻ</div>
+                <div class="card-tags">
+                    <span class="tag tag-kim">Kim</span>
+                </div>
+                <div class="card-info">
+                    Hồ, vui vẻ, giao tiếp, hùng biện<br>
+                    <small>天干: Canh, Tân • 地支: Dậu</small>
+                </div>
+            </div>
+
+            <!-- Trung Cung -->
+            <div class="card center-card" data-hanh="Thổ">
+                <div class="card-icon">☯</div>
+                <div class="card-title">Trung Cung</div>
+                <div class="card-subtitle">中宮 Tâm Điểm Vũ Trụ</div>
+                <div class="card-tags">
+                    <span class="tag" style="background: rgba(255,255,255,0.2); color: #ffd700; border-color: #ffd700;">Thổ</span>
+                </div>
+                <div class="card-info">
+                    Trung tâm, hài hòa, cân bằng vũ trụ<br>
+                    <small>天干: Mậu, Kỷ</small>
+                </div>
+            </div>
+
+            <!-- Đông -->
+            <div class="card" data-hanh="Mộc">
+                <div class="card-icon">☳</div>
+                <div class="card-title">Đông</div>
+                <div class="card-subtitle">震 Chấn Quẻ</div>
+                <div class="card-tags">
+                    <span class="tag tag-moc">Mộc</span>
+                </div>
+                <div class="card-info">
+                    Sấm, chấn động, khởi đầu, phát triển<br>
+                    <small>天干: Giáp, Ất • 地支: Mão</small>
+                </div>
+            </div>
+
+            <!-- Tây Nam -->
+            <div class="card" data-hanh="Thổ">
+                <div class="card-icon">☷</div>
+                <div class="card-title">Tây Nam</div>
+                <div class="card-subtitle">坤 Khôn Quẻ</div>
+                <div class="card-tags">
+                    <span class="tag tag-tho">Thổ</span>
+                </div>
+                <div class="card-info">
+                    Đất, thuận tòng, bao dung, nuôi dưỡng<br>
+                    <small>地支: Mùi, Thân</small>
+                </div>
+            </div>
+
+            <!-- Nam -->
+            <div class="card" data-hanh="Hỏa">
+                <div class="card-icon">☲</div>
+                <div class="card-title">Nam</div>
+                <div class="card-subtitle">離 Ly Quẻ</div>
+                <div class="card-tags">
+                    <span class="tag tag-hoa">Hỏa</span>
+                </div>
+                <div class="card-info">
+                    Lửa, sáng sủa, trí tuệ, văn minh<br>
+                    <small>天干: Bính, Đinh • 地支: Ngọ</small>
+                </div>
+            </div>
+
+            <!-- Đông Nam -->
+            <div class="card" data-hanh="Mộc">
+                <div class="card-icon">☴</div>
+                <div class="card-title">Đông Nam</div>
+                <div class="card-subtitle">巽 Tốn Quẻ</div>
+                <div class="card-tags">
+                    <span class="tag tag-moc">Mộc</span>
+                </div>
+                <div class="card-info">
+                    Gió, nhẹ nhàng, thấm dần, lan tỏa<br>
+                    <small>地支: Thìn, Tị</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="cloud-pattern cloud-pattern-bottom"></div>
+    </div>
+
+    <script>
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.card:not(.center-card)');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.textContent;
+
+                cards.forEach(card => {
+                    if (filter === 'Toàn Bộ') {
+                        card.style.display = 'block';
+                    } else {
+                        const hanh = card.dataset.hanh;
+                        card.style.display = hanh === filter ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

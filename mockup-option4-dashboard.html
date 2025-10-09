@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 4: Card Dashboard - Bát Quái</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        /* Top Nav */
+        .top-nav {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1e293b;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.625rem 1rem 0.625rem 2.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background: #f1f5f9;
+            padding: 0.25rem;
+            border-radius: 8px;
+        }
+
+        .view-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background: white;
+            color: #1e293b;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .stat-number {
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        /* Filter Bar */
+        .filter-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .filter-chip {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+
+        .filter-chip:hover {
+            border-color: #cbd5e0;
+            background: #f8fafc;
+        }
+
+        .filter-chip.active {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        /* Grid View */
+        .grid-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            border-color: #e2e8f0;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        .card-badge {
+            padding: 0.25rem 0.625rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-thuy { background: #dbeafe; color: #1e40af; }
+        .badge-moc { background: #dcfce7; color: #166534; }
+        .badge-hoa { background: #fee2e2; color: #991b1b; }
+        .badge-tho { background: #fef3c7; color: #92400e; }
+        .badge-kim { background: #f1f5f9; color: #334155; }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+
+        .card-description {
+            font-size: 0.875rem;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .card-footer {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding-top: 1rem;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .info-chip {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            background: #f8fafc;
+            color: #64748b;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* Table View */
+        .table-view {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .table-view.active {
+            display: table;
+            width: 100%;
+        }
+
+        .table-view thead {
+            background: #f8fafc;
+        }
+
+        .table-view th {
+            padding: 1rem;
+            text-align: left;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table-view td {
+            padding: 1rem;
+            font-size: 0.875rem;
+            color: #64748b;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .table-view tbody tr {
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .table-view tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        @media (max-width: 768px) {
+            .search-box {
+                display: none;
+            }
+
+            .grid-view {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        .demo-badge {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="nav-content">
+            <div class="logo">🧭 Bát Quái Dashboard</div>
+
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Tìm kiếm theo tên, quẻ, ngũ hành..." id="searchInput">
+            </div>
+
+            <div class="view-toggle">
+                <button class="view-btn active" onclick="switchView('grid')">📊 Lưới</button>
+                <button class="view-btn" onclick="switchView('table')">📋 Bảng</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Bát Quái - Hướng & Ngũ Hành</h1>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">8</span> Hướng chính
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5</span> Ngũ hành
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10</span> Thiên Can
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12</span> Địa Chi
+                </div>
+            </div>
+        </header>
+
+        <div class="filter-section">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <span class="filter-label">Ngũ Hành:</span>
+                    <button class="filter-chip active" data-filter="all">Tất cả</button>
+                    <button class="filter-chip" data-filter="Thủy">Thủy</button>
+                    <button class="filter-chip" data-filter="Mộc">Mộc</button>
+                    <button class="filter-chip" data-filter="Hỏa">Hỏa</button>
+                    <button class="filter-chip" data-filter="Thổ">Thổ</button>
+                    <button class="filter-chip" data-filter="Kim">Kim</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid View -->
+        <div class="grid-view" id="gridView">
+            <div class="card" data-hanh="Thủy">
+                <div class="card-header">
+                    <div class="card-icon">☵</div>
+                    <div class="card-badge badge-thuy">Thủy</div>
+                </div>
+                <div class="card-title">Bắc</div>
+                <div class="card-subtitle">Quẻ Khảm</div>
+                <div class="card-description">
+                    Thủy, hiểm nạn, trí tuệ, linh hoạt. Tượng trưng cho nước, khả năng thích nghi và trí tuệ sâu sắc.
+                </div>
+                <div class="card-footer">
+                    <span class="info-chip">☯ Nhâm, Quý</span>
+                    <span class="info-chip">📍 Tý</span>
+                </div>
+            </div>
+
+            <div class="card" data-hanh="Mộc">
+                <div class="card-header">
+                    <div class="card-icon">☳</div>
+                    <div class="card-badge badge-moc">Mộc</div>
+                </div>
+                <div class="card-title">Đông</div>
+                <div class="card-subtitle">Quẻ Chấn</div>
+                <div class="card-description">
+                    Sấm, chấn động, khởi đầu, phát triển. Năng lượng bắt đầu mới, sự sống động và phát triển.
+                </div>
+                <div class="card-footer">
+                    <span class="info-chip">☯ Giáp, Ất</span>
+                    <span class="info-chip">📍 Mão</span>
+                </div>
+            </div>
+
+            <div class="card" data-hanh="Mộc">
+                <div class="card-header">
+                    <div class="card-icon">☴</div>
+                    <div class="card-badge badge-moc">Mộc</div>
+                </div>
+                <div class="card-title">Đông Nam</div>
+                <div class="card-subtitle">Quẻ Tốn</div>
+                <div class="card-description">
+                    Gió, nhẹ nhàng, thấm dần, lan tỏa. Sự nhẹ nhàng nhưng bền bỉ, thấm thía từng chút.
+                </div>
+                <div class="card-footer">
+                    <span class="info-chip">📍 Thìn, Tị</span>
+                </div>
+            </div>
+
+            <div class="card" data-hanh="Hỏa">
+                <div class="card-header">
+                    <div class="card-icon">☲</div>
+                    <div class="card-badge badge-hoa">Hỏa</div>
+                </div>
+                <div class="card-title">Nam</div>
+                <div class="card-subtitle">Quẻ Ly</div>
+                <div class="card-description">
+                    Lửa, sáng sủa, trí tuệ, văn minh. Ánh sáng chiếu rọi, sự rõ ràng và văn hóa.
+                </div>
+                <div class="card-footer">
+                    <span class="info-chip">☯ Bính, Đinh</span>
+                    <span class="info-chip">📍 Ngọ</span>
+                </div>
+            </div>
+
+            <div class="card" data-hanh="Thổ">
+                <div class="card-header">
+                    <div class="card-icon">☷</div>
+                    <div class="card-badge badge-tho">Thổ</div>
+                </div>
+                <div class="card-title">Tây Nam</div>
+                <div class="card-subtitle">Quẻ Khôn</div>
+                <div class="card-description">
+                    Đất, thuận tòng, bao dung, nuôi dưỡng. Đất mẹ ôm ấp, nuôi dưỡng vạn vật.
+                </div>
+                <div class="card-footer">
+                    <span class="info-chip">📍 Mùi, Thân</span>
+                </div>
+            </div>
+
+            <div class="card" data-hanh="Kim">
+                <div class="card-header">
+                    <div class="card-icon">☱</div>
+                    <div class="card-badge badge-kim">Kim</div>
+                </div>
+                <div class="card-title">Tây</div>
+                <div class="card-subtitle">Quẻ Đoài</div>
+                <div class="card-description">
+                    Hồ, vui vẻ, giao tiếp, hùng biện. Sự vui tươi, giao lưu và khả năng diễn đạt.
+                </div>
+                <div class="card-footer">
+                    <span class="info-chip">☯ Canh, Tân</span>
+                    <span class="info-chip">📍 Dậu</span>
+                </div>
+            </div>
+
+            <div class="card" data-hanh="Kim">
+                <div class="card-header">
+                    <div class="card-icon">☰</div>
+                    <div class="card-badge badge-kim">Kim</div>
+                </div>
+                <div class="card-title">Tây Bắc</div>
+                <div class="card-subtitle">Quẻ Càn</div>
+                <div class="card-description">
+                    Trời, sáng tạo, cứng cỏi, quyền uy. Bầu trời bao la, sức mạnh sáng tạo và quyền lực.
+                </div>
+                <div class="card-footer">
+                    <span class="info-chip">📍 Tuất, Hợi</span>
+                </div>
+            </div>
+
+            <div class="card" data-hanh="Thổ">
+                <div class="card-header">
+                    <div class="card-icon">☶</div>
+                    <div class="card-badge badge-tho">Thổ</div>
+                </div>
+                <div class="card-title">Đông Bắc</div>
+                <div class="card-subtitle">Quẻ Cấn</div>
+                <div class="card-description">
+                    Núi, dừng lại, ổn định, chắc chắn. Núi non vững chãi, sự dừng lại để tích lũy.
+                </div>
+                <div class="card-footer">
+                    <span class="info-chip">📍 Sửu, Dần</span>
+                </div>
+            </div>
+
+            <div class="card" data-hanh="Thổ" style="border: 2px solid #3b82f6;">
+                <div class="card-header">
+                    <div class="card-icon">☯</div>
+                    <div class="card-badge badge-tho">Thổ</div>
+                </div>
+                <div class="card-title">Trung Cung</div>
+                <div class="card-subtitle">Tâm Điểm Vũ Trụ</div>
+                <div class="card-description">
+                    Trung tâm, hài hòa, cân bằng vũ trụ. Điểm tựa của mọi hướng, nơi hội tụ năng lượng.
+                </div>
+                <div class="card-footer">
+                    <span class="info-chip">☯ Mậu, Kỷ</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table View -->
+        <table class="table-view" id="tableView">
+            <thead>
+                <tr>
+                    <th>Hướng</th>
+                    <th>Quẻ</th>
+                    <th>Ký hiệu</th>
+                    <th>Ngũ Hành</th>
+                    <th>Thiên Can</th>
+                    <th>Địa Chi</th>
+                    <th>Ý nghĩa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-hanh="Thủy">
+                    <td><strong>Bắc</strong></td>
+                    <td>Khảm</td>
+                    <td style="font-size: 1.5rem;">☵</td>
+                    <td><span class="card-badge badge-thuy">Thủy</span></td>
+                    <td>Nhâm, Quý</td>
+                    <td>Tý</td>
+                    <td>Thủy, hiểm nạn, trí tuệ, linh hoạt</td>
+                </tr>
+                <tr data-hanh="Mộc">
+                    <td><strong>Đông</strong></td>
+                    <td>Chấn</td>
+                    <td style="font-size: 1.5rem;">☳</td>
+                    <td><span class="card-badge badge-moc">Mộc</span></td>
+                    <td>Giáp, Ất</td>
+                    <td>Mão</td>
+                    <td>Sấm, chấn động, khởi đầu, phát triển</td>
+                </tr>
+                <tr data-hanh="Hỏa">
+                    <td><strong>Nam</strong></td>
+                    <td>Ly</td>
+                    <td style="font-size: 1.5rem;">☲</td>
+                    <td><span class="card-badge badge-hoa">Hỏa</span></td>
+                    <td>Bính, Đinh</td>
+                    <td>Ngọ</td>
+                    <td>Lửa, sáng sủa, trí tuệ, văn minh</td>
+                </tr>
+                <tr data-hanh="Kim">
+                    <td><strong>Tây</strong></td>
+                    <td>Đoài</td>
+                    <td style="font-size: 1.5rem;">☱</td>
+                    <td><span class="card-badge badge-kim">Kim</span></td>
+                    <td>Canh, Tân</td>
+                    <td>Dậu</td>
+                    <td>Hồ, vui vẻ, giao tiếp, hùng biện</td>
+                </tr>
+                <tr data-hanh="Mộc">
+                    <td><strong>Đông Nam</strong></td>
+                    <td>Tốn</td>
+                    <td style="font-size: 1.5rem;">☴</td>
+                    <td><span class="card-badge badge-moc">Mộc</span></td>
+                    <td>-</td>
+                    <td>Thìn, Tị</td>
+                    <td>Gió, nhẹ nhàng, thấm dần, lan tỏa</td>
+                </tr>
+                <tr data-hanh="Thổ">
+                    <td><strong>Tây Nam</strong></td>
+                    <td>Khôn</td>
+                    <td style="font-size: 1.5rem;">☷</td>
+                    <td><span class="card-badge badge-tho">Thổ</span></td>
+                    <td>-</td>
+                    <td>Mùi, Thân</td>
+                    <td>Đất, thuận tòng, bao dung, nuôi dưỡng</td>
+                </tr>
+                <tr data-hanh="Kim">
+                    <td><strong>Tây Bắc</strong></td>
+                    <td>Càn</td>
+                    <td style="font-size: 1.5rem;">☰</td>
+                    <td><span class="card-badge badge-kim">Kim</span></td>
+                    <td>-</td>
+                    <td>Tuất, Hợi</td>
+                    <td>Trời, sáng tạo, cứng cỏi, quyền uy</td>
+                </tr>
+                <tr data-hanh="Thổ">
+                    <td><strong>Đông Bắc</strong></td>
+                    <td>Cấn</td>
+                    <td style="font-size: 1.5rem;">☶</td>
+                    <td><span class="card-badge badge-tho">Thổ</span></td>
+                    <td>-</td>
+                    <td>Sửu, Dần</td>
+                    <td>Núi, dừng lại, ổn định, chắc chắn</td>
+                </tr>
+                <tr data-hanh="Thổ" style="background: #f0f9ff;">
+                    <td><strong>Trung Cung</strong></td>
+                    <td>Trung Cung</td>
+                    <td style="font-size: 1.5rem;">☯</td>
+                    <td><span class="card-badge badge-tho">Thổ</span></td>
+                    <td>Mậu, Kỷ</td>
+                    <td>-</td>
+                    <td>Trung tâm, hài hòa, cân bằng vũ trụ</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="demo-badge">OPTION 4: DASHBOARD</div>
+
+    <script>
+        // View toggle
+        function switchView(view) {
+            const gridView = document.getElementById('gridView');
+            const tableView = document.getElementById('tableView');
+            const viewBtns = document.querySelectorAll('.view-btn');
+
+            viewBtns.forEach(btn => btn.classList.remove('active'));
+
+            if (view === 'grid') {
+                gridView.style.display = 'grid';
+                tableView.classList.remove('active');
+                viewBtns[0].classList.add('active');
+            } else {
+                gridView.style.display = 'none';
+                tableView.classList.add('active');
+                viewBtns[1].classList.add('active');
+            }
+        }
+
+        // Filter functionality
+        const filterChips = document.querySelectorAll('.filter-chip');
+        const cards = document.querySelectorAll('.card');
+        const tableRows = document.querySelectorAll('.table-view tbody tr');
+
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                filterChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+
+                const filter = chip.dataset.filter;
+
+                cards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = card.dataset.hanh === filter ? 'block' : 'none';
+                    }
+                });
+
+                tableRows.forEach(row => {
+                    if (filter === 'all') {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display = row.dataset.hanh === filter ? 'table-row' : 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(searchTerm) ? 'block' : 'none';
+            });
+
+            tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? 'table-row' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

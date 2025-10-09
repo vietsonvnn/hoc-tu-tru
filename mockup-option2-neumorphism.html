@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 2: Neumorphism Glass - Bát Quái</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 50%, #fff3e0 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow:
+                12px 12px 24px rgba(174, 174, 192, 0.2),
+                -12px -12px 24px rgba(255, 255, 255, 0.8);
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow:
+                6px 6px 12px rgba(174, 174, 192, 0.15),
+                -6px -6px 12px rgba(255, 255, 255, 0.9);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                8px 8px 16px rgba(174, 174, 192, 0.2),
+                -8px -8px 16px rgba(255, 255, 255, 1);
+        }
+
+        .filter-btn:active {
+            box-shadow:
+                inset 4px 4px 8px rgba(174, 174, 192, 0.15),
+                inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow:
+                8px 8px 16px rgba(102, 126, 234, 0.3),
+                -8px -8px 16px rgba(255, 255, 255, 0.5);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow:
+                15px 15px 30px rgba(174, 174, 192, 0.2),
+                -15px -15px 30px rgba(255, 255, 255, 0.9),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                20px 20px 40px rgba(174, 174, 192, 0.3),
+                -20px -20px 40px rgba(255, 255, 255, 1),
+                inset 0 0 0 2px rgba(255, 255, 255, 1);
+        }
+
+        .card.active {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow:
+                inset 8px 8px 16px rgba(174, 174, 192, 0.15),
+                inset -8px -8px 16px rgba(255, 255, 255, 0.9),
+                0 0 0 3px var(--accent-color);
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 0.5rem;
+            border-radius: 16px;
+            box-shadow:
+                6px 6px 12px rgba(174, 174, 192, 0.15),
+                -6px -6px 12px rgba(255, 255, 255, 0.9);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 10px;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            box-shadow:
+                4px 4px 8px rgba(174, 174, 192, 0.15),
+                -4px -4px 8px rgba(255, 255, 255, 0.9);
+        }
+
+        .tag-thuy {
+            background: rgba(147, 197, 253, 0.5);
+            color: #1e40af;
+        }
+        .tag-moc {
+            background: rgba(134, 239, 172, 0.5);
+            color: #065f46;
+        }
+        .tag-hoa {
+            background: rgba(252, 165, 165, 0.5);
+            color: #991b1b;
+        }
+        .tag-tho {
+            background: rgba(253, 224, 71, 0.5);
+            color: #78350f;
+        }
+        .tag-kim {
+            background: rgba(203, 213, 225, 0.5);
+            color: #1e293b;
+        }
+
+        .card-info {
+            font-size: 0.875rem;
+            color: #4b5563;
+            line-height: 1.6;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            box-shadow:
+                inset 2px 2px 4px rgba(174, 174, 192, 0.1),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+        }
+
+        /* Màu accent */
+        .card[data-hanh="Thủy"] { --accent-color: #3b82f6; }
+        .card[data-hanh="Mộc"] { --accent-color: #10b981; }
+        .card[data-hanh="Hỏa"] { --accent-color: #ef4444; }
+        .card[data-hanh="Thổ"] { --accent-color: #f59e0b; }
+        .card[data-hanh="Kim"] { --accent-color: #64748b; }
+
+        .center-card {
+            grid-column: 2;
+            grid-row: 2;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.6) 0%, rgba(118, 75, 162, 0.6) 100%);
+            backdrop-filter: blur(30px);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .center-card .card-title,
+        .center-card .card-subtitle {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .center-card .card-info {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .center-card .tag {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .center-card {
+                grid-column: 1;
+                grid-row: auto;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+
+        .demo-badge {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            box-shadow:
+                8px 8px 16px rgba(102, 126, 234, 0.3),
+                -8px -8px 16px rgba(255, 255, 255, 0.5);
+        }
+
+        .glass-orb {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
+            backdrop-filter: blur(40px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .orb-1 { top: 10%; left: 5%; }
+        .orb-2 { bottom: 15%; right: 10%; }
+    </style>
+</head>
+<body>
+    <div class="glass-orb orb-1"></div>
+    <div class="glass-orb orb-2"></div>
+
+    <div class="demo-badge">OPTION 2: NEUMORPHISM GLASS</div>
+
+    <div class="container">
+        <header>
+            <h1>🧭 Bát Quái - Hướng & Ngũ Hành</h1>
+            <p class="subtitle">Tám hướng và năng lượng của vũ trụ</p>
+        </header>
+
+        <div class="filter-bar">
+            <button class="filter-btn active">Tất cả</button>
+            <button class="filter-btn">Thủy</button>
+            <button class="filter-btn">Mộc</button>
+            <button class="filter-btn">Hỏa</button>
+            <button class="filter-btn">Thổ</button>
+            <button class="filter-btn">Kim</button>
+        </div>
+
+        <div class="grid">
+            <!-- Tây Bắc -->
+            <div class="card" data-hanh="Kim">
+                <div class="card-icon">☰</div>
+                <div class="card-title">Tây Bắc</div>
+                <div class="card-subtitle">Quẻ Càn</div>
+                <div class="card-tags">
+                    <span class="tag tag-kim">Kim</span>
+                </div>
+                <div class="card-info">
+                    Trời, sáng tạo, cứng cỏi, quyền uy<br>
+                    <small style="opacity: 0.7;">📍 Tuất, Hợi</small>
+                </div>
+            </div>
+
+            <!-- Bắc -->
+            <div class="card" data-hanh="Thủy">
+                <div class="card-icon">☵</div>
+                <div class="card-title">Bắc</div>
+                <div class="card-subtitle">Quẻ Khảm</div>
+                <div class="card-tags">
+                    <span class="tag tag-thuy">Thủy</span>
+                </div>
+                <div class="card-info">
+                    Thủy, hiểm nạn, trí tuệ, linh hoạt<br>
+                    <small style="opacity: 0.7;">☯ Nhâm, Quý • 📍 Tý</small>
+                </div>
+            </div>
+
+            <!-- Đông Bắc -->
+            <div class="card" data-hanh="Thổ">
+                <div class="card-icon">☶</div>
+                <div class="card-title">Đông Bắc</div>
+                <div class="card-subtitle">Quẻ Cấn</div>
+                <div class="card-tags">
+                    <span class="tag tag-tho">Thổ</span>
+                </div>
+                <div class="card-info">
+                    Núi, dừng lại, ổn định, chắc chắn<br>
+                    <small style="opacity: 0.7;">📍 Sửu, Dần</small>
+                </div>
+            </div>
+
+            <!-- Tây -->
+            <div class="card" data-hanh="Kim">
+                <div class="card-icon">☱</div>
+                <div class="card-title">Tây</div>
+                <div class="card-subtitle">Quẻ Đoài</div>
+                <div class="card-tags">
+                    <span class="tag tag-kim">Kim</span>
+                </div>
+                <div class="card-info">
+                    Hồ, vui vẻ, giao tiếp, hùng biện<br>
+                    <small style="opacity: 0.7;">☯ Canh, Tân • 📍 Dậu</small>
+                </div>
+            </div>
+
+            <!-- Trung Cung -->
+            <div class="card center-card" data-hanh="Thổ">
+                <div class="card-icon">☯</div>
+                <div class="card-title">Trung Cung</div>
+                <div class="card-subtitle">Tâm điểm vũ trụ</div>
+                <div class="card-tags">
+                    <span class="tag">Thổ</span>
+                </div>
+                <div class="card-info">
+                    Trung tâm, hài hòa, cân bằng vũ trụ<br>
+                    <small style="opacity: 0.9;">☯ Mậu, Kỷ</small>
+                </div>
+            </div>
+
+            <!-- Đông -->
+            <div class="card" data-hanh="Mộc">
+                <div class="card-icon">☳</div>
+                <div class="card-title">Đông</div>
+                <div class="card-subtitle">Quẻ Chấn</div>
+                <div class="card-tags">
+                    <span class="tag tag-moc">Mộc</span>
+                </div>
+                <div class="card-info">
+                    Sấm, chấn động, khởi đầu, phát triển<br>
+                    <small style="opacity: 0.7;">☯ Giáp, Ất • 📍 Mão</small>
+                </div>
+            </div>
+
+            <!-- Tây Nam -->
+            <div class="card" data-hanh="Thổ">
+                <div class="card-icon">☷</div>
+                <div class="card-title">Tây Nam</div>
+                <div class="card-subtitle">Quẻ Khôn</div>
+                <div class="card-tags">
+                    <span class="tag tag-tho">Thổ</span>
+                </div>
+                <div class="card-info">
+                    Đất, thuận tòng, bao dung, nuôi dưỡng<br>
+                    <small style="opacity: 0.7;">📍 Mùi, Thân</small>
+                </div>
+            </div>
+
+            <!-- Nam -->
+            <div class="card" data-hanh="Hỏa">
+                <div class="card-icon">☲</div>
+                <div class="card-title">Nam</div>
+                <div class="card-subtitle">Quẻ Ly</div>
+                <div class="card-tags">
+                    <span class="tag tag-hoa">Hỏa</span>
+                </div>
+                <div class="card-info">
+                    Lửa, sáng sủa, trí tuệ, văn minh<br>
+                    <small style="opacity: 0.7;">☯ Bính, Đinh • 📍 Ngọ</small>
+                </div>
+            </div>
+
+            <!-- Đông Nam -->
+            <div class="card" data-hanh="Mộc">
+                <div class="card-icon">☴</div>
+                <div class="card-title">Đông Nam</div>
+                <div class="card-subtitle">Quẻ Tốn</div>
+                <div class="card-tags">
+                    <span class="tag tag-moc">Mộc</span>
+                </div>
+                <div class="card-info">
+                    Gió, nhẹ nhàng, thấm dần, lan tỏa<br>
+                    <small style="opacity: 0.7;">📍 Thìn, Tị</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.card:not(.center-card)');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.textContent;
+
+                cards.forEach(card => {
+                    if (filter === 'Tất cả') {
+                        card.style.display = 'block';
+                    } else {
+                        const hanh = card.dataset.hanh;
+                        card.style.display = hanh === filter ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+
+        // Click effect
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                cards.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

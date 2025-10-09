@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 1: Modern Minimalist - Bát Quái</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: #cbd5e0;
+            background: #f7fafc;
+        }
+
+        .filter-btn.active {
+            border-color: #4299e1;
+            background: #4299e1;
+            color: white;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #f0f0f0;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            filter: grayscale(0.3);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: #718096;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.625rem;
+            border-radius: 6px;
+            font-weight: 600;
+            border: 1px solid;
+        }
+
+        .tag-thuy { background: #ebf8ff; color: #2c5282; border-color: #bee3f8; }
+        .tag-moc { background: #f0fff4; color: #22543d; border-color: #9ae6b4; }
+        .tag-hoa { background: #fff5f5; color: #742a2a; border-color: #feb2b2; }
+        .tag-tho { background: #fffaf0; color: #7c2d12; border-color: #fbd38d; }
+        .tag-kim { background: #f7fafc; color: #2d3748; border-color: #cbd5e0; }
+
+        .card-info {
+            font-size: 0.875rem;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        /* Màu accent cho từng hành */
+        .card[data-hanh="Thủy"] { --accent-color: #3182ce; }
+        .card[data-hanh="Mộc"] { --accent-color: #38a169; }
+        .card[data-hanh="Hỏa"] { --accent-color: #e53e3e; }
+        .card[data-hanh="Thổ"] { --accent-color: #d69e2e; }
+        .card[data-hanh="Kim"] { --accent-color: #718096; }
+
+        .center-card {
+            grid-column: 2;
+            grid-row: 2;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+
+        .center-card .card-title,
+        .center-card .card-subtitle,
+        .center-card .card-info {
+            color: white;
+        }
+
+        .center-card::before {
+            background: white;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .center-card {
+                grid-column: 1;
+                grid-row: auto;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+
+        .demo-badge {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: #f56565;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-badge">OPTION 1: MINIMALIST</div>
+
+    <div class="container">
+        <header>
+            <h1>🧭 Bát Quái - Hướng & Ngũ Hành</h1>
+            <p class="subtitle">Tám hướng và năng lượng của vũ trụ</p>
+        </header>
+
+        <div class="filter-bar">
+            <button class="filter-btn active">Tất cả</button>
+            <button class="filter-btn">Thủy</button>
+            <button class="filter-btn">Mộc</button>
+            <button class="filter-btn">Hỏa</button>
+            <button class="filter-btn">Thổ</button>
+            <button class="filter-btn">Kim</button>
+        </div>
+
+        <div class="grid">
+            <!-- Tây Bắc -->
+            <div class="card" data-hanh="Kim">
+                <div class="card-icon">☰</div>
+                <div class="card-title">Tây Bắc</div>
+                <div class="card-subtitle">Quẻ Càn</div>
+                <div class="card-tags">
+                    <span class="tag tag-kim">Kim</span>
+                </div>
+                <div class="card-info">Trời, sáng tạo, cứng cỏi, quyền uy</div>
+                <div class="card-info" style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7;">
+                    📍 Tuất, Hợi
+                </div>
+            </div>
+
+            <!-- Bắc -->
+            <div class="card" data-hanh="Thủy">
+                <div class="card-icon">☵</div>
+                <div class="card-title">Bắc</div>
+                <div class="card-subtitle">Quẻ Khảm</div>
+                <div class="card-tags">
+                    <span class="tag tag-thuy">Thủy</span>
+                </div>
+                <div class="card-info">Thủy, hiểm nạn, trí tuệ, linh hoạt</div>
+                <div class="card-info" style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7;">
+                    ☯ Nhâm, Quý • 📍 Tý
+                </div>
+            </div>
+
+            <!-- Đông Bắc -->
+            <div class="card" data-hanh="Thổ">
+                <div class="card-icon">☶</div>
+                <div class="card-title">Đông Bắc</div>
+                <div class="card-subtitle">Quẻ Cấn</div>
+                <div class="card-tags">
+                    <span class="tag tag-tho">Thổ</span>
+                </div>
+                <div class="card-info">Núi, dừng lại, ổn định, chắc chắn</div>
+                <div class="card-info" style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7;">
+                    📍 Sửu, Dần
+                </div>
+            </div>
+
+            <!-- Tây -->
+            <div class="card" data-hanh="Kim">
+                <div class="card-icon">☱</div>
+                <div class="card-title">Tây</div>
+                <div class="card-subtitle">Quẻ Đoài</div>
+                <div class="card-tags">
+                    <span class="tag tag-kim">Kim</span>
+                </div>
+                <div class="card-info">Hồ, vui vẻ, giao tiếp, hùng biện</div>
+                <div class="card-info" style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7;">
+                    ☯ Canh, Tân • 📍 Dậu
+                </div>
+            </div>
+
+            <!-- Trung Cung -->
+            <div class="card center-card" data-hanh="Thổ">
+                <div class="card-icon">☯</div>
+                <div class="card-title">Trung Cung</div>
+                <div class="card-subtitle">Tâm điểm vũ trụ</div>
+                <div class="card-tags">
+                    <span class="tag" style="background: rgba(255,255,255,0.3); color: white; border-color: rgba(255,255,255,0.5);">Thổ</span>
+                </div>
+                <div class="card-info">Trung tâm, hài hòa, cân bằng vũ trụ</div>
+                <div class="card-info" style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.9;">
+                    ☯ Mậu, Kỷ
+                </div>
+            </div>
+
+            <!-- Đông -->
+            <div class="card" data-hanh="Mộc">
+                <div class="card-icon">☳</div>
+                <div class="card-title">Đông</div>
+                <div class="card-subtitle">Quẻ Chấn</div>
+                <div class="card-tags">
+                    <span class="tag tag-moc">Mộc</span>
+                </div>
+                <div class="card-info">Sấm, chấn động, khởi đầu, phát triển</div>
+                <div class="card-info" style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7;">
+                    ☯ Giáp, Ất • 📍 Mão
+                </div>
+            </div>
+
+            <!-- Tây Nam -->
+            <div class="card" data-hanh="Thổ">
+                <div class="card-icon">☷</div>
+                <div class="card-title">Tây Nam</div>
+                <div class="card-subtitle">Quẻ Khôn</div>
+                <div class="card-tags">
+                    <span class="tag tag-tho">Thổ</span>
+                </div>
+                <div class="card-info">Đất, thuận tòng, bao dung, nuôi dưỡng</div>
+                <div class="card-info" style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7;">
+                    📍 Mùi, Thân
+                </div>
+            </div>
+
+            <!-- Nam -->
+            <div class="card" data-hanh="Hỏa">
+                <div class="card-icon">☲</div>
+                <div class="card-title">Nam</div>
+                <div class="card-subtitle">Quẻ Ly</div>
+                <div class="card-tags">
+                    <span class="tag tag-hoa">Hỏa</span>
+                </div>
+                <div class="card-info">Lửa, sáng sủa, trí tuệ, văn minh</div>
+                <div class="card-info" style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7;">
+                    ☯ Bính, Đinh • 📍 Ngọ
+                </div>
+            </div>
+
+            <!-- Đông Nam -->
+            <div class="card" data-hanh="Mộc">
+                <div class="card-icon">☴</div>
+                <div class="card-title">Đông Nam</div>
+                <div class="card-subtitle">Quẻ Tốn</div>
+                <div class="card-tags">
+                    <span class="tag tag-moc">Mộc</span>
+                </div>
+                <div class="card-info">Gió, nhẹ nhàng, thấm dần, lan tỏa</div>
+                <div class="card-info" style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7;">
+                    📍 Thìn, Tị
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.card:not(.center-card)');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.textContent;
+
+                cards.forEach(card => {
+                    if (filter === 'Tất cả') {
+                        card.style.display = 'block';
+                    } else {
+                        const hanh = card.dataset.hanh;
+                        card.style.display = hanh === filter ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
