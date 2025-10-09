@@ -104,7 +104,7 @@ export const ThienCanNamSinhTable = () => {
                           ? 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200'
                           : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200'
                       }`}>
-                        {can.cucTinh}
+                        {can.cucTinh === 'Dương' ? '➕ Dương' : '➖ Âm'}
                       </span>
                     </td>
                   </tr>
@@ -217,8 +217,8 @@ export const ThienCanNamSinhTable = () => {
         </h3>
         <ul className="list-disc list-inside space-y-2 text-slate-900 dark:text-slate-100">
           <li>Mỗi <strong>Ngũ Hành</strong> có 2 Thiên Can: 1 Dương và 1 Âm</li>
-          <li><strong>Dương Can</strong>: Canh (0), Nhâm (2), Giáp (4), Bính (6), Mậu (8)</li>
-          <li><strong>Âm Can</strong>: Tân (1), Quý (3), Ất (5), Đinh (7), Kỷ (9)</li>
+          <li><strong>➕ Dương Can</strong>: Canh (0), Nhâm (2), Giáp (4), Bính (6), Mậu (8)</li>
+          <li><strong>➖ Âm Can</strong>: Tân (1), Quý (3), Ất (5), Đinh (7), Kỷ (9)</li>
           <li>Cứ 10 năm lại lặp lại 1 chu kỳ Thiên Can</li>
         </ul>
       </div>

@@ -69,7 +69,7 @@ export const DiaChiQuanHeTable = () => {
                     <td className="px-6 py-4">
                       <div className={`inline-flex items-center gap-2 ${colors.bg} ${colors.text} px-4 py-2 rounded-xl font-bold border-2 ${colors.border}`}>
                         <span>{chiIcons[item.chi]}</span>
-                        {chiInfo?.ten || item.chi}
+                        {chiInfo?.cucTinh === 'Dương' ? '➕' : '➖'} {chiInfo?.ten || item.chi}
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -161,7 +161,7 @@ export const DiaChiQuanHeTable = () => {
                     <td className="px-6 py-4">
                       <div className={`inline-flex items-center gap-2 ${colors.bg} ${colors.text} px-4 py-2 rounded-xl font-bold border-2 ${colors.border}`}>
                         <span>{chiIcons[item.chi]}</span>
-                        {chiInfo?.ten || item.chi}
+                        {chiInfo?.cucTinh === 'Dương' ? '➕' : '➖'} {chiInfo?.ten || item.chi}
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -239,7 +239,7 @@ export const DiaChiQuanHeTable = () => {
                     <td className="px-6 py-4">
                       <div className={`inline-flex items-center gap-2 ${colors.bg} ${colors.text} px-4 py-2 rounded-xl font-bold border-2 ${colors.border}`}>
                         <span>{chiIcons[item.chi]}</span>
-                        {chiInfo?.ten || item.chi}
+                        {chiInfo?.cucTinh === 'Dương' ? '➕' : '➖'} {chiInfo?.ten || item.chi}
                       </div>
                     </td>
                     <td className="px-6 py-4">

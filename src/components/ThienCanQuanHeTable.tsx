@@ -46,7 +46,7 @@ export const ThienCanQuanHeTable = () => {
                 >
                   <td className="px-6 py-4">
                     <div className={`inline-flex items-center gap-2 ${colors.bg} ${colors.text} px-4 py-2 rounded-xl font-bold border-2 ${colors.border}`}>
-                      {canInfo?.cucTinh === 'Dương' ? '☯' : '☯'} {canInfo?.ten || item.can}
+                      {canInfo?.cucTinh === 'Dương' ? '➕' : '➖'} {canInfo?.ten || item.can}
                     </div>
                   </td>
                   <td className="px-6 py-4">
