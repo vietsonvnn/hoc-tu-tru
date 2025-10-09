@@ -4,18 +4,18 @@ import { getNguHanhColor } from '../utils/colors';
 import { useState } from 'react';
 
 const chiIcons: Record<string, string> = {
-  Ty: '🐭',
-  Suu: '🐂',
-  Dan: '🐅',
-  Mao: '🐈',
-  Thin: '🐉',
-  Ti: '🐍',
-  Ngo: '🐴',
-  Mui: '🐑',
-  Than: '🐵',
-  Dau: '🐓',
-  Tuat: '🐕',
-  Hoi: '🐖',
+  Tý: '🐭',
+  Sửu: '🐂',
+  Dần: '🐅',
+  Mão: '🐈',
+  Thìn: '🐉',
+  Tị: '🐍',
+  Ngọ: '🐴',
+  Mùi: '🐑',
+  Thân: '🐵',
+  Dậu: '🐓',
+  Tuất: '🐕',
+  Hợi: '🐖',
 };
 
 export const DiaChiQuanHeTable = () => {

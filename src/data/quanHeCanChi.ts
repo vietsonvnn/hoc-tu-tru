@@ -269,10 +269,10 @@ export const diaChiQuanHe: DiaChiQuanHe[] = [
     lucHop: { voi: 'Thân', hoa: 'Thủy' },
     xung: 'Hợi',
     xungYNghia: [
-      'Dần - Thân là Dịch Mã nên dễ có việc phải di chuyển, xa nhà',
-      'Phiền não xoay quanh công việc, chức vụ, quyền lợi',
-      'Làm ăn nhiều thất bại, tài lộc bất ổn',
-      'Nếu xấu: tai nạn giao thông, té ngã, gãy xương'
+      'Xung Hỏa - Thủy gây mâu thuẫn Âm Dương, bất hòa',
+      'Tính tình thất thường, hay thay đổi, thiếu kiên định',
+      'Công việc hay thất bại, nhiều trở ngại, không thuận lợi',
+      'Sức khỏe kém, dễ mắc bệnh về tim mạch, thần kinh'
     ],
     hinh: ['Dần', 'Thân'],
     hinhYNghia: [
@@ -473,10 +473,10 @@ export const diaChiQuanHe: DiaChiQuanHe[] = [
     lucHop: { voi: 'Dần', hoa: 'Mộc' },
     xung: 'Tị',
     xungYNghia: [
-      'Dần - Thân là Dịch Mã nên dễ có việc phải di chuyển, xa nhà',
-      'Phiền não xoay quanh công việc, chức vụ, quyền lợi',
-      'Làm ăn nhiều thất bại, tài lộc bất ổn',
-      'Nếu xấu: tai nạn giao thông, té ngã, gãy xương'
+      'Xung Thủy - Hỏa gây mâu thuẫn Âm Dương, bất hòa',
+      'Tính tình thất thường, hay thay đổi, thiếu kiên định',
+      'Công việc hay thất bại, nhiều trở ngại, không thuận lợi',
+      'Sức khỏe kém, dễ mắc bệnh về tim mạch, thần kinh'
     ],
     hinh: ['Hợi'],
     hinhYNghia: [

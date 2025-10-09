@@ -15,10 +15,10 @@ export const getNguHanhColor = (loai: NguHanhType) => {
       hover: 'hover:shadow-green-300',
     },
     Thủy: {
-      bg: 'bg-gradient-to-br from-blue-500 to-blue-600',
+      bg: 'bg-gradient-to-br from-blue-400 to-blue-500',
       text: 'text-white',
-      border: 'border-blue-400',
-      hover: 'hover:shadow-blue-300',
+      border: 'border-blue-300',
+      hover: 'hover:shadow-blue-200',
     },
     Hỏa: {
       bg: 'bg-gradient-to-br from-red-500 to-red-600',
@@ -41,7 +41,7 @@ export const getMuaColor = (mua: string) => {
     Xuân: 'bg-gradient-to-br from-green-500 to-green-600 text-white',
     Hạ: 'bg-gradient-to-br from-red-500 to-red-600 text-white',
     Thu: 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-800',
-    Đông: 'bg-gradient-to-br from-blue-500 to-blue-600 text-white',
+    Đông: 'bg-gradient-to-br from-blue-400 to-blue-500 text-white',
   };
   return colors[mua as keyof typeof colors] || 'bg-gray-100';
 };
