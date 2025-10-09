@@ -42,7 +42,11 @@ export const NguHanhCard = ({ data, onClick }: NguHanhCardProps) => {
         {/* Front Side */}
         <div
           className={`absolute inset-0 ${colors.bg} ${colors.text} rounded-3xl p-8 shadow-2xl border-4 ${colors.border} backface-hidden overflow-hidden`}
-          style={{ backfaceVisibility: 'hidden' }}
+          style={{
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            visibility: isFlipped ? 'hidden' : 'visible'
+          }}
         >
           {/* Decorative circles */}
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -mr-16 -mt-16"></div>
@@ -68,7 +72,12 @@ export const NguHanhCard = ({ data, onClick }: NguHanhCardProps) => {
         {/* Back Side */}
         <div
           className={`absolute inset-0 ${colors.bg} ${colors.text} rounded-3xl p-6 shadow-2xl border-4 ${colors.border} backface-hidden overflow-y-auto`}
-          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+          style={{
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            transform: 'rotateY(180deg)',
+            visibility: isFlipped ? 'visible' : 'hidden'
+          }}
         >
           <div className="flex items-center justify-between mb-4 pb-3 border-b-2 border-current/20">
             <h3 className="font-black text-2xl flex items-center gap-2">
