@@ -98,16 +98,31 @@ export function getHourCan(dayCan: ThienCanType, hour: number): ThienCanType {
   return THIEN_CAN[hourCanIndex];
 }
 
-// Simplified Day Can/Chi calculation (approximation)
-// For accurate calculation, use perpetual calendar algorithm
+// Calculate Julian Day Number
+function getJulianDayNumber(year: number, month: number, day: number): number {
+  let a = Math.floor((14 - month) / 12);
+  let y = year + 4800 - a;
+  let m = month + 12 * a - 3;
+
+  let jdn = day + Math.floor((153 * m + 2) / 5) + 365 * y +
+            Math.floor(y / 4) - Math.floor(y / 100) +
+            Math.floor(y / 400) - 32045;
+
+  return jdn;
+}
+
+// Accurate Day Can/Chi calculation using Julian Day Number
+// Formula: Can = (N + 9) % 10, Chi = (N + 1) % 12
 export function getDayCanChi(year: number, month: number, day: number): BaziPillar {
-  // This is a simplified approximation
-  // In production, use a proper perpetual calendar algorithm
+  const N = getJulianDayNumber(year, month, day);
 
-  const totalDays = Math.floor((new Date(year, month - 1, day).getTime() - new Date(1900, 0, 1).getTime()) / (1000 * 60 * 60 * 24));
+  // Can: (N + 9) % 10, where 0 = Giáp, 1 = Ất, ...
+  let canIndex = (N + 9) % 10;
+  if (canIndex < 0) canIndex += 10;
 
-  const canIndex = (totalDays + 10) % 10;
-  const chiIndex = (totalDays + 10) % 12;
+  // Chi: (N + 1) % 12, where 0 = Tý, 1 = Sửu, ...
+  let chiIndex = (N + 1) % 12;
+  if (chiIndex < 0) chiIndex += 12;
 
   return {
     can: THIEN_CAN[canIndex],
@@ -116,27 +131,44 @@ export function getDayCanChi(year: number, month: number, day: number): BaziPill
 }
 
 // Calculate Mệnh Cung (Life Palace)
+// Formula: 26 - (Chi Tháng + Chi Giờ)
+// Nếu kết quả > 12 thì trừ đi 12
 export function getMenhCung(monthChi: DiaChiType, hourChi: DiaChiType): DiaChiType {
-  const monthIndex = DIA_CHI.indexOf(monthChi);
-  const hourIndex = DIA_CHI.indexOf(hourChi);
+  // Chuyển Chi thành số (1-12): Tý=1, Sửu=2, ..., Hợi=12
+  const monthNumber = DIA_CHI.indexOf(monthChi) + 1;
+  const hourNumber = DIA_CHI.indexOf(hourChi) + 1;
 
-  let sum = monthIndex + hourIndex;
-  if (sum >= 12) sum -= 12;
+  let menhNumber = 26 - (monthNumber + hourNumber);
 
-  const menhIndex = (14 - sum) % 12;
-  return DIA_CHI[menhIndex];
+  // Nếu > 12 thì trừ đi 12
+  if (menhNumber > 12) {
+    menhNumber = menhNumber - 12;
+  }
+
+  // Nếu <= 0 thì cộng 12
+  while (menhNumber <= 0) {
+    menhNumber += 12;
+  }
+
+  // Chuyển từ số (1-12) về index (0-11)
+  return DIA_CHI[menhNumber - 1];
 }
 
 // Calculate Thân Cung (Body Palace)
+// Formula: Tháng + Giờ + 2
+// Nếu > 12 thì trừ đi 12
 export function getThanCung(monthChi: DiaChiType, hourChi: DiaChiType): DiaChiType {
-  const monthIndex = DIA_CHI.indexOf(monthChi);
-  const hourIndex = DIA_CHI.indexOf(hourChi);
+  const monthNumber = DIA_CHI.indexOf(monthChi) + 1;
+  const hourNumber = DIA_CHI.indexOf(hourChi) + 1;
 
-  let diff = monthIndex - hourIndex + 2;
-  while (diff < 0) diff += 12;
-  diff = diff % 12;
+  let thanNumber = monthNumber + hourNumber + 2;
 
-  return DIA_CHI[diff];
+  // Nếu > 12 thì lặp lại chu kỳ
+  while (thanNumber > 12) {
+    thanNumber -= 12;
+  }
+
+  return DIA_CHI[thanNumber - 1];
 }
 
 // Main function to calculate complete Bazi chart
