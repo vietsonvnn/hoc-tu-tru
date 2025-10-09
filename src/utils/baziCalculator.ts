@@ -46,14 +46,14 @@ export function getYearPillar(solarDate: Date): BaziPillar {
     }
   }
 
-  // Calculate Heavenly Stem
-  let stemValue = lunarYear % 10 - 3;
-  if (stemValue < 1) stemValue += 10;
+  // Calculate Heavenly Stem: (year - 3) % 10
+  let stemValue = (lunarYear - 3) % 10;
+  if (stemValue <= 0) stemValue += 10;
   const yearCan = THIEN_CAN[stemValue - 1];
 
-  // Calculate Earthly Branch
-  let branchValue = (lunarYear - 5) % 12;
-  if (branchValue < 1) branchValue += 12;
+  // Calculate Earthly Branch: (year - 3) % 12
+  let branchValue = (lunarYear - 3) % 12;
+  if (branchValue <= 0) branchValue += 12;
   const yearChi = DIA_CHI[branchValue - 1];
 
   return { can: yearCan, chi: yearChi };
@@ -126,8 +126,8 @@ export function getDayPillar(solarDate: Date): BaziPillar {
   if (stemValue === 0) stemValue = 10;
   const dayCan = THIEN_CAN[stemValue - 1];
 
-  // Calculate Branch: (daysDiff - 3) % 12
-  let branchValue = (daysDiff - 3) % 12;
+  // Calculate Branch: (daysDiff - 1) % 12 (corrected offset)
+  let branchValue = (daysDiff - 1) % 12;
   if (branchValue <= 0) branchValue += 12;
   const dayChi = DIA_CHI[branchValue - 1];
 
