@@ -181,29 +181,29 @@ export const BatQuaiCompass = () => {
   };
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative overflow-x-hidden">
       {/* Nền bầu trời đêm */}
       <NightSkyBackground />
 
       {/* Content */}
-      <div className="relative min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
+      <div className="relative min-h-screen flex flex-col items-center justify-start py-8 px-4 sm:py-12 sm:px-8">
         {/* Tiêu đề */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="mb-12 text-center z-10"
+          className="mb-6 sm:mb-10 text-center z-10 w-full"
         >
-          <h1 className="text-4xl sm:text-6xl font-black mb-4 text-white drop-shadow-2xl">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black mb-3 text-white drop-shadow-2xl">
             Bát Quái Huyền Thiên
           </h1>
-          <p className="text-lg sm:text-xl text-blue-200">
+          <p className="text-base sm:text-lg md:text-xl text-blue-200">
             ✨ Khám phá tám hướng và ngũ hành ✨
           </p>
         </motion.div>
 
         {/* La bàn Bát Quái 3D */}
-        <div className="relative w-full max-w-3xl aspect-square mb-12">
+        <div className="relative w-full max-w-[90vw] sm:max-w-2xl md:max-w-3xl aspect-square mb-8 sm:mb-12 mx-auto">
           {/* Vòng ngoài phát sáng */}
           <motion.div
             className="absolute inset-0 rounded-full opacity-30"
@@ -222,8 +222,8 @@ export const BatQuaiCompass = () => {
           />
 
           {/* Vòng chính */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-900/40 via-purple-900/40 to-indigo-900/40 backdrop-blur-md border border-blue-300/20 shadow-2xl">
-            <div className="absolute inset-4 rounded-full bg-gradient-to-br from-slate-950/80 via-blue-950/80 to-purple-950/80 border border-blue-400/10"></div>
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-900/50 via-purple-900/50 to-indigo-900/50 backdrop-blur-lg border-2 border-blue-300/30 shadow-2xl">
+            <div className="absolute inset-3 sm:inset-4 rounded-full bg-gradient-to-br from-slate-950/90 via-blue-950/90 to-purple-950/90 border border-blue-400/20"></div>
           </div>
 
           {/* Đường chia 8 hướng */}
@@ -255,30 +255,31 @@ export const BatQuaiCompass = () => {
           {/* Trung Cung */}
           <motion.div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20"
-            whileHover={{ scale: 1.15 }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => handleDirectionClick(centerInfo)}
           >
             <div
-              className="w-20 h-20 sm:w-28 sm:h-28 rounded-full flex flex-col items-center justify-center border-2 border-yellow-400/60 backdrop-blur-xl transition-all duration-300"
+              className="w-16 h-16 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full flex flex-col items-center justify-center border-3 backdrop-blur-xl transition-all duration-300"
               style={{
                 background: selectedDirection?.huong === centerInfo.huong
-                  ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.7) 0%, rgba(245, 158, 11, 0.7) 100%)'
-                  : 'linear-gradient(135deg, rgba(59, 130, 246, 0.5) 0%, rgba(147, 51, 234, 0.5) 100%)',
+                  ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.85) 0%, rgba(245, 158, 11, 0.85) 100%)'
+                  : 'linear-gradient(135deg, rgba(59, 130, 246, 0.7) 0%, rgba(147, 51, 234, 0.7) 100%)',
+                borderColor: selectedDirection?.huong === centerInfo.huong ? '#fbbf24' : '#60a5fa',
                 boxShadow: selectedDirection?.huong === centerInfo.huong
-                  ? '0 0 40px rgba(251, 191, 36, 0.8)'
-                  : '0 0 30px rgba(147, 197, 253, 0.5)',
+                  ? '0 0 50px rgba(251, 191, 36, 1), 0 0 100px rgba(251, 191, 36, 0.5)'
+                  : '0 0 30px rgba(147, 197, 253, 0.6)',
               }}
             >
               <motion.div
-                className="text-3xl sm:text-5xl"
+                className="text-2xl sm:text-4xl md:text-5xl"
                 animate={{ rotate: -360 }}
                 transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-                style={{ filter: 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))' }}
+                style={{ filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 1))' }}
               >
                 ☯
               </motion.div>
-              <div className="text-[8px] sm:text-xs font-bold text-white mt-1">Trung Cung</div>
+              <div className="text-[7px] sm:text-[9px] md:text-xs font-bold text-white mt-0.5 sm:mt-1">Trung Cung</div>
             </div>
           </motion.div>
 
@@ -301,34 +302,34 @@ export const BatQuaiCompass = () => {
                   type: "spring",
                   stiffness: 120,
                 }}
-                whileHover={{ scale: 1.2, z: 50 }}
+                whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => handleDirectionClick(direction)}
               >
                 <div
-                  className="w-16 h-16 sm:w-24 sm:h-24 rounded-full flex flex-col items-center justify-center border-2 transition-all duration-300 backdrop-blur-xl relative"
+                  className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full flex flex-col items-center justify-center border-2 transition-all duration-300 backdrop-blur-xl relative"
                   style={{
                     background: isSelected
-                      ? 'linear-gradient(135deg, rgba(96, 165, 250, 0.9) 0%, rgba(147, 51, 234, 0.9) 100%)'
-                      : 'rgba(30, 41, 59, 0.6)',
-                    borderColor: isSelected ? '#fbbf24' : 'rgba(147, 197, 253, 0.4)',
+                      ? 'linear-gradient(135deg, rgba(96, 165, 250, 0.95) 0%, rgba(147, 51, 234, 0.95) 100%)'
+                      : 'linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.8) 100%)',
+                    borderColor: isSelected ? '#fbbf24' : 'rgba(147, 197, 253, 0.5)',
                     boxShadow: isSelected
-                      ? '0 0 50px rgba(251, 191, 36, 1)'
-                      : '0 0 20px rgba(147, 197, 253, 0.3)',
+                      ? '0 0 50px rgba(251, 191, 36, 1), 0 0 100px rgba(251, 191, 36, 0.5)'
+                      : '0 0 25px rgba(147, 197, 253, 0.4)',
                   }}
                 >
                   <motion.div
-                    className="text-2xl sm:text-4xl mb-0.5"
+                    className="text-xl sm:text-3xl md:text-4xl mb-0.5"
                     animate={isSelected ? { scale: [1, 1.2, 1] } : {}}
                     transition={{ duration: 1.5, repeat: Infinity }}
-                    style={{ filter: 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))' }}
+                    style={{ filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 1))' }}
                   >
                     {direction.kyHieu}
                   </motion.div>
-                  <div className="text-[7px] sm:text-[10px] font-black text-white leading-tight">
+                  <div className="text-[6px] sm:text-[8px] md:text-[10px] font-black text-white leading-tight">
                     {direction.huong}
                   </div>
-                  <div className="text-[6px] sm:text-[9px] font-bold text-blue-200 opacity-90 leading-tight">
+                  <div className="text-[5px] sm:text-[7px] md:text-[9px] font-bold text-blue-200 opacity-90 leading-tight">
                     {direction.que}
                   </div>
                 </div>
@@ -344,12 +345,12 @@ export const BatQuaiCompass = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 50 }}
-              className="w-full max-w-3xl z-10"
+              className="w-full max-w-[90vw] sm:max-w-2xl md:max-w-3xl z-10 mx-auto"
             >
-              <div className="rounded-3xl p-6 sm:p-8 backdrop-blur-2xl bg-gradient-to-br from-blue-900/80 via-purple-900/80 to-indigo-900/80 border border-blue-300/30 shadow-2xl">
-                <div className="flex flex-col sm:flex-row items-center gap-6 mb-6">
+              <div className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 backdrop-blur-2xl bg-gradient-to-br from-blue-900/90 via-purple-900/90 to-indigo-900/90 border-2 border-blue-300/40 shadow-2xl">
+                <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-5 sm:mb-6">
                   <motion.div
-                    className="text-7xl sm:text-9xl"
+                    className="text-6xl sm:text-7xl md:text-9xl"
                     animate={{ rotateY: [0, 360] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                     style={{
@@ -359,30 +360,30 @@ export const BatQuaiCompass = () => {
                   >
                     {selectedDirection.kyHieu}
                   </motion.div>
-                  <div className="text-center sm:text-left">
-                    <h3 className="text-3xl sm:text-5xl font-black text-white mb-2">
+                  <div className="text-center sm:text-left flex-1">
+                    <h3 className="text-2xl sm:text-4xl md:text-5xl font-black text-white mb-2">
                       {selectedDirection.huong}
                     </h3>
-                    <div className="text-xl sm:text-2xl font-bold text-yellow-300 mb-1">
+                    <div className="text-lg sm:text-xl md:text-2xl font-bold text-yellow-300 mb-1">
                       Quẻ {selectedDirection.que}
                     </div>
-                    <div className="text-base sm:text-lg font-bold text-blue-200">
+                    <div className="text-sm sm:text-base md:text-lg font-bold text-blue-200">
                       Ngũ Hành: {selectedDirection.nguHanh}
                     </div>
                   </div>
                 </div>
 
-                <div className="mb-6 p-4 bg-white/10 rounded-xl">
-                  <div className="text-sm font-bold text-yellow-300 mb-2">Ý NGHĨA</div>
-                  <div className="text-white/90 italic">"{selectedDirection.yNghia}"</div>
+                <div className="mb-5 sm:mb-6 p-3 sm:p-4 bg-white/15 rounded-xl border border-blue-200/20">
+                  <div className="text-xs sm:text-sm font-bold text-yellow-300 mb-2 uppercase">Ý Nghĩa</div>
+                  <div className="text-sm sm:text-base text-white/95 italic leading-relaxed">"{selectedDirection.yNghia}"</div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                   {selectedDirection.thienCan.length > 0 && (
                     <div>
-                      <div className="text-sm font-bold text-yellow-300 mb-3 flex items-center gap-2">
-                        <span className="text-lg">☯</span>
-                        THIÊN CAN
+                      <div className="text-xs sm:text-sm font-bold text-yellow-300 mb-3 flex items-center gap-2 uppercase">
+                        <span className="text-base sm:text-lg">☯</span>
+                        Thiên Can
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {selectedDirection.thienCan.map((can) => (
@@ -390,7 +391,7 @@ export const BatQuaiCompass = () => {
                             key={can}
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
-                            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-xl font-bold shadow-lg"
+                            className="bg-gradient-to-br from-blue-500 to-purple-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl font-bold shadow-lg text-sm sm:text-base border border-white/20"
                           >
                             {can}
                           </motion.div>
@@ -401,9 +402,9 @@ export const BatQuaiCompass = () => {
 
                   {selectedDirection.diaChi.length > 0 && (
                     <div>
-                      <div className="text-sm font-bold text-yellow-300 mb-3 flex items-center gap-2">
-                        <span className="text-lg">🐉</span>
-                        ĐỊA CHI
+                      <div className="text-xs sm:text-sm font-bold text-yellow-300 mb-3 flex items-center gap-2 uppercase">
+                        <span className="text-base sm:text-lg">🐉</span>
+                        Địa Chi
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {selectedDirection.diaChi.map((chi) => (
@@ -412,7 +413,7 @@ export const BatQuaiCompass = () => {
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ delay: 0.1 }}
-                            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-xl font-bold shadow-lg"
+                            className="bg-gradient-to-br from-purple-500 to-pink-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl font-bold shadow-lg text-sm sm:text-base border border-white/20"
                           >
                             {chi}
                           </motion.div>
