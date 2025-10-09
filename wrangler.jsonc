@@ -5,14 +5,10 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "super-poetry-7ecb",
-	"main": "./.output/server/index.mjs",
 	"compatibility_date": "2025-10-08",
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
 	"assets": {
 		"binding": "ASSETS",
-		"directory": "./.output/public"
+		"directory": "./dist"
 	},
 	"observability": {
 		"enabled": true
