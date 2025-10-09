@@ -1,8 +1,15 @@
 import { thienCanQuanHe } from '../data/quanHeCanChi';
 import { getNguHanhColor } from '../utils/colors';
 import { thienCanData } from '../data/thienCan';
+import { useState } from 'react';
 
 export const ThienCanQuanHeTable = () => {
+  const [expandedCan, setExpandedCan] = useState<string | null>(null);
+
+  const toggleExpand = (can: string, type: string) => {
+    const key = `${can}-${type}`;
+    setExpandedCan(expandedCan === key ? null : key);
+  };
 
   return (
     <div className="space-y-8">
@@ -36,63 +43,246 @@ export const ThienCanQuanHeTable = () => {
             {thienCanQuanHe.map((item, index) => {
               const canInfo = thienCanData.find(c => c.can === item.can);
               const colors = canInfo ? getNguHanhColor(canInfo.nguHanh) : { bg: 'bg-gray-100', text: 'text-gray-900', border: 'border-gray-300' };
+              const amDuongIcon = canInfo?.cucTinh === 'Dương' ? '➕' : '➖';
 
               return (
-                <tr
-                  key={item.can}
-                  className={`border-b-2 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${
-                    index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'
-                  }`}
-                >
-                  <td className="px-6 py-4">
-                    <div className={`inline-flex items-center gap-2 ${colors.bg} ${colors.text} px-4 py-2 rounded-xl font-bold border-2 ${colors.border}`}>
-                      {canInfo?.cucTinh === 'Dương' ? '➕' : '➖'} {canInfo?.ten || item.can}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-green-700 dark:text-green-400 font-semibold">
-                      {item.sinh || '—'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-blue-700 dark:text-blue-400 font-semibold">
-                      {item.beSinh || '—'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-red-700 dark:text-red-400 font-semibold">
-                      {item.khac || '—'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-orange-700 dark:text-orange-400 font-semibold">
-                      {item.beKhac || '—'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    {item.xung ? (
-                      <span className="text-purple-700 dark:text-purple-400 font-bold">
-                        {item.xung}
-                      </span>
-                    ) : (
-                      <span className="text-gray-400">—</span>
-                    )}
-                  </td>
-                  <td className="px-6 py-4">
-                    {item.hop ? (
-                      <div className="flex flex-col gap-1">
-                        <span className="text-pink-700 dark:text-pink-400 font-bold">
-                          {item.hop.voi}
-                        </span>
-                        <span className="text-xs text-gray-600 dark:text-gray-400">
-                          → Hóa {item.hop.hoa}
-                        </span>
+                <>
+                  <tr
+                    key={item.can}
+                    className={`border-b-2 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${
+                      index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'
+                    }`}
+                  >
+                    <td className="px-6 py-4">
+                      <div className={`inline-flex items-center gap-2 ${colors.bg} ${colors.text} px-4 py-2 rounded-xl font-bold border-2 ${colors.border}`}>
+                        <span className="text-sm opacity-60">{amDuongIcon}</span>
+                        <span>{canInfo?.ten || item.can}</span>
                       </div>
-                    ) : (
-                      <span className="text-gray-400">—</span>
-                    )}
-                  </td>
-                </tr>
+                    </td>
+                    <td className="px-6 py-4">
+                      {item.sinh ? (
+                        <div>
+                          <span className="text-green-700 dark:text-green-400 font-semibold">
+                            {item.sinh}
+                          </span>
+                          {item.sinhYNghia && (
+                            <button
+                              onClick={() => toggleExpand(item.can, 'sinh')}
+                              className="mt-1 ml-2 text-xs text-blue-900 dark:text-blue-100 hover:underline"
+                            >
+                              {expandedCan === `${item.can}-sinh` ? '▼' : '▶'}
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
+                      {item.beSinh ? (
+                        <div>
+                          <span className="text-blue-700 dark:text-blue-400 font-semibold">
+                            {item.beSinh}
+                          </span>
+                          {item.beSinhYNghia && (
+                            <button
+                              onClick={() => toggleExpand(item.can, 'beSinh')}
+                              className="mt-1 ml-2 text-xs text-blue-900 dark:text-blue-100 hover:underline"
+                            >
+                              {expandedCan === `${item.can}-beSinh` ? '▼' : '▶'}
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
+                      {item.khac ? (
+                        <div>
+                          <span className="text-red-700 dark:text-red-400 font-semibold">
+                            {item.khac}
+                          </span>
+                          {item.khacYNghia && (
+                            <button
+                              onClick={() => toggleExpand(item.can, 'khac')}
+                              className="mt-1 ml-2 text-xs text-blue-900 dark:text-blue-100 hover:underline"
+                            >
+                              {expandedCan === `${item.can}-khac` ? '▼' : '▶'}
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
+                      {item.beKhac ? (
+                        <div>
+                          <span className="text-orange-700 dark:text-orange-400 font-semibold">
+                            {item.beKhac}
+                          </span>
+                          {item.beKhacYNghia && (
+                            <button
+                              onClick={() => toggleExpand(item.can, 'beKhac')}
+                              className="mt-1 ml-2 text-xs text-blue-900 dark:text-blue-100 hover:underline"
+                            >
+                              {expandedCan === `${item.can}-beKhac` ? '▼' : '▶'}
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
+                      {item.xung ? (
+                        <div>
+                          <span className="text-purple-700 dark:text-purple-400 font-bold">
+                            {item.xung}
+                          </span>
+                          {item.xungYNghia && (
+                            <button
+                              onClick={() => toggleExpand(item.can, 'xung')}
+                              className="mt-1 ml-2 text-xs text-blue-900 dark:text-blue-100 hover:underline"
+                            >
+                              {expandedCan === `${item.can}-xung` ? '▼' : '▶'}
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
+                      {item.hop ? (
+                        <div>
+                          <div className="flex flex-col gap-1">
+                            <span className="text-pink-700 dark:text-pink-400 font-bold">
+                              {item.hop.voi}
+                            </span>
+                            <span className="text-xs text-gray-600 dark:text-gray-400">
+                              → Hóa {item.hop.hoa}
+                            </span>
+                          </div>
+                          {item.hopYNghia && (
+                            <button
+                              onClick={() => toggleExpand(item.can, 'hop')}
+                              className="mt-1 text-xs text-blue-900 dark:text-blue-100 hover:underline"
+                            >
+                              {expandedCan === `${item.can}-hop` ? '▼' : '▶'}
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
+                  </tr>
+
+                  {/* Expanded rows for meanings */}
+                  {expandedCan === `${item.can}-sinh` && item.sinhYNghia && (
+                    <tr key={`${item.can}-sinh-detail`}>
+                      <td colSpan={7} className="px-6 py-4 bg-green-50 dark:bg-green-950">
+                        <div className="space-y-2">
+                          <h4 className="font-bold text-green-900 dark:text-green-100 mb-2">
+                            📌 Ý nghĩa Sinh ra:
+                          </h4>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-green-900 dark:text-green-100">
+                            {item.sinhYNghia.map((y, idx) => (
+                              <li key={idx}>{y}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+
+                  {expandedCan === `${item.can}-beSinh` && item.beSinhYNghia && (
+                    <tr key={`${item.can}-beSinh-detail`}>
+                      <td colSpan={7} className="px-6 py-4 bg-blue-50 dark:bg-blue-950">
+                        <div className="space-y-2">
+                          <h4 className="font-bold text-blue-900 dark:text-blue-100 mb-2">
+                            📌 Ý nghĩa Được sinh:
+                          </h4>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-blue-900 dark:text-blue-100">
+                            {item.beSinhYNghia.map((y, idx) => (
+                              <li key={idx}>{y}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+
+                  {expandedCan === `${item.can}-khac` && item.khacYNghia && (
+                    <tr key={`${item.can}-khac-detail`}>
+                      <td colSpan={7} className="px-6 py-4 bg-red-50 dark:bg-red-950">
+                        <div className="space-y-2">
+                          <h4 className="font-bold text-red-900 dark:text-red-100 mb-2">
+                            📌 Ý nghĩa Khắc:
+                          </h4>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-red-900 dark:text-red-100">
+                            {item.khacYNghia.map((y, idx) => (
+                              <li key={idx}>{y}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+
+                  {expandedCan === `${item.can}-beKhac` && item.beKhacYNghia && (
+                    <tr key={`${item.can}-beKhac-detail`}>
+                      <td colSpan={7} className="px-6 py-4 bg-orange-50 dark:bg-orange-950">
+                        <div className="space-y-2">
+                          <h4 className="font-bold text-orange-900 dark:text-orange-100 mb-2">
+                            📌 Ý nghĩa Bị khắc:
+                          </h4>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-orange-900 dark:text-orange-100">
+                            {item.beKhacYNghia.map((y, idx) => (
+                              <li key={idx}>{y}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+
+                  {expandedCan === `${item.can}-xung` && item.xungYNghia && (
+                    <tr key={`${item.can}-xung-detail`}>
+                      <td colSpan={7} className="px-6 py-4 bg-purple-50 dark:bg-purple-950">
+                        <div className="space-y-2">
+                          <h4 className="font-bold text-purple-900 dark:text-purple-100 mb-2">
+                            📌 Ý nghĩa Xung:
+                          </h4>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-purple-900 dark:text-purple-100">
+                            {item.xungYNghia.map((y, idx) => (
+                              <li key={idx}>{y}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+
+                  {expandedCan === `${item.can}-hop` && item.hopYNghia && (
+                    <tr key={`${item.can}-hop-detail`}>
+                      <td colSpan={7} className="px-6 py-4 bg-pink-50 dark:bg-pink-950">
+                        <div className="space-y-2">
+                          <h4 className="font-bold text-pink-900 dark:text-pink-100 mb-2">
+                            📌 Ý nghĩa Hợp:
+                          </h4>
+                          <ul className="list-disc list-inside space-y-1 text-sm text-pink-900 dark:text-pink-100">
+                            {item.hopYNghia.map((y, idx) => (
+                              <li key={idx}>{y}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </>
               );
             })}
           </tbody>

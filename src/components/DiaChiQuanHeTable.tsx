@@ -69,7 +69,8 @@ export const DiaChiQuanHeTable = () => {
                     <td className="px-6 py-4">
                       <div className={`inline-flex items-center gap-2 ${colors.bg} ${colors.text} px-4 py-2 rounded-xl font-bold border-2 ${colors.border}`}>
                         <span>{chiIcons[item.chi]}</span>
-                        {chiInfo?.cucTinh === 'Dương' ? '➕' : '➖'} {chiInfo?.ten || item.chi}
+                        <span className="text-sm opacity-60">{chiInfo?.cucTinh === 'Dương' ? '➕' : '➖'}</span>
+                        <span>{chiInfo?.ten || item.chi}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -161,7 +162,8 @@ export const DiaChiQuanHeTable = () => {
                     <td className="px-6 py-4">
                       <div className={`inline-flex items-center gap-2 ${colors.bg} ${colors.text} px-4 py-2 rounded-xl font-bold border-2 ${colors.border}`}>
                         <span>{chiIcons[item.chi]}</span>
-                        {chiInfo?.cucTinh === 'Dương' ? '➕' : '➖'} {chiInfo?.ten || item.chi}
+                        <span className="text-sm opacity-60">{chiInfo?.cucTinh === 'Dương' ? '➕' : '➖'}</span>
+                        <span>{chiInfo?.ten || item.chi}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -239,7 +241,8 @@ export const DiaChiQuanHeTable = () => {
                     <td className="px-6 py-4">
                       <div className={`inline-flex items-center gap-2 ${colors.bg} ${colors.text} px-4 py-2 rounded-xl font-bold border-2 ${colors.border}`}>
                         <span>{chiIcons[item.chi]}</span>
-                        {chiInfo?.cucTinh === 'Dương' ? '➕' : '➖'} {chiInfo?.ten || item.chi}
+                        <span className="text-sm opacity-60">{chiInfo?.cucTinh === 'Dương' ? '➕' : '➖'}</span>
+                        <span>{chiInfo?.ten || item.chi}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4">

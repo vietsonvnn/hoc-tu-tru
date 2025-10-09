@@ -95,11 +95,17 @@ export type ThienCanQuanHeType = 'Sinh' | 'Khac' | 'Xung' | 'Hop';
 export interface ThienCanQuanHe {
   can: ThienCanType;
   sinh?: string; // Can nào sinh ra
+  sinhYNghia?: string[]; // Ý nghĩa của việc sinh
   beSinh?: string; // Được can nào sinh
+  beSinhYNghia?: string[]; // Ý nghĩa của việc được sinh
   khac?: string; // Khắc can nào
+  khacYNghia?: string[]; // Ý nghĩa của việc khắc
   beKhac?: string; // Bị can nào khắc
+  beKhacYNghia?: string[]; // Ý nghĩa của việc bị khắc
   xung?: string; // Xung với can nào
+  xungYNghia?: string[]; // Ý nghĩa của Xung
   hop?: { voi: string; hoa: NguHanhType }; // Hợp với can nào, hóa thành gì
+  hopYNghia?: string[]; // Ý nghĩa của Hợp
 }
 
 // Quan hệ Địa Chi

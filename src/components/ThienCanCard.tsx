@@ -57,8 +57,9 @@ export const ThienCanCard = ({ data }: ThienCanCardProps) => {
 
             {/* Cực tính */}
             <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-3 mb-4">
-              <p className="text-lg font-bold">
-                {data.cucTinh === 'Dương' ? '➕ Dương' : '➖ Âm'}
+              <p className="text-lg font-bold flex items-center justify-center gap-2">
+                <span className="text-sm opacity-60">{data.cucTinh === 'Dương' ? '➕' : '➖'}</span>
+                <span>{data.cucTinh}</span>
               </p>
             </div>
 
