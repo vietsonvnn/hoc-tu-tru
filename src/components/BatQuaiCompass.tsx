@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import type { NguHanhType } from '../types';
-import { getNguHanhColor } from '../utils/colors';
 
 interface DirectionInfo {
   huong: string;
@@ -461,7 +460,6 @@ export const BatQuaiCompass = () => {
 
             {/* 8 Hướng Bát Quái */}
             {directions.map((direction, index) => {
-              const colors = getNguHanhColor(direction.nguHanh);
               const isSelected = selectedDirection?.huong === direction.huong;
 
               return (
