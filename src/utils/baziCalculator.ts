@@ -8,8 +8,8 @@ const THIEN_CAN: ThienCanType[] = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', '
 // Địa Chi array
 const DIA_CHI: DiaChiType[] = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tị', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
 
-// Địa Chi tháng mapping (âm lịch)
-const MONTH_TO_CHI: DiaChiType[] = ['', 'Dần', 'Mão', 'Thìn', 'Tị', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi', 'Tý', 'Sửu'];
+// Địa Chi tháng mapping (âm lịch) - index 0 không dùng, tháng 1 = index 1
+const MONTH_TO_CHI: (DiaChiType | null)[] = [null, 'Dần', 'Mão', 'Thìn', 'Tị', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi', 'Tý', 'Sửu'];
 
 export interface BaziPillar {
   can: ThienCanType;
@@ -39,7 +39,9 @@ export function getYearChi(year: number): DiaChiType {
 
 // Get Địa Chi of Month from lunar month (1-12)
 export function getMonthChi(lunarMonth: number): DiaChiType {
-  return MONTH_TO_CHI[lunarMonth];
+  const chi = MONTH_TO_CHI[lunarMonth];
+  if (!chi) throw new Error(`Invalid lunar month: ${lunarMonth}`);
+  return chi;
 }
 
 // Get Thiên Can of Month based on Year Can
