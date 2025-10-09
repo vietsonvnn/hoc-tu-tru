@@ -76,34 +76,72 @@ const analyzeNguHanhRelation = (nh1: NguHanhType, nh2: NguHanhType) => {
 
 // Hàm phân tích quan hệ Thiên Can
 const analyzeThienCanRelation = (can1: string, can2: string) => {
-  // Hợp
+  // Mapping Thiên Can -> Ngũ Hành
+  const canToNguHanh: Record<string, NguHanhType> = {
+    'Giáp': 'Mộc', 'Ất': 'Mộc',
+    'Bính': 'Hỏa', 'Đinh': 'Hỏa',
+    'Mậu': 'Thổ', 'Kỷ': 'Thổ',
+    'Canh': 'Kim', 'Tân': 'Kim',
+    'Nhâm': 'Thủy', 'Quý': 'Thủy'
+  };
+
+  // Hợp (5 cặp Thiên Can Hợp)
   const hops = [
-    ['Giáp', 'Kỷ'],
-    ['Ất', 'Canh'],
-    ['Bính', 'Tân'],
-    ['Đinh', 'Nhâm'],
-    ['Mậu', 'Quý']
+    { pair: ['Giáp', 'Kỷ'], hoa: 'Thổ', desc: 'Giáp Kỷ hợp hóa Thổ - Trung hòa, vững chắc' },
+    { pair: ['Ất', 'Canh'], hoa: 'Kim', desc: 'Ất Canh hợp hóa Kim - Cương nhu tương tế' },
+    { pair: ['Bính', 'Tân'], hoa: 'Thủy', desc: 'Bính Tân hợp hóa Thủy - Âm dương điều hòa' },
+    { pair: ['Đinh', 'Nhâm'], hoa: 'Mộc', desc: 'Đinh Nhâm hợp hóa Mộc - Văn võ song toàn' },
+    { pair: ['Mậu', 'Quý'], hoa: 'Hỏa', desc: 'Mậu Quý hợp hóa Hỏa - Thủy hỏa ký tế' }
   ];
 
   for (const hop of hops) {
-    if ((hop[0] === can1 && hop[1] === can2) || (hop[0] === can2 && hop[1] === can1)) {
-      return { type: 'hợp', label: 'Thiên Can Hợp', icon: '🤝', color: 'text-green-600', desc: `${can1} hợp ${can2}`, detail: 'Hòa hợp, hỗ trợ, làm việc tốt cùng nhau' };
+    if ((hop.pair[0] === can1 && hop.pair[1] === can2) || (hop.pair[0] === can2 && hop.pair[1] === can1)) {
+      return {
+        type: 'hợp',
+        label: 'Thiên Can Hợp',
+        icon: '🤝',
+        color: 'text-green-600',
+        desc: `${can1} hợp ${can2} hóa ${hop.hoa}`,
+        detail: hop.desc
+      };
     }
   }
 
-  // Xung (đối diện nhau)
-  const xungs = [
-    ['Giáp', 'Canh'],
-    ['Ất', 'Tân'],
-    ['Bính', 'Nhâm'],
-    ['Đinh', 'Quý'],
-    ['Mậu', 'Giáp'],
-    ['Kỷ', 'Ất']
-  ];
+  // Khắc (thông qua quan hệ Ngũ Hành)
+  const nh1 = canToNguHanh[can1];
+  const nh2 = canToNguHanh[can2];
 
-  for (const xung of xungs) {
-    if ((xung[0] === can1 && xung[1] === can2) || (xung[0] === can2 && xung[1] === can1)) {
-      return { type: 'xung', label: 'Thiên Can Xung', icon: '⚔️', color: 'text-red-600', desc: `${can1} xung ${can2}`, detail: 'Xung đột, đối lập, khó hợp tác' };
+  if (nh1 && nh2) {
+    const nhRelation = analyzeNguHanhRelation(nh1, nh2);
+    if (nhRelation.type === 'khắc') {
+      return {
+        type: 'khắc',
+        label: 'Thiên Can Khắc',
+        icon: '⚔',
+        color: 'text-red-600',
+        desc: `${can1} (${nh1}) khắc ${can2} (${nh2})`,
+        detail: `${nh1} khắc ${nh2} - Tương khắc thông qua Ngũ Hành`
+      };
+    }
+    if (nhRelation.type === 'sinh') {
+      return {
+        type: 'sinh',
+        label: 'Thiên Can Sinh',
+        icon: '→',
+        color: 'text-blue-600',
+        desc: `${can1} (${nh1}) sinh ${can2} (${nh2})`,
+        detail: `${nh1} sinh ${nh2} - Tương sinh thông qua Ngũ Hành`
+      };
+    }
+    if (nhRelation.type === 'đồng' && can1 !== can2) {
+      return {
+        type: 'đồng hành',
+        label: 'Đồng Ngũ Hành',
+        icon: '=',
+        color: 'text-purple-600',
+        desc: `${can1} và ${can2} cùng ${nh1}`,
+        detail: 'Cùng Ngũ Hành, hỗ trợ lẫn nhau'
+      };
     }
   }
 

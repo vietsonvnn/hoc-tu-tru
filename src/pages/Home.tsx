@@ -24,6 +24,8 @@ import { TruongSinhPhanLoai } from '../components/TruongSinhPhanLoai';
 import { LuanDoanTheoTru } from '../components/LuanDoanTheoTru';
 import { HandRulesDiagram } from '../components/HandRulesDiagram';
 import { HandRulesGuide } from '../components/HandRulesGuide';
+import { HandQuiz } from '../components/HandQuiz';
+import { RelationQuiz } from '../components/RelationQuiz';
 import { VideoSection } from '../components/VideoSection';
 import { ThienCanNamSinhTable } from '../components/ThienCanNamSinhTable';
 
@@ -35,7 +37,8 @@ export const Home = () => {
   const [bai2View, setBai2View] = useState<'video' | 'thiencan' | 'diachi' | 'relations' | 'tracuu'>('thiencan');
   const [bai3View, setBai3View] = useState<'video' | 'tangcan' | 'truongsinh' | 'poem' | 'phanloai' | 'luandoan'>('tangcan');
   const [phuLuc1View, setPhuLuc1View] = useState<'huong' | 'cothe'>('huong');
-  const [phuLuc3View, setPhuLuc3View] = useState<'diagram' | 'guide'>('diagram');
+  const [phuLuc2View, setPhuLuc2View] = useState<'compare' | 'quiz'>('compare');
+  const [phuLuc3View, setPhuLuc3View] = useState<'diagram' | 'guide' | 'quiz'>('diagram');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
@@ -545,6 +548,43 @@ export const Home = () => {
           </div>
         )}
 
+        {lesson === 'phuluc2' && (
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            <button
+              onClick={() => setPhuLuc2View('compare')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                phuLuc2View === 'compare'
+                  ? 'bg-gradient-to-r from-pink-600 to-rose-700 text-white shadow-2xl shadow-pink-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>🔄</span>
+                So Sánh
+              </span>
+              {phuLuc2View === 'compare' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-400 to-rose-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+            <button
+              onClick={() => setPhuLuc2View('quiz')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                phuLuc2View === 'quiz'
+                  ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-2xl shadow-purple-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>🎯</span>
+                Quiz
+              </span>
+              {phuLuc2View === 'quiz' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400 to-purple-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+          </div>
+        )}
+
         {lesson === 'phuluc3' && (
           <div className="flex flex-wrap justify-center gap-3 mb-12">
             <button
@@ -573,10 +613,26 @@ export const Home = () => {
             >
               <span className="relative z-10 flex items-center gap-2">
                 <span>📚</span>
-                Hướng Dẫn Chi Tiết
+                Hướng Dẫn
               </span>
               {phuLuc3View === 'guide' && (
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 to-blue-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              )}
+            </button>
+            <button
+              onClick={() => setPhuLuc3View('quiz')}
+              className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                phuLuc3View === 'quiz'
+                  ? 'bg-gradient-to-r from-orange-600 to-red-700 text-white shadow-2xl shadow-orange-500/50 scale-105'
+                  : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-xl hover:scale-105'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span>🎯</span>
+                Quiz
+              </span>
+              {phuLuc3View === 'quiz' && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-400 to-red-600 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
               )}
             </button>
           </div>
@@ -707,12 +763,18 @@ export const Home = () => {
           </>
         )}
 
-        {lesson === 'phuluc2' && <FlashCardComparison />}
+        {lesson === 'phuluc2' && (
+          <>
+            {phuLuc2View === 'compare' && <FlashCardComparison />}
+            {phuLuc2View === 'quiz' && <RelationQuiz />}
+          </>
+        )}
 
         {lesson === 'phuluc3' && (
           <>
             {phuLuc3View === 'diagram' && <HandRulesDiagram />}
             {phuLuc3View === 'guide' && <HandRulesGuide />}
+            {phuLuc3View === 'quiz' && <HandQuiz />}
           </>
         )}
 

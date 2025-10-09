@@ -1,8 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { handPositions } from '../data/handRules';
 
 export const HandRulesDiagram = () => {
   const [selectedPos, setSelectedPos] = useState<number | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [currentAnimPos, setCurrentAnimPos] = useState(1);
+  const [animSpeed, setAnimSpeed] = useState(800); // ms per step
+
+  // Animation flow
+  useEffect(() => {
+    if (!isAnimating) return;
+
+    const timer = setInterval(() => {
+      setCurrentAnimPos((prev) => {
+        if (prev >= 12) {
+          setIsAnimating(false);
+          return 1;
+        }
+        return prev + 1;
+      });
+    }, animSpeed);
+
+    return () => clearInterval(timer);
+  }, [isAnimating, animSpeed]);
 
   const getFingerColor = (position: number) => {
     if (position >= 1 && position <= 3) return 'from-green-400 to-green-500'; // Xuân
@@ -25,6 +45,33 @@ export const HandRulesDiagram = () => {
         </p>
       </div>
 
+      {/* Animation Controls */}
+      <div className="flex justify-center gap-4 flex-wrap">
+        <button
+          onClick={() => setIsAnimating(!isAnimating)}
+          className={`px-6 py-3 rounded-xl font-bold text-white shadow-lg transition-all ${
+            isAnimating
+              ? 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700'
+              : 'bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700'
+          }`}
+        >
+          {isAnimating ? '⏸ Dừng Animation' : '▶ Chạy Animation'}
+        </button>
+
+        <div className="flex items-center gap-2 bg-white rounded-xl px-4 py-3 shadow-lg">
+          <span className="text-sm font-semibold text-gray-700">Tốc độ:</span>
+          <select
+            value={animSpeed}
+            onChange={(e) => setAnimSpeed(Number(e.target.value))}
+            className="px-3 py-1 rounded-lg border-2 border-purple-300 font-semibold"
+          >
+            <option value={1200}>Chậm</option>
+            <option value={800}>Trung bình</option>
+            <option value={400}>Nhanh</option>
+          </select>
+        </div>
+      </div>
+
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Hand Diagram */}
         <div className="bg-white rounded-3xl p-8 shadow-2xl">
@@ -38,13 +85,16 @@ export const HandRulesDiagram = () => {
             <div className="absolute left-0 top-0 w-1/5 h-4/5 flex flex-col">
               {[4, 3, 2, 1].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
+                const isHighlight = isAnimating && currentAnimPos === pos;
                 return (
                   <button
                     key={pos}
                     onClick={() => setSelectedPos(pos)}
                     className={`flex-1 m-1 rounded-xl font-bold text-white transition-all hover:scale-105 ${
-                      selectedPos === pos ? 'ring-4 ring-purple-600 scale-110' : ''
-                    } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg`}
+                      selectedPos === pos || isHighlight ? 'ring-4 ring-purple-600 scale-110' : ''
+                    } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg ${
+                      isHighlight ? 'animate-pulse' : ''
+                    }`}
                   >
                     <div className="text-xs">{info?.diaChi}</div>
                     <div className="text-[10px]">T{info?.thang}</div>
@@ -57,13 +107,16 @@ export const HandRulesDiagram = () => {
             <div className="absolute left-[25%] top-0 w-1/5 h-4/5 flex flex-col justify-between">
               {[5, 12].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
+                const isHighlight = isAnimating && currentAnimPos === pos;
                 return (
                   <button
                     key={pos}
                     onClick={() => setSelectedPos(pos)}
                     className={`h-[23%] m-1 rounded-xl font-bold text-white transition-all hover:scale-105 ${
-                      selectedPos === pos ? 'ring-4 ring-purple-600 scale-110' : ''
-                    } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg`}
+                      selectedPos === pos || isHighlight ? 'ring-4 ring-purple-600 scale-110' : ''
+                    } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg ${
+                      isHighlight ? 'animate-pulse' : ''
+                    }`}
                   >
                     <div className="text-xs">{info?.diaChi}</div>
                     <div className="text-[10px]">T{info?.thang}</div>
@@ -76,13 +129,16 @@ export const HandRulesDiagram = () => {
             <div className="absolute left-[50%] top-0 w-1/5 h-4/5 flex flex-col justify-between">
               {[6, 11].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
+                const isHighlight = isAnimating && currentAnimPos === pos;
                 return (
                   <button
                     key={pos}
                     onClick={() => setSelectedPos(pos)}
                     className={`h-[23%] m-1 rounded-xl font-bold text-white transition-all hover:scale-105 ${
-                      selectedPos === pos ? 'ring-4 ring-purple-600 scale-110' : ''
-                    } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg`}
+                      selectedPos === pos || isHighlight ? 'ring-4 ring-purple-600 scale-110' : ''
+                    } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg ${
+                      isHighlight ? 'animate-pulse' : ''
+                    }`}
                   >
                     <div className="text-xs">{info?.diaChi}</div>
                     <div className="text-[10px]">T{info?.thang}</div>
@@ -95,13 +151,16 @@ export const HandRulesDiagram = () => {
             <div className="absolute right-0 top-0 w-1/5 h-4/5 flex flex-col">
               {[7, 8, 9, 10].map((pos) => {
                 const info = handPositions.find(p => p.position === pos);
+                const isHighlight = isAnimating && currentAnimPos === pos;
                 return (
                   <button
                     key={pos}
                     onClick={() => setSelectedPos(pos)}
                     className={`flex-1 m-1 rounded-xl font-bold text-white transition-all hover:scale-105 ${
-                      selectedPos === pos ? 'ring-4 ring-purple-600 scale-110' : ''
-                    } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg`}
+                      selectedPos === pos || isHighlight ? 'ring-4 ring-purple-600 scale-110' : ''
+                    } bg-gradient-to-br ${getFingerColor(pos)} shadow-lg ${
+                      isHighlight ? 'animate-pulse' : ''
+                    }`}
                   >
                     <div className="text-xs">{info?.diaChi}</div>
                     <div className="text-[10px]">T{info?.thang}</div>
