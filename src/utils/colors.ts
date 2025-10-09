@@ -3,8 +3,8 @@ import type { NguHanhType } from '../types';
 export const getNguHanhColor = (loai: NguHanhType) => {
   const colors = {
     Kim: {
-      bg: 'bg-gradient-to-br from-gray-100 to-gray-200',
-      text: 'text-gray-900',
+      bg: 'bg-gradient-to-br from-gray-500 to-gray-600',
+      text: 'text-white',
       border: 'border-gray-400',
       hover: 'hover:shadow-gray-300',
     },
@@ -40,8 +40,8 @@ export const getMuaColor = (mua: string) => {
   const colors = {
     Xuân: 'bg-gradient-to-br from-green-500 to-green-600 text-white',
     Hạ: 'bg-gradient-to-br from-red-500 to-red-600 text-white',
-    Thu: 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-800',
+    Thu: 'bg-gradient-to-br from-gray-500 to-gray-600 text-white',
     Đông: 'bg-gradient-to-br from-blue-400 to-blue-500 text-white',
   };
-  return colors[mua as keyof typeof colors] || 'bg-gray-100';
+  return colors[mua as keyof typeof colors] || 'bg-gray-500 text-white';
 };
