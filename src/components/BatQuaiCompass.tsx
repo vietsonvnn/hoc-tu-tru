@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { NguHanhType } from '../types';
 
 interface DirectionInfo {
@@ -10,8 +10,8 @@ interface DirectionInfo {
   thienCan: string[];
   diaChi: string[];
   yNghia: string;
-  position: { top?: string; bottom?: string; left?: string; right?: string };
-  rotation: number;
+  mauChinh: string;
+  mauPhu: string;
 }
 
 const directions: DirectionInfo[] = [
@@ -23,8 +23,8 @@ const directions: DirectionInfo[] = [
     thienCan: ['Nhâm', 'Quý'],
     diaChi: ['Tý'],
     yNghia: 'Thủy, hiểm nạn, trí tuệ, linh hoạt',
-    position: { top: '5%', left: '50%' },
-    rotation: 0,
+    mauChinh: 'from-blue-600',
+    mauPhu: 'to-blue-800',
   },
   {
     huong: 'Đông Bắc',
@@ -34,8 +34,8 @@ const directions: DirectionInfo[] = [
     thienCan: [],
     diaChi: ['Sửu', 'Dần'],
     yNghia: 'Núi, dừng lại, ổn định, chắc chắn',
-    position: { top: '15%', right: '15%' },
-    rotation: 45,
+    mauChinh: 'from-yellow-600',
+    mauPhu: 'to-yellow-800',
   },
   {
     huong: 'Đông',
@@ -45,8 +45,8 @@ const directions: DirectionInfo[] = [
     thienCan: ['Giáp', 'Ất'],
     diaChi: ['Mão'],
     yNghia: 'Sấm, chấn động, khởi đầu, phát triển',
-    position: { top: '50%', right: '5%' },
-    rotation: 90,
+    mauChinh: 'from-green-600',
+    mauPhu: 'to-green-800',
   },
   {
     huong: 'Đông Nam',
@@ -56,8 +56,8 @@ const directions: DirectionInfo[] = [
     thienCan: [],
     diaChi: ['Thìn', 'Tị'],
     yNghia: 'Gió, nhẹ nhàng, thấm dần, lan tỏa',
-    position: { bottom: '15%', right: '15%' },
-    rotation: 135,
+    mauChinh: 'from-emerald-600',
+    mauPhu: 'to-emerald-800',
   },
   {
     huong: 'Nam',
@@ -67,8 +67,8 @@ const directions: DirectionInfo[] = [
     thienCan: ['Bính', 'Đinh'],
     diaChi: ['Ngọ'],
     yNghia: 'Lửa, sáng sủa, trí tuệ, văn minh',
-    position: { bottom: '5%', left: '50%' },
-    rotation: 180,
+    mauChinh: 'from-red-600',
+    mauPhu: 'to-red-800',
   },
   {
     huong: 'Tây Nam',
@@ -78,8 +78,8 @@ const directions: DirectionInfo[] = [
     thienCan: [],
     diaChi: ['Mùi', 'Thân'],
     yNghia: 'Đất, thuận tòng, bao dung, nuôi dưỡng',
-    position: { bottom: '15%', left: '15%' },
-    rotation: 225,
+    mauChinh: 'from-amber-600',
+    mauPhu: 'to-amber-800',
   },
   {
     huong: 'Tây',
@@ -89,8 +89,8 @@ const directions: DirectionInfo[] = [
     thienCan: ['Canh', 'Tân'],
     diaChi: ['Dậu'],
     yNghia: 'Hồ, vui vẻ, giao tiếp, hùng biện',
-    position: { top: '50%', left: '5%' },
-    rotation: 270,
+    mauChinh: 'from-gray-600',
+    mauPhu: 'to-gray-800',
   },
   {
     huong: 'Tây Bắc',
@@ -100,8 +100,8 @@ const directions: DirectionInfo[] = [
     thienCan: [],
     diaChi: ['Tuất', 'Hợi'],
     yNghia: 'Trời, sáng tạo, cứng cỏi, quyền uy',
-    position: { top: '15%', left: '15%' },
-    rotation: 315,
+    mauChinh: 'from-slate-600',
+    mauPhu: 'to-slate-800',
   },
 ];
 
@@ -109,573 +109,177 @@ const centerInfo: DirectionInfo = {
   huong: 'Trung Cung',
   que: 'Trung Cung',
   kyHieu: '☯',
-  nguHanh: 'Thổ' as NguHanhType,
+  nguHanh: 'Thổ',
   thienCan: ['Mậu', 'Kỷ'],
   diaChi: [],
   yNghia: 'Trung tâm, hài hòa, cân bằng vũ trụ',
-  position: {},
-  rotation: 0,
+  mauChinh: 'from-purple-600',
+  mauPhu: 'to-purple-800',
 };
 
-// Tạo sao băng
-const ShootingStar = () => {
-  const randomDelay = Math.random() * 10;
-  const randomDuration = Math.random() * 2 + 1;
-  const randomTop = Math.random() * 50;
-
-  return (
-    <motion.div
-      className="absolute w-1 h-1 bg-white rounded-full"
-      style={{
-        left: '-5%',
-        top: `${randomTop}%`,
-        boxShadow: '0 0 10px 2px rgba(255, 255, 255, 0.8)',
-      }}
-      initial={{ x: 0, y: 0, opacity: 0 }}
-      animate={{
-        x: ['0vw', '120vw'],
-        y: ['0vh', '80vh'],
-        opacity: [0, 1, 1, 0],
-      }}
-      transition={{
-        duration: randomDuration,
-        delay: randomDelay,
-        repeat: Infinity,
-        repeatDelay: Math.random() * 20 + 10,
-        ease: "linear",
-      }}
-    />
-  );
-};
-
-// Component bầu trời đêm với nhiều ngôi sao
-const NightSky = () => {
-  // Giảm số lượng sao xuống 150 để tránh lag
-  const stars = Array.from({ length: 150 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 2.5 + 0.5,
-    delay: Math.random() * 5,
-    duration: Math.random() * 4 + 3,
-    opacity: Math.random() * 0.4 + 0.2,
-  }));
-
-  return (
-    <div className="fixed inset-0 overflow-hidden">
-      {/* Gradient background - màu nhạt hơn */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-indigo-950/60 to-purple-950/50" />
-
-      {/* Dải ngân hà - nhạt hơn */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          background: 'radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.2) 0%, transparent 60%)',
-        }}
-      />
-
-      {/* Các ngôi sao nhấp nháy - loại bỏ boxShadow để tăng performance */}
-      {stars.map((star) => (
-        <motion.div
-          key={star.id}
-          className="absolute rounded-full bg-white/80"
-          style={{
-            left: `${star.x}%`,
-            top: `${star.y}%`,
-            width: `${star.size}px`,
-            height: `${star.size}px`,
-          }}
-          animate={{
-            opacity: [star.opacity * 0.6, star.opacity * 1.2, star.opacity * 0.6],
-          }}
-          transition={{
-            duration: star.duration,
-            delay: star.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-
-      {/* Sao băng */}
-      {Array.from({ length: 3 }, (_, i) => (
-        <ShootingStar key={`shooting-${i}`} />
-      ))}
-
-      {/* Sương mù mờ ảo - nhạt hơn */}
-      <motion.div
-        className="absolute inset-0"
-        style={{
-          background: 'radial-gradient(circle at 30% 40%, rgba(88, 28, 135, 0.15) 0%, transparent 50%)',
-        }}
-        animate={{
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-    </div>
-  );
-};
-
-// Component La Bàn Bát Quái 3D
 export const BatQuaiCompass = () => {
   const [selectedDirection, setSelectedDirection] = useState<DirectionInfo | null>(null);
-  const compassRef = useRef<HTMLDivElement>(null);
-
-  // Mouse position
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // Spring animation cho smooth movement - tăng damping để mượt hơn
-  const rotateX = useSpring(useTransform(mouseY, [0, 1], [10, -10]), { stiffness: 40, damping: 30 });
-  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-10, 10]), { stiffness: 40, damping: 30 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!compassRef.current) return;
-
-      const rect = compassRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
-
-      mouseX.set(x);
-      mouseY.set(y);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
 
   const handleDirectionClick = (direction: DirectionInfo) => {
     setSelectedDirection(selectedDirection?.huong === direction.huong ? null : direction);
   };
 
+  const allDirections = [centerInfo, ...directions];
+
   return (
-    <div className="fixed inset-0 overflow-y-auto">
-      {/* Bầu trời đêm */}
-      <NightSky />
+    <div className="w-full max-w-4xl mx-auto px-4 py-8">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center mb-8"
+      >
+        <h1 className="text-4xl sm:text-5xl font-black mb-3 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent">
+          Bát Quái - Tám Hướng
+        </h1>
+        <p className="text-gray-600 dark:text-gray-400 text-lg">
+          Chọn hướng để xem chi tiết Ngũ Hành, Thiên Can, Địa Chi
+        </p>
+      </motion.div>
 
-      {/* Content */}
-      <div className="relative min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
-        {/* Tiêu đề */}
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="mb-8 sm:mb-16 text-center z-10"
-        >
-          <motion.h1
-            className="text-4xl sm:text-6xl md:text-7xl font-black mb-4 sm:mb-6"
-            style={{
-              background: 'linear-gradient(to right, #60a5fa, #a78bfa, #ec4899, #fbbf24)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '0 0 80px rgba(167, 139, 250, 0.5)',
-            }}
-            animate={{
-              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            Bát Quái Huyền Thiên
-          </motion.h1>
-          <motion.p
-            className="text-lg sm:text-xl md:text-2xl text-purple-200 font-semibold"
-            animate={{
-              opacity: [0.7, 1, 0.7],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            ✨ Di chuyển chuột để khám phá bí ẩn vũ trụ ✨
-          </motion.p>
-        </motion.div>
+      {/* Direction Cards */}
+      <div className="space-y-3">
+        {allDirections.map((direction, index) => {
+          const isSelected = selectedDirection?.huong === direction.huong;
 
-        {/* La Bàn Bát Quái 3D */}
-        <div
-          ref={compassRef}
-          className="relative w-full max-w-2xl aspect-square mb-8 sm:mb-16"
-          style={{
-            perspective: '2000px',
-            transformStyle: 'preserve-3d',
-          }}
-        >
-          <motion.div
-            style={{
-              rotateX,
-              rotateY,
-              transformStyle: 'preserve-3d',
-            }}
-            className="w-full h-full relative"
-          >
-            {/* Vòng ngoài phát sáng */}
+          return (
             <motion.div
-              className="absolute inset-0 rounded-full"
-              style={{
-                background: 'radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(236, 72, 153, 0.2) 50%, transparent 70%)',
-                filter: 'blur(40px)',
-              }}
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 0.8, 0.5],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-
-            {/* Vòng chính */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-900/80 via-indigo-900/80 to-pink-900/80 backdrop-blur-xl border-4 border-purple-400/30 shadow-2xl">
-              <div className="absolute inset-4 rounded-full bg-gradient-to-br from-slate-950/90 via-purple-950/90 to-indigo-950/90 border-2 border-purple-400/20"></div>
-            </div>
-
-            {/* Vòng ánh sáng xoay */}
-            <motion.div
-              className="absolute inset-[15%] rounded-full"
-              style={{
-                background: 'conic-gradient(from 0deg, transparent 0%, rgba(168, 85, 247, 0.6) 10%, transparent 20%, rgba(236, 72, 153, 0.6) 30%, transparent 40%)',
-              }}
-              animate={{
-                rotate: 360,
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-
-            {/* Vòng tròn giữa */}
-            <div className="absolute inset-[18%] rounded-full bg-gradient-to-br from-purple-900/60 via-indigo-900/60 to-purple-900/60 shadow-inner backdrop-blur-md border border-purple-400/20"></div>
-
-            {/* Các đường chia hướng phát sáng */}
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-              <defs>
-                <linearGradient id="lineGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style={{ stopColor: '#a78bfa', stopOpacity: 0.8 }} />
-                  <stop offset="50%" style={{ stopColor: '#ec4899', stopOpacity: 1 }} />
-                  <stop offset="100%" style={{ stopColor: '#a78bfa', stopOpacity: 0.8 }} />
-                </linearGradient>
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                  <feMerge>
-                    <feMergeNode in="coloredBlur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
-
-              {/* Các đường chính */}
-              <line x1="50" y1="5" x2="50" y2="95" stroke="url(#lineGlow)" strokeWidth="2" filter="url(#glow)" />
-              <line x1="5" y1="50" x2="95" y2="50" stroke="url(#lineGlow)" strokeWidth="2" filter="url(#glow)" />
-              <line x1="13" y1="13" x2="87" y2="87" stroke="url(#lineGlow)" strokeWidth="1.5" opacity="0.7" filter="url(#glow)" />
-              <line x1="87" y1="13" x2="13" y2="87" stroke="url(#lineGlow)" strokeWidth="1.5" opacity="0.7" filter="url(#glow)" />
-
-              {/* Vòng tròn trang trí */}
-              {[35, 40, 45].map((r, i) => (
-                <circle
-                  key={r}
-                  cx="50"
-                  cy="50"
-                  r={r}
-                  fill="none"
-                  stroke="#a78bfa"
-                  strokeWidth="0.8"
-                  opacity={0.3 - i * 0.1}
-                  filter="url(#glow)"
-                />
-              ))}
-            </svg>
-
-            {/* Ký hiệu Bát Quái ở giữa xoay chậm */}
-            <motion.div
-              className="absolute inset-[30%] flex items-center justify-center"
-              animate={{
-                rotate: 360,
-              }}
-              transition={{
-                duration: 60,
-                repeat: Infinity,
-                ease: "linear",
-              }}
+              key={direction.huong}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.05 }}
             >
-              <div
-                className="text-[8vmin] sm:text-[10vmin] opacity-20 text-purple-300"
-                style={{
-                  filter: 'blur(2px)',
-                }}
+              {/* Card chính */}
+              <motion.button
+                onClick={() => handleDirectionClick(direction)}
+                className={`w-full bg-gradient-to-r ${direction.mauChinh} ${direction.mauPhu} rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 text-left relative overflow-hidden group`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                ☯
-              </div>
-            </motion.div>
-
-            {/* Trung Cung */}
-            <motion.div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20"
-              whileHover={{
-                scale: 1.2,
-                rotateZ: 180,
-              }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => handleDirectionClick(centerInfo)}
-              transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            >
-              <div
-                className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-full flex flex-col items-center justify-center border-4 border-yellow-400/50 backdrop-blur-xl transition-all duration-300"
-                style={{
-                  background: selectedDirection?.huong === centerInfo.huong
-                    ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.6) 0%, rgba(245, 158, 11, 0.6) 100%)'
-                    : 'linear-gradient(135deg, rgba(168, 85, 247, 0.5) 0%, rgba(236, 72, 153, 0.5) 100%)',
-                  boxShadow: selectedDirection?.huong === centerInfo.huong
-                    ? '0 0 60px rgba(251, 191, 36, 0.8), inset 0 0 30px rgba(245, 158, 11, 0.6)'
-                    : '0 0 40px rgba(168, 85, 247, 0.6), inset 0 0 20px rgba(236, 72, 153, 0.4)',
-                }}
-              >
-                <motion.div
-                  className="text-3xl sm:text-5xl mb-1"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                  style={{
-                    filter: 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))',
-                  }}
-                >
-                  ☯
-                </motion.div>
-                <div className="text-[8px] sm:text-xs font-black text-white">Trung Cung</div>
-              </div>
-            </motion.div>
-
-            {/* 8 Hướng Bát Quái */}
-            {directions.map((direction, index) => {
-              const isSelected = selectedDirection?.huong === direction.huong;
-
-              return (
-                <motion.div
-                  key={direction.huong}
-                  className="absolute cursor-pointer z-10"
-                  style={{
-                    ...direction.position,
-                    transform: `translate(-50%, -50%)`,
-                  }}
-                  initial={{ opacity: 0, scale: 0, rotateY: -180 }}
-                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                  transition={{
-                    delay: index * 0.15 + 1,
-                    type: "spring",
-                    stiffness: 150,
-                    damping: 15
-                  }}
-                  whileHover={{
-                    scale: 1.3,
-                    z: 100,
-                    transition: { duration: 0.2 }
-                  }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => handleDirectionClick(direction)}
-                >
-                  <motion.div
-                    className="w-16 h-16 sm:w-24 sm:h-24 rounded-full flex flex-col items-center justify-center border-4 transition-all duration-300 backdrop-blur-xl relative overflow-hidden"
-                    style={{
-                      background: isSelected
-                        ? 'linear-gradient(135deg, rgba(168, 85, 247, 0.9) 0%, rgba(236, 72, 153, 0.9) 100%)'
-                        : 'rgba(30, 27, 75, 0.7)',
-                      borderColor: isSelected ? '#fbbf24' : 'rgba(167, 139, 250, 0.5)',
-                      boxShadow: isSelected
-                        ? '0 0 60px rgba(251, 191, 36, 1), inset 0 0 30px rgba(236, 72, 153, 0.5)'
-                        : '0 0 30px rgba(167, 139, 250, 0.4)',
-                    }}
-                    animate={isSelected ? {
-                      boxShadow: [
-                        '0 0 60px rgba(251, 191, 36, 1), inset 0 0 30px rgba(236, 72, 153, 0.5)',
-                        '0 0 80px rgba(236, 72, 153, 1), inset 0 0 40px rgba(251, 191, 36, 0.5)',
-                        '0 0 60px rgba(251, 191, 36, 1), inset 0 0 30px rgba(236, 72, 153, 0.5)',
-                      ]
-                    } : {}}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    {/* Hiệu ứng ánh sáng xoay */}
-                    {isSelected && (
-                      <motion.div
-                        className="absolute inset-0 rounded-full"
-                        style={{
-                          background: 'conic-gradient(from 0deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
-                        }}
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                      />
-                    )}
-
-                    <motion.div
-                      className="text-2xl sm:text-4xl mb-0.5 relative z-10"
-                      animate={isSelected ? {
-                        scale: [1, 1.3, 1],
-                        rotate: [0, 10, -10, 0],
-                      } : {}}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                      style={{
-                        filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.9))',
-                      }}
-                    >
-                      {direction.kyHieu}
-                    </motion.div>
-                    <div className="text-[7px] sm:text-[10px] font-black text-purple-100 leading-tight relative z-10">
-                      {direction.huong}
-                    </div>
-                    <div className="text-[6px] sm:text-[9px] font-bold text-purple-200 opacity-90 leading-tight relative z-10">
-                      {direction.que}
-                    </div>
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-
-        {/* Thông tin chi tiết */}
-        <AnimatePresence>
-          {selectedDirection && (
-            <motion.div
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 50, scale: 0.9 }}
-              className="w-full max-w-4xl z-10 mb-8"
-            >
-              <div
-                className="rounded-3xl p-6 sm:p-10 backdrop-blur-2xl border-2"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(88, 28, 135, 0.9) 0%, rgba(109, 40, 217, 0.9) 100%)',
-                  borderColor: 'rgba(251, 191, 36, 0.5)',
-                  boxShadow: '0 0 80px rgba(168, 85, 247, 0.5), inset 0 0 60px rgba(236, 72, 153, 0.2)',
-                }}
-              >
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-6 sm:mb-8">
-                  <motion.div
-                    className="text-6xl sm:text-9xl"
-                    animate={{
-                      rotateY: [0, 360],
-                      scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                      rotateY: { duration: 5, repeat: Infinity, ease: "linear" },
-                      scale: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-                    }}
-                    style={{
-                      filter: 'drop-shadow(0 0 40px rgba(255, 255, 255, 1))',
-                      transformStyle: 'preserve-3d',
-                    }}
-                  >
-                    {selectedDirection.kyHieu || '🧭'}
-                  </motion.div>
-                  <div className="text-center sm:text-left">
-                    <h3 className="text-3xl sm:text-6xl font-black text-white mb-2 sm:mb-3">
-                      {selectedDirection.huong}
-                    </h3>
-                    <div className="text-xl sm:text-3xl font-bold text-yellow-300 mb-1 sm:mb-2">
-                      Quẻ {selectedDirection.que || 'Trung Cung'}
-                    </div>
-                    <div className="text-base sm:text-xl font-bold text-purple-200">
-                      Ngũ Hành: {selectedDirection.nguHanh}
-                    </div>
-                    {selectedDirection.yNghia && (
-                      <div className="text-sm sm:text-lg font-semibold text-purple-100 mt-2 sm:mt-3 italic">
-                        "{selectedDirection.yNghia}"
-                      </div>
-                    )}
+                {/* Background pattern */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute top-0 right-0 text-[120px] leading-none opacity-20">
+                    {direction.kyHieu}
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
-                  {selectedDirection.thienCan.length > 0 && (
-                    <motion.div
-                      className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-purple-300/30"
-                      whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.15)' }}
-                    >
-                      <div className="font-black text-lg sm:text-2xl mb-3 sm:mb-4 text-purple-100 flex items-center gap-2">
-                        <span>☯</span> Thiên Can
+                <div className="relative flex items-center justify-between">
+                  {/* Left: Icon & Name */}
+                  <div className="flex items-center gap-4">
+                    <div className="text-5xl sm:text-6xl opacity-90 group-hover:scale-110 transition-transform duration-300">
+                      {direction.kyHieu}
+                    </div>
+                    <div>
+                      <div className="text-2xl sm:text-3xl font-black text-white mb-1 flex items-center gap-2">
+                        {direction.huong}
+                        <motion.span
+                          className="text-xl"
+                          animate={{ x: isSelected ? 5 : 0 }}
+                        >
+                          ▶
+                        </motion.span>
                       </div>
-                      <div className="flex flex-wrap gap-2 sm:gap-3">
-                        {selectedDirection.thienCan.map((can) => (
-                          <motion.span
-                            key={can}
-                            className="bg-purple-500/40 px-3 sm:px-5 py-1.5 sm:py-2 rounded-xl font-bold text-white border border-purple-300/50 text-sm sm:text-base"
-                            whileHover={{ scale: 1.1, backgroundColor: 'rgba(168, 85, 247, 0.6)' }}
-                          >
-                            {can}
-                          </motion.span>
-                        ))}
+                      <div className="text-sm sm:text-base text-white/80 font-semibold">
+                        Quẻ {direction.que}
                       </div>
-                    </motion.div>
-                  )}
+                    </div>
+                  </div>
 
-                  {selectedDirection.diaChi.length > 0 && (
-                    <motion.div
-                      className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-purple-300/30"
-                      whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.15)' }}
-                    >
-                      <div className="font-black text-lg sm:text-2xl mb-3 sm:mb-4 text-purple-100 flex items-center gap-2">
-                        <span>🐉</span> Địa Chi
-                      </div>
-                      <div className="flex flex-wrap gap-2 sm:gap-3">
-                        {selectedDirection.diaChi.map((chi) => (
-                          <motion.span
-                            key={chi}
-                            className="bg-pink-500/40 px-3 sm:px-5 py-1.5 sm:py-2 rounded-xl font-bold text-white border border-pink-300/50 text-sm sm:text-base"
-                            whileHover={{ scale: 1.1, backgroundColor: 'rgba(236, 72, 153, 0.6)' }}
-                          >
-                            {chi}
-                          </motion.span>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
+                  {/* Right: Ngũ Hành */}
+                  <div className="text-right">
+                    <div className="text-lg sm:text-xl font-bold text-white/90">
+                      {direction.nguHanh}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </motion.button>
 
-        {/* Chú thích cuối trang */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
-          className="w-full max-w-4xl z-10"
-        >
-          <div
-            className="rounded-2xl p-4 sm:p-6 backdrop-blur-xl border"
-            style={{
-              background: 'rgba(30, 27, 75, 0.6)',
-              borderColor: 'rgba(167, 139, 250, 0.3)',
-            }}
-          >
-            <h4 className="font-black text-base sm:text-lg mb-3 sm:mb-4 text-purple-200 flex items-center gap-2">
-              <span>💡</span> Bát Quái - Tám Hướng Kinh Dịch
-            </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-purple-100">
-              {directions.map(dir => (
-                <p key={dir.huong} className="flex items-start gap-2">
-                  <span className="text-lg sm:text-xl">{dir.kyHieu}</span>
-                  <span>
-                    <span className="font-bold">{dir.que} ({dir.huong}):</span> {dir.yNghia}
-                  </span>
-                </p>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+              {/* Chi tiết mở rộng */}
+              <AnimatePresence>
+                {isSelected && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="bg-white dark:bg-gray-800 rounded-b-2xl -mt-2 pt-6 pb-6 px-6 shadow-xl border-2 border-t-0 border-purple-200 dark:border-purple-900">
+                      {/* Ý nghĩa */}
+                      <div className="mb-6">
+                        <div className="text-sm font-bold text-purple-600 dark:text-purple-400 mb-2">
+                          Ý NGHĨA
+                        </div>
+                        <div className="text-gray-700 dark:text-gray-300 italic">
+                          "{direction.yNghia}"
+                        </div>
+                      </div>
+
+                      <div className="grid sm:grid-cols-2 gap-6">
+                        {/* Thiên Can */}
+                        {direction.thienCan.length > 0 && (
+                          <div>
+                            <div className="text-sm font-bold text-purple-600 dark:text-purple-400 mb-3 flex items-center gap-2">
+                              <span className="text-lg">☯</span>
+                              THIÊN CAN
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {direction.thienCan.map((can) => (
+                                <motion.div
+                                  key={can}
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  className={`bg-gradient-to-r ${direction.mauChinh} ${direction.mauPhu} text-white px-4 py-2 rounded-xl font-bold shadow-md`}
+                                >
+                                  {can}
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Địa Chi */}
+                        {direction.diaChi.length > 0 && (
+                          <div>
+                            <div className="text-sm font-bold text-purple-600 dark:text-purple-400 mb-3 flex items-center gap-2">
+                              <span className="text-lg">🐉</span>
+                              ĐỊA CHI
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {direction.diaChi.map((chi) => (
+                                <motion.div
+                                  key={chi}
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  transition={{ delay: 0.1 }}
+                                  className={`bg-gradient-to-r ${direction.mauChinh} ${direction.mauPhu} text-white px-4 py-2 rounded-xl font-bold shadow-md`}
+                                >
+                                  {chi}
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Empty state nếu không có Can Chi */}
+                      {direction.thienCan.length === 0 && direction.diaChi.length === 0 && (
+                        <div className="text-center text-gray-500 dark:text-gray-400 py-4">
+                          Hướng này không có Thiên Can và Địa Chi riêng
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
